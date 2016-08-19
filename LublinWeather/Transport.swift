@@ -11,7 +11,7 @@ import ReactiveCocoa
 import Result
 
 
-func decodeNSDataAsUTF8(data: NSData?) -> String?
+private func decodeNSDataAsUTF8(data: NSData?) -> String?
 {
 	if let dataValue = data
 	{
@@ -20,15 +20,55 @@ func decodeNSDataAsUTF8(data: NSData?) -> String?
 	return nil
 }
 
-func stationDataSignalProducer()
+private let TransportErrorDomain = "local.transport"
+private  enum TransportErrorDomainCodes: Int
+{
+	case HTTPStatus
+	case DataUTF8Parsing
+}
+
+
+
+private func crateTransortError(code: TransportErrorDomainCodes, localizedString: String) -> NSError
+{
+	return NSError(domain: TransportErrorDomain, code: code.rawValue, userInfo: [NSLocalizedFailureReasonErrorKey: localizedString])
+}
+
+
+private func requestSignalProducer(request: NSURLRequest) -> SignalProducer<String, NSError>
+{
+	return NSURLSession.sharedSession().rac_dataWithRequest(request)
+		.attempt { (data, response) -> Result<(), NSError> in
+			let httpResponse = response as! NSHTTPURLResponse
+			
+			if httpResponse.statusCode == 200
+			{
+				return .Success()
+			}
+			
+			return .Failure(crateTransortError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
+		}.attemptMap { (data, response) -> Result<String, NSError> in
+			guard let dataString = decodeNSDataAsUTF8(data) else
+			{
+				return .Failure(crateTransortError(.DataUTF8Parsing, localizedString: "Can not convert data to UTF8 string."))
+			}
+			return .Success(dataString)
+	}
+}
+
+private func createWeatherStationRequest() -> NSURLRequest
 {
 	let url = NSURL(string: "http://212.182.4.252/data.php?s=16")!
-	let request = NSURLRequest(URL: url)
-	NSURLSession.sharedSession().rac_dataWithRequest(request)
-	.startWithResult { result in
+	return NSURLRequest(URL: url)
+}
+
+
+func weatherStationDataSignalProducer()
+{
+	requestSignalProducer(createWeatherStationRequest()).startWithResult { result in
 		if case .Success(let res) = result
 		{
-			print(decodeNSDataAsUTF8(res.0))
+			print(res)
 		}
 	}
 }
