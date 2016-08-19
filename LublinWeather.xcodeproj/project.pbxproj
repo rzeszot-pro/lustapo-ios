@@ -15,8 +15,6 @@
 		6470483B1D6725EA009205F3 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647048391D6725EA009205F3 /* ReactiveCocoa.framework */; };
 		6470483C1D6725EA009205F3 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6470483A1D6725EA009205F3 /* Result.framework */; };
 		64F6DED61D672E0100748281 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6DED41D672E0100748281 /* MainViewController.swift */; };
-		64F6DED71D672E0100748281 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6DED41D672E0100748281 /* MainViewController.swift */; };
-		64F6DED81D672E0100748281 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F6DED41D672E0100748281 /* MainViewController.swift */; };
 		64F6DED91D672E0100748281 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64F6DED51D672E0100748281 /* MainViewController.xib */; };
 		64F6DEDA1D672E0100748281 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64F6DED51D672E0100748281 /* MainViewController.xib */; };
 		64F6DEDB1D672E0100748281 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64F6DED51D672E0100748281 /* MainViewController.xib */; };
@@ -307,7 +305,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				647048211D65E9C6009205F3 /* LublinWeatherTests.swift in Sources */,
-				64F6DED71D672E0100748281 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6470482C1D65E9C6009205F3 /* LublinWeatherUITests.swift in Sources */,
-				64F6DED81D672E0100748281 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
