@@ -103,7 +103,11 @@ func weatherStationDataSignalProducer()
 	requestSignalProducer(createWeatherStationRequest()).startWithResult { result in
 		if case .Success(let res) = result
 		{
-			print(res)
+			print("temperatura \(res["temperatureInt"])")
+			print("data \(res["data"])")
+			print("cisnienie \(res["pressureInt"])")
+			print("windSpeedInt \(res["windSpeedInt"])")
+			print("rainCumInt \(res["rainCumInt"])")
 		}
 	}
 }
