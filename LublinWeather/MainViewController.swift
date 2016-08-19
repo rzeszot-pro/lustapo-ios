@@ -16,7 +16,7 @@ class MainViewController: UIViewController
 	{
 		super.viewDidLoad()
 		
-		stationDataSignalProducer()
+		weatherStationDataSignalProducer()
 	}
 	
 }

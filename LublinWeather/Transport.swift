@@ -11,6 +11,21 @@ import ReactiveCocoa
 import Result
 
 
+private let regex = try! NSRegularExpression(pattern: "([a-zA-Z]+):", options: .AnchorsMatchLines)
+
+private func fixBrokenJSON(data: NSData) -> NSData?
+{
+	guard let dataString = decodeNSDataAsUTF8(data) else
+	{
+		return nil
+	}
+	let fullRange = NSRange(location: 0, length: dataString.characters.count)
+	let result = NSMutableString(string: dataString)
+	regex.replaceMatchesInString(result, options: NSMatchingOptions.WithoutAnchoringBounds, range: fullRange, withTemplate: "\"$1\":")
+	return result.dataUsingEncoding(NSUTF8StringEncoding)
+}
+
+
 private func decodeNSDataAsUTF8(data: NSData?) -> String?
 {
 	if let dataValue = data
@@ -20,11 +35,25 @@ private func decodeNSDataAsUTF8(data: NSData?) -> String?
 	return nil
 }
 
-private let TransportErrorDomain = "local.transport"
+func parseJSONData(data: NSData) -> [String: AnyObject]?
+{
+	do
+	{
+		let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
+		return json as? [String: AnyObject]
+	}
+	catch let exc
+	{
+		print("ERROR: Parse data JSON: \(exc)")
+	}
+	return nil
+}
+
+private let TransportErrorDomain = "Local.Transport"
 private  enum TransportErrorDomainCodes: Int
 {
 	case HTTPStatus
-	case DataUTF8Parsing
+	case DataParsing
 }
 
 
@@ -35,7 +64,7 @@ private func crateTransortError(code: TransportErrorDomainCodes, localizedString
 }
 
 
-private func requestSignalProducer(request: NSURLRequest) -> SignalProducer<String, NSError>
+private func requestSignalProducer(request: NSURLRequest) -> SignalProducer<[String: AnyObject], NSError>
 {
 	return NSURLSession.sharedSession().rac_dataWithRequest(request)
 		.attempt { (data, response) -> Result<(), NSError> in
@@ -47,12 +76,18 @@ private func requestSignalProducer(request: NSURLRequest) -> SignalProducer<Stri
 			}
 			
 			return .Failure(crateTransortError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
-		}.attemptMap { (data, response) -> Result<String, NSError> in
-			guard let dataString = decodeNSDataAsUTF8(data) else
+		}.attemptMap { (data, response) -> Result<[String: AnyObject], NSError> in
+			fixBrokenJSON(data)
+			guard let dataFixedJSON = fixBrokenJSON(data) else
 			{
-				return .Failure(crateTransortError(.DataUTF8Parsing, localizedString: "Can not convert data to UTF8 string."))
+				return .Failure(crateTransortError(.DataParsing, localizedString: "Data parsing (fixing JSON)"))
 			}
-			return .Success(dataString)
+			
+			guard let json = parseJSONData(dataFixedJSON) else
+			{
+				return .Failure(crateTransortError(.DataParsing, localizedString: "Data parsing (JSON)"))
+			}
+			return .Success(json)
 	}
 }
 
