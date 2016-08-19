@@ -15,14 +15,8 @@ class MainViewController: UIViewController
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
-		print("test")
 		
-		let (signal, observer) = Signal<String, NoError>.pipe()
-		signal.observeResult { (result) in
-			print(result)
-		}
-		observer.sendNext("test")
+		stationDataSignalProducer()
 	}
-	
 	
 }
