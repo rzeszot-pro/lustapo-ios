@@ -64,7 +64,7 @@ private func crateTransportError(code: TransportErrorDomainCodes, localizedStrin
 }
 
 
-private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProducer<[String: AnyObject], NSError>
+private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProducer<JSONDictionary, NSError>
 {
 	return NSURLSession.sharedSession().rac_dataWithRequest(request)
 		.attempt { (data, response) -> Result<(), NSError> in
@@ -76,7 +76,7 @@ private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProduc
 			}
 			
 			return .Failure(crateTransportError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
-		}.attemptMap { (data, response) -> Result<[String: AnyObject], NSError> in
+		}.attemptMap { (data, response) -> Result<JSONDictionary, NSError> in
 			guard let dataFixedJSON = fixBrokenJSON(data) else
 			{
 				return .Failure(crateTransportError(.DataParsing, localizedString: "Data parsing (fixing JSON)"))
@@ -97,18 +97,14 @@ private func createWeatherStationRequest() -> NSURLRequest
 }
 
 
-func weatherStationDataSignalProducer()
+func weatherStateSignalProducer() -> SignalProducer<WeatherState, NSError>
 {
-	requestForJSONSignalProducer(createWeatherStationRequest()).startWithResult { result in
-		if case .Success(let res) = result
-		{
-			print("temperatura \(res["temperatureInt"])")
-			print("data \(res["data"])")
-			print("cisnienie \(res["pressureInt"])")
-			print("windSpeedInt \(res["windSpeedInt"])")
-			print("rainCumInt \(res["rainCumInt"])")
+	return requestForJSONSignalProducer(createWeatherStationRequest())
+		.map
+		{ json -> WeatherState in
+			print(json)
+			return WeatherState(json: json)
 		}
-	}
 }
 
 
