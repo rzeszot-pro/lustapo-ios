@@ -95,7 +95,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	@IBOutlet weak var tableView: UITableView!
 	private var model: Model = Model(station: weatherStationList.first!, state: nil)
 	
-	private let cells: [CellDesc] = [.StationName, .WeatherParameterCell(parameter: .Temperature), .WeatherParameterCell(parameter: .Pressure), .WeatherParameterCell(parameter: .WindSpeed), .WeatherParameterCell(parameter: .Rain), .WeatherParameterCell(parameter: .Date)]
+	private let cells: [CellDesc] = [
+		.StationName,
+		.WeatherParameterCell(parameter: .Temperature),
+		.WeatherParameterCell(parameter: .Pressure),
+		.WeatherParameterCell(parameter: .WindSpeed),
+		.WeatherParameterCell(parameter: .Rain),
+		.WeatherParameterCell(parameter: .Date)
+	]
 	
 	override func viewDidLoad()
 	{
