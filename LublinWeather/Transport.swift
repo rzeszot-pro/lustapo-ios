@@ -58,13 +58,13 @@ private  enum TransportErrorDomainCodes: Int
 
 
 
-private func crateTransortError(code: TransportErrorDomainCodes, localizedString: String) -> NSError
+private func crateTransportError(code: TransportErrorDomainCodes, localizedString: String) -> NSError
 {
 	return NSError(domain: TransportErrorDomain, code: code.rawValue, userInfo: [NSLocalizedFailureReasonErrorKey: localizedString])
 }
 
 
-private func requestSignalProducer(request: NSURLRequest) -> SignalProducer<[String: AnyObject], NSError>
+private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProducer<[String: AnyObject], NSError>
 {
 	return NSURLSession.sharedSession().rac_dataWithRequest(request)
 		.attempt { (data, response) -> Result<(), NSError> in
@@ -75,17 +75,17 @@ private func requestSignalProducer(request: NSURLRequest) -> SignalProducer<[Str
 				return .Success()
 			}
 			
-			return .Failure(crateTransortError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
+			return .Failure(crateTransportError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
 		}.attemptMap { (data, response) -> Result<[String: AnyObject], NSError> in
 			fixBrokenJSON(data)
 			guard let dataFixedJSON = fixBrokenJSON(data) else
 			{
-				return .Failure(crateTransortError(.DataParsing, localizedString: "Data parsing (fixing JSON)"))
+				return .Failure(crateTransportError(.DataParsing, localizedString: "Data parsing (fixing JSON)"))
 			}
 			
 			guard let json = parseJSONData(dataFixedJSON) else
 			{
-				return .Failure(crateTransortError(.DataParsing, localizedString: "Data parsing (JSON)"))
+				return .Failure(crateTransportError(.DataParsing, localizedString: "Data parsing (JSON)"))
 			}
 			return .Success(json)
 	}
@@ -100,7 +100,7 @@ private func createWeatherStationRequest() -> NSURLRequest
 
 func weatherStationDataSignalProducer()
 {
-	requestSignalProducer(createWeatherStationRequest()).startWithResult { result in
+	requestForJSONSignalProducer(createWeatherStationRequest()).startWithResult { result in
 		if case .Success(let res) = result
 		{
 			print("temperatura \(res["temperatureInt"])")
