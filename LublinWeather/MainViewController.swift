@@ -11,7 +11,8 @@ import ReactiveCocoa
 import Result
 
 
-private let cellReuseIdentifier = "cellReuseIdentifier"
+private let cellWeatherParameterReuseIdentifier = "cellWeatherParameterReuseIdentifier"
+private let cellStationNameReuseIdentifier = "cellStationNameReuseIdentifier"
 
 private class MainTableViewCell: UITableViewCell
 {
@@ -86,20 +87,28 @@ private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) 
 	}
 }
 
+private enum CellDesc
+{
+	case WeatherParameterCell(parameter: WeatherParameter)
+	case StationName
+}
+
+
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 	@IBOutlet weak var tableView: UITableView!
+	private let weatherStation = weatherStationList.first!
 	private var data: WeatherState?
-	private let cellNumToParam: [WeatherParameter] = [.Temperature, .Pressure, .WindSpeed, .Rain, .Date]
+	private let cells: [CellDesc] = [.StationName, .WeatherParameterCell(parameter: .Temperature), .WeatherParameterCell(parameter: .Pressure), .WeatherParameterCell(parameter: .WindSpeed), .WeatherParameterCell(parameter: .Rain), .WeatherParameterCell(parameter: .Date)]
 	
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
 		title = "Lubelskie Stacje Pogodowe"
-		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-		//tableView.separatorStyle = .None
+		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
+		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellStationNameReuseIdentifier)
 		
-		weatherStateSignalProducer().observeOn(UIScheduler()).startWithResult
+		weatherStateSignalProducer(weatherStation).observeOn(UIScheduler()).startWithResult
 			{ [weak self] result in
 				switch result
 				{
@@ -123,16 +132,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
 	{
-		return cellNumToParam.count
+		return cells.count
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
 	{
-		let cell = tableView.dequeueReusableCellWithIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
-		let value = getValuesForCell(cellNumToParam[indexPath.row], data: data)
-		cell.textLabel?.text = value.0
-		cell.detailTextLabel?.text = value.1
-		return cell
+		switch cells[indexPath.row] {
+		case .WeatherParameterCell(let param):
+			let cell = tableView.dequeueReusableCellWithIdentifier(cellWeatherParameterReuseIdentifier, forIndexPath: indexPath)
+			let value = getValuesForCell(param, data: data)
+			cell.textLabel?.text = value.0
+			cell.detailTextLabel?.text = value.1
+			return cell
+		case .StationName:
+			let cell = tableView.dequeueReusableCellWithIdentifier(cellStationNameReuseIdentifier, forIndexPath: indexPath)
+			cell.textLabel?.text = weatherStation.name
+			return cell
+		}
 	}
-	
 }

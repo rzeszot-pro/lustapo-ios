@@ -90,16 +90,16 @@ private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProduc
 	}
 }
 
-private func createWeatherStationRequest() -> NSURLRequest
+private func createWeatherStationRequest(station: WeatherStation) -> NSURLRequest
 {
-	let url = NSURL(string: "http://212.182.4.252/data.php?s=16")!
+	let url = NSURL(string: station.ip)!
 	return NSURLRequest(URL: url)
 }
 
 
-func weatherStateSignalProducer() -> SignalProducer<WeatherState, NSError>
+func weatherStateSignalProducer(station: WeatherStation) -> SignalProducer<WeatherState, NSError>
 {
-	return requestForJSONSignalProducer(createWeatherStationRequest())
+	return requestForJSONSignalProducer(createWeatherStationRequest(station))
 		.map
 		{ json -> WeatherState in
 			return WeatherState(json: json)

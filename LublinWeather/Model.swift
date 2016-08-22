@@ -8,6 +8,16 @@
 
 import Foundation
 
+struct WeatherStation
+{
+	let name: String
+	let ip: String
+}
+
+let weatherStationList = [
+	WeatherStation(name: "Plac Litewski i wieża", ip: "http://212.182.4.252/data.php?s=16"),
+	WeatherStation(name: "Ogród Botaniczny", ip: "http://212.182.4.252/data.php?s=10")
+]
 
 struct WeatherState
 {
