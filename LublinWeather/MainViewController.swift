@@ -10,22 +10,23 @@ import UIKit
 import ReactiveCocoa
 import Result
 
-
 private let cellWeatherParameterReuseIdentifier = "cellWeatherParameterReuseIdentifier"
 private let cellStationNameReuseIdentifier = "cellStationNameReuseIdentifier"
 
-private class MainTableViewCell: UITableViewCell
+private let parameterMissingValue = "-"
+
+private enum CellDesc
 {
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?)
-	{
-		super.init(style: .Value2, reuseIdentifier: reuseIdentifier)
-	}
-	
-	required init?(coder aDecoder: NSCoder)
-	{
-		fatalError("init(coder:) has not been implemented")
-	}
+	case WeatherParameterCell(parameter: WeatherParameter)
+	case StationName
 }
+
+private struct Model
+{
+	let station: WeatherStation
+	let state: WeatherState?
+}
+
 
 private func createNumberFormatter() -> NSNumberFormatter
 {
@@ -46,8 +47,8 @@ private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String
 	return nil
 }
 
-private let parameterMissingValue = "-"
 
+// TODO: refactor this
 private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String)
 {
 	func stringRepresentation(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String
@@ -77,18 +78,21 @@ private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) 
 	}
 }
 
-private enum CellDesc
-{
-	case WeatherParameterCell(parameter: WeatherParameter)
-	case StationName
-}
 
-private struct Model
-{
-	let station: WeatherStation
-	let state: WeatherState?
-}
 
+private class MainTableViewCell: UITableViewCell
+{
+	override init(style: UITableViewCellStyle, reuseIdentifier: String?)
+	{
+		super.init(style: .Value2, reuseIdentifier: reuseIdentifier)
+		selectionStyle = .None
+	}
+	
+	required init?(coder aDecoder: NSCoder)
+	{
+		fatalError("init(coder:) has not been implemented")
+	}
+}
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
