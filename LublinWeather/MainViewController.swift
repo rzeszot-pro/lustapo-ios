@@ -115,11 +115,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 				case .Failure(let error):
 					print("show error \(error)")
 					self?.model = Model(station: station, state: nil)
-					self?.tableView.reloadData()
 				case .Success(let data):
 					self?.model = Model(station: station, state: data)
-					self?.tableView.reloadData()
 				}
+				self?.tableView.reloadData()
 		}
 	}
 	
