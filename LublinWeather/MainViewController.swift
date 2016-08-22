@@ -161,7 +161,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
 	{
-		if indexPath.row == 0
+		if case .StationName = cells[indexPath.row]
 		{
 			let vc = WeatherStationListViewController()
 			vc.completionAction = { [weak self] station in
