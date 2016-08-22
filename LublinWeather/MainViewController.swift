@@ -55,13 +55,15 @@ private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String
 	return nil
 }
 
+private let parameterMissingValue = "-"
+
 private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String)
 {
-	func stringRepresentation(value: NSDecimalNumber?, unit: String, defaultResult: String = "") -> String
+	func stringRepresentation(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String
 	{
 		if let valueString = formatNumber(value)
 		{
-			return valueString + unit
+			return valueString + " " + unit
 		}
 		else
 		{
@@ -74,13 +76,13 @@ private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) 
 	case .Temperature:
 		return ("Temperatura", stringRepresentation(data?.temperature, unit: "°C"))
 	case .Pressure:
-		return ("Ciśnienie", stringRepresentation(data?.pressure, unit: " hPa"))
+		return ("Ciśnienie", stringRepresentation(data?.pressure, unit: "hPa"))
 	case .WindSpeed:
-		return ("Wiatr", stringRepresentation(data?.windSpeed, unit: " km/h"))
+		return ("Wiatr", stringRepresentation(data?.windSpeed, unit: "km/h"))
 	case .Rain:
-		return ("Opad", stringRepresentation(data?.rain, unit: " mm"))
+		return ("Opad", stringRepresentation(data?.rain, unit: "mm"))
 	case .Date:
-		return ("Data", data?.date ?? "")
+		return ("Data", data?.date ?? parameterMissingValue)
 	}
 }
 
@@ -97,7 +99,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
 		//tableView.separatorStyle = .None
 		
-		weatherStateSignalProducer().startWithResult
+		weatherStateSignalProducer().observeOn(UIScheduler()).startWithResult
 			{ [weak self] result in
 				switch result
 				{
