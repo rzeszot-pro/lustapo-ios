@@ -77,7 +77,6 @@ private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProduc
 			
 			return .Failure(crateTransportError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
 		}.attemptMap { (data, response) -> Result<[String: AnyObject], NSError> in
-			fixBrokenJSON(data)
 			guard let dataFixedJSON = fixBrokenJSON(data) else
 			{
 				return .Failure(crateTransportError(.DataParsing, localizedString: "Data parsing (fixing JSON)"))
