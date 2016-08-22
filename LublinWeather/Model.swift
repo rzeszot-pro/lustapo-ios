@@ -28,6 +28,15 @@ struct WeatherState
 	let rain: NSDecimalNumber?
 }
 
+enum WeatherParameter
+{
+	case Temperature
+	case Pressure
+	case WindSpeed
+	case Rain
+	case Date
+}
+
 private func convertNSNumberToNSDecimalNumber(value: NSNumber?) -> NSDecimalNumber?
 {
 	if let v = value

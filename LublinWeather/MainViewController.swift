@@ -27,16 +27,6 @@ private class MainTableViewCell: UITableViewCell
 	}
 }
 
-
-private enum WeatherParameter
-{
-	case Temperature
-	case Pressure
-	case WindSpeed
-	case Rain
-	case Date
-}
-
 private func createNumberFormatter() -> NSNumberFormatter
 {
 	let result = NSNumberFormatter()
@@ -93,12 +83,18 @@ private enum CellDesc
 	case StationName
 }
 
+private struct Model
+{
+	let station: WeatherStation
+	let state: WeatherState?
+}
+
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 	@IBOutlet weak var tableView: UITableView!
-	private let weatherStation = weatherStationList.first!
-	private var data: WeatherState?
+	private var model: Model = Model(station: weatherStationList.first!, state: nil)
+	
 	private let cells: [CellDesc] = [.StationName, .WeatherParameterCell(parameter: .Temperature), .WeatherParameterCell(parameter: .Pressure), .WeatherParameterCell(parameter: .WindSpeed), .WeatherParameterCell(parameter: .Rain), .WeatherParameterCell(parameter: .Date)]
 	
 	override func viewDidLoad()
@@ -107,21 +103,32 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		title = "Lubelskie Stacje Pogodowe"
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellStationNameReuseIdentifier)
-		
-		weatherStateSignalProducer(weatherStation).observeOn(UIScheduler()).startWithResult
+		reloadData(model.station)
+	}
+	
+	private func reloadData(station: WeatherStation)
+	{
+		weatherStateSignalProducer(station).observeOn(UIScheduler()).startWithResult
 			{ [weak self] result in
 				switch result
 				{
 				case .Failure(let error):
-					self?.data = nil
 					print("show error \(error)")
+					self?.model = Model(station: station, state: nil)
 					self?.tableView.reloadData()
 				case .Success(let data):
-					self?.data = data
+					self?.model = Model(station: station, state: data)
 					self?.tableView.reloadData()
 				}
-			}
+		}
 	}
+	
+	private func reloadDataImmediately(station: WeatherStation)
+	{
+		model = Model(station: station, state: nil)
+		tableView.reloadData()
+	}
+	
 	
 	// MARK: - UITableViewDelegate, UITableViewDataSource
 	
@@ -140,14 +147,39 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		switch cells[indexPath.row] {
 		case .WeatherParameterCell(let param):
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellWeatherParameterReuseIdentifier, forIndexPath: indexPath)
-			let value = getValuesForCell(param, data: data)
+			let value = getValuesForCell(param, data: model.state)
 			cell.textLabel?.text = value.0
 			cell.detailTextLabel?.text = value.1
 			return cell
 		case .StationName:
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellStationNameReuseIdentifier, forIndexPath: indexPath)
-			cell.textLabel?.text = weatherStation.name
+			cell.accessoryType = .DisclosureIndicator
+			cell.textLabel?.text = model.station.name
 			return cell
+		}
+	}
+	
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+	{
+		if indexPath.row == 0
+		{
+			let vc = WeatherStationListViewController()
+			vc.completionAction = { [weak self] station in
+				if let stationValue = station
+				{
+					self?.reloadDataImmediately(stationValue)
+					self?.reloadData(stationValue)
+				}
+				else
+				{
+					if let selectedRow = self?.tableView.indexPathForSelectedRow
+					{
+						self?.tableView.deselectRowAtIndexPath(selectedRow, animated: true)
+					}
+				}
+			}
+			let nv = UINavigationController(rootViewController: vc)
+			showViewController(nv, sender: self)
 		}
 	}
 }
