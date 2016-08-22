@@ -36,22 +36,51 @@ private enum WeatherParameter
 	case Date
 }
 
+private func createNumberFormatter() -> NSNumberFormatter
+{
+	let result = NSNumberFormatter()
+	result.numberStyle = NSNumberFormatterStyle.DecimalStyle
+	return result
+}
+
+private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String?
+{
+	if let numberValue = number
+	{
+		let formatter = createNumberFormatter()
+		formatter.maximumFractionDigits = fractionsDigits
+		formatter.minimumFractionDigits = fractionsDigits
+		return formatter.stringFromNumber(numberValue)
+	}
+	return nil
+}
+
 private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String)
 {
-	let noValue = ""
+	func stringRepresentation(value: NSDecimalNumber?, unit: String, defaultResult: String = "") -> String
+	{
+		if let valueString = formatNumber(value)
+		{
+			return valueString + unit
+		}
+		else
+		{
+			return defaultResult
+		}
+	}
 	
 	switch parameter
 	{
 	case .Temperature:
-		return ("Temperatura", data?.temperature?.description ?? noValue)
+		return ("Temperatura", stringRepresentation(data?.temperature, unit: "°C"))
 	case .Pressure:
-		return ("Ciśnienie", data?.pressure?.description ?? noValue)
+		return ("Ciśnienie", stringRepresentation(data?.pressure, unit: " hPa"))
 	case .WindSpeed:
-		return ("Wiatr", data?.windSpeed?.description ?? noValue)
+		return ("Wiatr", stringRepresentation(data?.windSpeed, unit: " km/h"))
 	case .Rain:
-		return ("Opad", data?.rain?.description ?? noValue)
+		return ("Opad", stringRepresentation(data?.rain, unit: " mm"))
 	case .Date:
-		return ("Data", data?.date ?? noValue)
+		return ("Data", data?.date ?? "")
 	}
 }
 

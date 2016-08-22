@@ -102,7 +102,6 @@ func weatherStateSignalProducer() -> SignalProducer<WeatherState, NSError>
 	return requestForJSONSignalProducer(createWeatherStationRequest())
 		.map
 		{ json -> WeatherState in
-			print(json)
 			return WeatherState(json: json)
 		}
 }
