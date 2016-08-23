@@ -129,6 +129,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			})
 			.flatMap(.Latest)
 			{ (station) ->  SignalProducer<(WeatherStation, WeatherState), NSError> in
+				
 				return weatherStateSignalProducer(station)
 			}
 			.observeOn(UIScheduler())
@@ -148,6 +149,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	}
 	
 
+	private func deselectCurrentRow()
+	{
+		if let selectedRow = tableView.indexPathForSelectedRow
+		{
+			tableView.deselectRowAtIndexPath(selectedRow, animated: true)
+		}
+	}
+	
 	// MARK: - UITableViewDelegate, UITableViewDataSource
 	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -181,18 +190,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	{
 		if case .StationName = cells[indexPath.row]
 		{
+			deselectCurrentRow()
 			let vc = WeatherStationListViewController()
 			vc.completionAction = { [weak self] station in
 				if let stationValue = station
 				{
 					self?.weatherStationObserver.sendNext(stationValue)
-				}
-				else
-				{
-					if let selectedRow = self?.tableView.indexPathForSelectedRow
-					{
-						self?.tableView.deselectRowAtIndexPath(selectedRow, animated: true)
-					}
 				}
 			}
 			let nv = UINavigationController(rootViewController: vc)
