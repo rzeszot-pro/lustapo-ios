@@ -97,12 +97,12 @@ private func createWeatherStationRequest(station: WeatherStation) -> NSURLReques
 }
 
 
-func weatherStateSignalProducer(station: WeatherStation) -> SignalProducer<(WeatherStation, WeatherState), NSError>
+func weatherStateSignalProducer(station: WeatherStation) -> SignalProducer<WeatherState, NSError>
 {
 	return requestForJSONSignalProducer(createWeatherStationRequest(station))
 		.map
-		{ json -> (WeatherStation, WeatherState) in
-			return (station, WeatherState(json: json))
+		{ json -> WeatherState in
+			return WeatherState(json: json)
 		}
 }
 

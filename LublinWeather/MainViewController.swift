@@ -129,8 +129,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			})
 			.flatMap(.Latest)
 			{ (station) ->  SignalProducer<(WeatherStation, WeatherState), NSError> in
-				
-				return weatherStateSignalProducer(station)
+				return weatherStateSignalProducer(station).map
+					{ (state) -> (WeatherStation, WeatherState) in
+						return (station, state)
+					}
 			}
 			.observeOn(UIScheduler())
 			.observeResult
