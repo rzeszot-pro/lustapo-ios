@@ -48,31 +48,32 @@ private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String
 }
 
 
-// TODO: refactor this
-private func getValuesForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String)
+private func stringRepresentationOfValue(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String
 {
-	func stringRepresentation(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String
+	if let valueString = formatNumber(value)
 	{
-		if let valueString = formatNumber(value)
-		{
-			return valueString + " " + unit
-		}
-		else
-		{
-			return defaultResult
-		}
+		return valueString + " " + unit
 	}
-	
+	else
+	{
+		return defaultResult
+	}
+}
+
+
+// TODO: refactor this
+private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String)
+{
 	switch parameter
 	{
 	case .Temperature:
-		return ("Temperatura", stringRepresentation(data?.temperature, unit: "°C"))
+		return ("Temperatura", stringRepresentationOfValue(data?.temperature, unit: "°C"))
 	case .Pressure:
-		return ("Ciśnienie", stringRepresentation(data?.pressure, unit: "hPa"))
+		return ("Ciśnienie", stringRepresentationOfValue(data?.pressure, unit: "hPa"))
 	case .WindSpeed:
-		return ("Wiatr", stringRepresentation(data?.windSpeed, unit: "km/h"))
+		return ("Wiatr", stringRepresentationOfValue(data?.windSpeed, unit: "km/h"))
 	case .Rain:
-		return ("Opad", stringRepresentation(data?.rain, unit: "mm"))
+		return ("Opad", stringRepresentationOfValue(data?.rain, unit: "mm"))
 	case .Date:
 		return ("Data", data?.date ?? parameterMissingValue)
 	}
@@ -157,7 +158,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		switch cells[indexPath.row] {
 		case .WeatherParameterCell(let param):
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellWeatherParameterReuseIdentifier, forIndexPath: indexPath)
-			let value = getValuesForCell(param, data: model.state)
+			let value = getWeatherParameterDataForCell(param, data: model.state)
 			cell.textLabel?.text = value.0
 			cell.detailTextLabel?.text = value.1
 			return cell
