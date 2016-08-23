@@ -109,38 +109,45 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		.WeatherParameterCell(parameter: .Date)
 	]
 	
+	private let (weatherStationSignal, weatherStationObserver) = Signal<WeatherStation, NoError>.pipe()
+	
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
 		title = "Lubelskie Stacje Pogodowe"
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellStationNameReuseIdentifier)
-		reloadData(model.station)
-	}
-	
-	private func reloadData(station: WeatherStation)
-	{
-		weatherStateSignalProducer(station).observeOn(UIScheduler()).startWithResult
+
+		weatherStationSignal
+			.observeOn(UIScheduler())
+			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
+				if let station = event.value
+				{
+					self?.model = Model(station: station, state: nil)
+					self?.tableView.reloadData()
+				}
+			})
+			.flatMap(.Latest)
+			{ (station) ->  SignalProducer<(WeatherStation, WeatherState), NSError> in
+				return weatherStateSignalProducer(station)
+			}
+			.observeOn(UIScheduler())
+			.observeResult
 			{ [weak self] result in
 				switch result
 				{
 				case .Failure(let error):
 					print("show error \(error)")
-					self?.model = Model(station: station, state: nil)
 				case .Success(let data):
-					self?.model = Model(station: station, state: data)
+					self?.model = Model(station: data.0, state: data.1)
+					self?.tableView.reloadData()
 				}
-				self?.tableView.reloadData()
-		}
+			}
+		
+		weatherStationObserver.sendNext(model.station)
 	}
 	
-	private func reloadDataImmediately(station: WeatherStation)
-	{
-		model = Model(station: station, state: nil)
-		tableView.reloadData()
-	}
-	
-	
+
 	// MARK: - UITableViewDelegate, UITableViewDataSource
 	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -178,8 +185,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			vc.completionAction = { [weak self] station in
 				if let stationValue = station
 				{
-					self?.reloadDataImmediately(stationValue)
-					self?.reloadData(stationValue)
+					self?.weatherStationObserver.sendNext(stationValue)
 				}
 				else
 				{
