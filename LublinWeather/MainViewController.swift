@@ -95,6 +95,13 @@ private class MainTableViewCell: UITableViewCell
 	}
 }
 
+
+private enum ModelWrapper
+{
+	case Value(Model)
+	case Error(NSError)
+}
+
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 	@IBOutlet weak var tableView: UITableView!
@@ -118,7 +125,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellStationNameReuseIdentifier)
 
-		weatherStationSignal
+		let weatherDataSignal = weatherStationSignal
 			.observeOn(UIScheduler())
 			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
 				if let station = event.value
@@ -128,21 +135,28 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 				}
 			})
 			.flatMap(.Latest)
-			{ (station) ->  SignalProducer<(WeatherStation, WeatherState), NSError> in
-				return weatherStateSignalProducer(station).map
-					{ (state) -> (WeatherStation, WeatherState) in
-						return (station, state)
+			{ (station) ->  SignalProducer<ModelWrapper, NoError> in
+				return weatherStateSignalProducer(station)
+					.map
+					{ (state) -> ModelWrapper in
+						return ModelWrapper.Value(Model(station: station, state: state))
+					}
+					.flatMapError
+					{ (error) -> SignalProducer<ModelWrapper, NoError> in
+						return SignalProducer(value: ModelWrapper.Error(error))
 					}
 			}
+
+		
+		weatherDataSignal
 			.observeOn(UIScheduler())
-			.observeResult
-			{ [weak self] result in
-				switch result
+			.observeNext { [weak self] modelWrapper in
+				switch modelWrapper
 				{
-				case .Failure(let error):
-					print("show error \(error)")
-				case .Success(let data):
-					self?.model = Model(station: data.0, state: data.1)
+				case .Error(let error):
+					print("error! \(error)")
+				case .Value(let newModel):
+					self?.model = newModel
 					self?.tableView.reloadData()
 				}
 			}
