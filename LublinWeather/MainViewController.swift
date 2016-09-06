@@ -118,6 +118,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
 		tableView.registerNib(UINib(nibName: "StationNameCell", bundle: nil), forCellReuseIdentifier: cellStationNameReuseIdentifier)
 
+		// Alternative UNICODE character: \u{2139}
+		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{24D8}", style: .Plain, target: self, action: #selector(infoClick))
+		
 		weatherStationSignal
 			.observeOn(UIScheduler())
 			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
@@ -151,6 +154,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		}
 	}
 	
+	func infoClick()
+	{
+		let url = NSBundle.mainBundle().URLForResource("Information", withExtension: "html")!
+		let vc = HelpInfoViewController(url: url)
+		let nc = UINavigationController(rootViewController: vc)
+		showViewController(nc, sender: self)
+	}
 
 	private func deselectCurrentRow()
 	{

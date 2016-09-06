@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 typealias JSONDictionary = [String: AnyObject]
 
@@ -17,4 +17,15 @@ extension Dictionary
 	{
 		return self[key] as? T
 	}
+}
+
+
+
+func putAndOverlay(view view: UIView, intoView: UIView)
+{
+	view.translatesAutoresizingMaskIntoConstraints = false
+	intoView.addSubview(view)
+	let views = ["view":view]
+	intoView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: .DirectionRightToLeft, metrics: nil, views: views))
+	intoView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]-0-|", options: .DirectionRightToLeft, metrics: nil, views: views))
 }
