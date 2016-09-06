@@ -204,8 +204,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			}
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellWeatherParameterReuseIdentifier, forIndexPath: indexPath)
 			let value = getWeatherParameterDataForCell(param, data: state)
-			cell.textLabel?.text = value.0
-			cell.detailTextLabel?.text = value.1
+			cell.textLabel?.text = value.title
+			cell.detailTextLabel?.text = value.value
 			return cell
 		}
 	}
