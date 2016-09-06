@@ -21,13 +21,6 @@ private enum CellDesc
 	case StationName
 }
 
-private struct Model
-{
-	let station: WeatherStation
-	let state: WeatherState?
-}
-
-
 private func createNumberFormatter() -> NSNumberFormatter
 {
 	let result = NSNumberFormatter()
@@ -96,16 +89,16 @@ private class MainTableViewCell: UITableViewCell
 }
 
 
-private enum ModelWrapper
+private enum LocalModel
 {
-	case Value(Model)
-	case Error(NSError)
+	case Value(station: WeatherStation, state: WeatherState?)
+	case Error(station: WeatherStation, error: NSError)
 }
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 	@IBOutlet weak var tableView: UITableView!
-	private var model: Model = Model(station: weatherStationList.first!, state: nil)
+	private var localModel = LocalModel.Value(station: weatherStationList.first!, state: nil)
 	
 	private let cells: [CellDesc] = [
 		.StationName,
@@ -123,45 +116,39 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		super.viewDidLoad()
 		title = "Lubelskie Stacje Pogodowe"
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: cellStationNameReuseIdentifier)
+		tableView.registerNib(UINib(nibName: "StationNameCell", bundle: nil), forCellReuseIdentifier: cellStationNameReuseIdentifier)
 
-		let weatherDataSignal = weatherStationSignal
+		weatherStationSignal
 			.observeOn(UIScheduler())
 			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
 				if let station = event.value
 				{
-					self?.model = Model(station: station, state: nil)
+					self?.localModel = LocalModel.Value(station: station, state: nil)
 					self?.tableView.reloadData()
 				}
 			})
 			.flatMap(.Latest)
-			{ (station) ->  SignalProducer<ModelWrapper, NoError> in
+			{ (station) ->  SignalProducer<LocalModel, NoError> in
 				return weatherStateSignalProducer(station)
 					.map
-					{ (state) -> ModelWrapper in
-						return ModelWrapper.Value(Model(station: station, state: state))
+					{ (state) -> LocalModel in
+						return LocalModel.Value(station: station, state: state)
 					}
 					.flatMapError
-					{ (error) -> SignalProducer<ModelWrapper, NoError> in
-						return SignalProducer(value: ModelWrapper.Error(error))
+					{ (error) -> SignalProducer<LocalModel, NoError> in
+						return SignalProducer(value: LocalModel.Error(station: station, error: error))
 					}
 			}
-
-		
-		weatherDataSignal
 			.observeOn(UIScheduler())
-			.observeNext { [weak self] modelWrapper in
-				switch modelWrapper
-				{
-				case .Error(let error):
-					print("error! \(error)")
-				case .Value(let newModel):
-					self?.model = newModel
-					self?.tableView.reloadData()
-				}
+			.observeNext { [weak self] newLocalModel in
+				self?.localModel = newLocalModel
+				self?.tableView.reloadData()
 			}
 		
-		weatherStationObserver.sendNext(model.station)
+		if case .Value(let model) = localModel
+		{
+			weatherStationObserver.sendNext(model.station)
+		}
 	}
 	
 
@@ -188,16 +175,37 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
 	{
 		switch cells[indexPath.row] {
+		case .StationName:
+			let cell = tableView.dequeueReusableCellWithIdentifier(cellStationNameReuseIdentifier, forIndexPath: indexPath) as! StationNameCell
+
+			let stationName: String!
+			switch localModel {
+			case .Value(let station, let state):
+				stationName = station.name
+				if state == nil
+				{
+					cell.activityIndicator.startAnimating()
+				}
+				else
+				{
+					cell.activityIndicator.stopAnimating()
+				}
+			case .Error(let station, _):
+				stationName = station.name
+				cell.activityIndicator.stopAnimating()
+			}
+			cell.nameLabel.text = stationName
+			return cell
 		case .WeatherParameterCell(let param):
+			var state: WeatherState? = nil
+			if case .Value(_, let currState) = localModel
+			{
+				state = currState
+			}
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellWeatherParameterReuseIdentifier, forIndexPath: indexPath)
-			let value = getWeatherParameterDataForCell(param, data: model.state)
+			let value = getWeatherParameterDataForCell(param, data: state)
 			cell.textLabel?.text = value.0
 			cell.detailTextLabel?.text = value.1
-			return cell
-		case .StationName:
-			let cell = tableView.dequeueReusableCellWithIdentifier(cellStationNameReuseIdentifier, forIndexPath: indexPath)
-			cell.accessoryType = .DisclosureIndicator
-			cell.textLabel?.text = model.station.name
 			return cell
 		}
 	}
