@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "647048071D65E9C6009205F3"
-               BuildableName = "LublinWeather.app"
+               BuildableName = "LuStaPo.app"
                BlueprintName = "LublinWeather"
                ReferencedContainer = "container:LublinWeather.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "647048071D65E9C6009205F3"
-            BuildableName = "LublinWeather.app"
+            BuildableName = "LuStaPo.app"
             BlueprintName = "LublinWeather"
             ReferencedContainer = "container:LublinWeather.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "647048071D65E9C6009205F3"
-            BuildableName = "LublinWeather.app"
+            BuildableName = "LuStaPo.app"
             BlueprintName = "LublinWeather"
             ReferencedContainer = "container:LublinWeather.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "647048071D65E9C6009205F3"
-            BuildableName = "LublinWeather.app"
+            BuildableName = "LuStaPo.app"
             BlueprintName = "LublinWeather"
             ReferencedContainer = "container:LublinWeather.xcodeproj">
          </BuildableReference>
