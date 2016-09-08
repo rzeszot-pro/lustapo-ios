@@ -54,7 +54,7 @@
 		642EAA551D7ECC72008B9261 /* StationNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StationNameCell.xib; sourceTree = "<group>"; };
 		642EAA581D7EF074008B9261 /* HelpInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpInfoViewController.swift; sourceTree = "<group>"; };
 		642EAA5A1D7EF1B5008B9261 /* Information.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Information.html; sourceTree = "<group>"; };
-		647048081D65E9C6009205F3 /* LublinWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LublinWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		647048081D65E9C6009205F3 /* LuStaPo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuStaPo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6470480B1D65E9C6009205F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		647048121D65E9C6009205F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		647048151D65E9C6009205F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		647048091D65E9C6009205F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				647048081D65E9C6009205F3 /* LublinWeather.app */,
+				647048081D65E9C6009205F3 /* LuStaPo.app */,
 				6470481C1D65E9C6009205F3 /* LublinWeatherTests.xctest */,
 				647048271D65E9C6009205F3 /* LublinWeatherUITests.xctest */,
 			);
@@ -185,7 +185,7 @@
 			);
 			name = LublinWeather;
 			productName = LublinWeather;
-			productReference = 647048081D65E9C6009205F3 /* LublinWeather.app */;
+			productReference = 647048081D65E9C6009205F3 /* LuStaPo.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6470481B1D65E9C6009205F3 /* LublinWeatherTests */ = {
@@ -472,7 +472,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.test2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LuStaPo;
 			};
 			name = Debug;
 		};
@@ -489,7 +489,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.test2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LuStaPo;
 			};
 			name = Release;
 		};
