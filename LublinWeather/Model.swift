@@ -14,21 +14,21 @@ struct WeatherStation
 	let ip: String
 }
 
-private let mainURL = "http://212.182.4.252/data.php"
-private func mainURLWithParamStationID(stationId: String) -> String
+private let mainURL = "http://212.182.4.252/"
+private func mainURLWithStationParam(stationParam: String) -> String
 {
-	return mainURL + "?s=" + stationId
+	return mainURL + stationParam
 }
 
 let weatherStationList = [
-	WeatherStation(name: "Plac Litewski i wieża", ip: mainURLWithParamStationID("16")),
-	WeatherStation(name: "Ogród Botaniczny", ip: mainURLWithParamStationID("10")),
-	WeatherStation(name: "Florianka", ip: mainURLWithParamStationID("12")),
-	WeatherStation(name: "Luków", ip: mainURLWithParamStationID("13")),
-	WeatherStation(name: "MPWiK Zemborzycka", ip: mainURLWithParamStationID("17")),
-	WeatherStation(name: "MPWiK Hajdów", ip: mainURLWithParamStationID("18")),
-	WeatherStation(name: "PGK Lubartow", ip: mainURLWithParamStationID("19")),
-	WeatherStation(name: "Guciów", ip: mainURLWithParamStationID("11"))
+	WeatherStation(name: "Lublin - Plac Litewski", ip: mainURLWithStationParam("data.php?s=16")),
+	WeatherStation(name: "Lublin - Ogród Botaniczny", ip: mainURLWithStationParam("data.php?s=10")),
+	WeatherStation(name: "Lublin - MPWiK Zemborzycka", ip: mainURLWithStationParam("data.php?s=17")),
+	WeatherStation(name: "Lublin - MPWiK Hajdów", ip: mainURLWithStationParam("data2.php?s=18")),
+	WeatherStation(name: "Lubartów", ip: mainURLWithStationParam("data.php?s=19")),
+	WeatherStation(name: "Guciów", ip: mainURLWithStationParam("data.php?s=11")),
+	WeatherStation(name: "Florianka", ip: mainURLWithStationParam("data2.php?s=12")),
+	WeatherStation(name: "Łuków", ip: mainURLWithStationParam("data2.php?s=13"))
 ]
 
 struct WeatherState
@@ -66,8 +66,26 @@ extension WeatherState
 		temperature = convertNSNumberToNSDecimalNumber(json.get("temperatureInt"))
 		date = json.get("data")
 		pressure = convertNSNumberToNSDecimalNumber(json.get("pressureInt"))
-		windSpeed = convertNSNumberToNSDecimalNumber(json.get("windSpeedInt"))
-		rain = convertNSNumberToNSDecimalNumber(json.get("rainCumInt"))
+		
+		let windSpeed = convertNSNumberToNSDecimalNumber(json.get("windSpeedInt"))
+		if windSpeed != nil
+		{
+			self.windSpeed = windSpeed
+		}
+		else
+		{
+			self.windSpeed = convertNSNumberToNSDecimalNumber(json.get("windSpeed"))
+		}
+
+		let rain = convertNSNumberToNSDecimalNumber(json.get("rainCumInt"))
+		if rain != nil
+		{
+			self.rain = rain
+		}
+		else
+		{
+			self.rain = convertNSNumberToNSDecimalNumber(json.get("rainT"))
+		}
 	}
 }
 

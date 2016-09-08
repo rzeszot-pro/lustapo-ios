@@ -11,7 +11,7 @@ import ReactiveCocoa
 import Result
 
 
-private let regex = try! NSRegularExpression(pattern: "([a-zA-Z]+):", options: .AnchorsMatchLines)
+private let regex = try! NSRegularExpression(pattern: "([a-zA-Z][a-zA-Z0-9]+):", options: .AnchorsMatchLines)
 
 private func fixBrokenJSON(data: NSData) -> NSData?
 {
