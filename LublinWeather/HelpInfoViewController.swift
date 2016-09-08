@@ -12,7 +12,7 @@ import UIKit
 
 
 
-class HelpInfoViewController: UIViewController
+class HelpInfoViewController: UIViewController, WKNavigationDelegate
 {
 	private var webView: WKWebView!
 	private var url: NSURL!
@@ -37,6 +37,7 @@ class HelpInfoViewController: UIViewController
 		super.loadView()
 		
 		let webView = WKWebView()
+		webView.navigationDelegate = self
 		putAndOverlay(view: webView, intoView: view)
 		self.webView = webView
 	}
@@ -60,5 +61,22 @@ class HelpInfoViewController: UIViewController
 	private func dismiss()
 	{
 		dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	// MARK: - WKNavigationDelegate
+	
+	// TODO: change it to reactive way
+	func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void)
+	{
+		if navigationAction.navigationType == .LinkActivated
+		{
+			if let newURL = navigationAction.request.URL where UIApplication.sharedApplication().canOpenURL(newURL) &&
+				UIApplication.sharedApplication().openURL(newURL)
+			{
+				decisionHandler(.Cancel)
+				return
+			}
+		}
+		decisionHandler(.Allow)
 	}
 }
