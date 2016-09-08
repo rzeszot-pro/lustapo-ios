@@ -64,7 +64,12 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 	case .Pressure:
 		return ("Ciśnienie", stringRepresentationOfValue(data?.pressure, unit: "hPa"))
 	case .WindSpeed:
-		return ("Wiatr", stringRepresentationOfValue(data?.windSpeed, unit: "km/h"))
+		var windSpeedFinal: NSDecimalNumber? = nil
+		if let windSpeed = data?.windSpeed
+		{
+			windSpeedFinal = windSpeed.decimalNumberByMultiplyingBy(NSDecimalNumber(double: 3.6))
+		}
+		return ("Wiatr", stringRepresentationOfValue(windSpeedFinal, unit: "km/h"))
 	case .Rain:
 		return ("Opad", stringRepresentationOfValue(data?.rain, unit: "mm"))
 	case .Date:
