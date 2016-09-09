@@ -12,7 +12,7 @@ import Foundation
 private let kDefaultWeatherStationKey = "weather-station-number"
 
 
-extension NSUserDefaults: DefaultStationStore {
+extension NSUserDefaults: DefaultWeatherStationStore {
 
     func setDefaultStation(number: Int) {
         setInteger(number, forKey: kDefaultWeatherStationKey)
@@ -22,6 +22,11 @@ extension NSUserDefaults: DefaultStationStore {
     func getDefaultStation() -> Int? {
         synchronize()
         return valueForKey(kDefaultWeatherStationKey) as? Int
+    }
+
+    func clearDefaultStation() {
+        setObject(nil, forKey: kDefaultWeatherStationKey)
+        synchronize()
     }
     
 }

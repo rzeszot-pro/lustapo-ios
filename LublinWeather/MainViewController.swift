@@ -88,7 +88,7 @@ private func getSettingsDefaultWeatherStationNumber() -> Int?
 private func putSettingsDefaultWeatherStationNumber(stationNumber: Int)
 {
     let defaultStation = DefaultWeatherStationInteractor.defaults()
-    defaultStation.store(stationNumber)
+    defaultStation.save(stationNumber)
 }
 
 

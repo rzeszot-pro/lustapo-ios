@@ -7,17 +7,18 @@
 //
 
 
-protocol DefaultStationStore {
+protocol DefaultWeatherStationStore {
     func setDefaultStation(identifier: Int)
     func getDefaultStation() -> Int?
+    func clearDefaultStation()
 }
 
 
 class DefaultWeatherStationInteractor {
 
-    private var store: DefaultStationStore
+    var store: DefaultWeatherStationStore
 
-    init(store: DefaultStationStore) {
+    init(store: DefaultWeatherStationStore) {
         self.store = store
     }
 
@@ -25,8 +26,12 @@ class DefaultWeatherStationInteractor {
         return store.getDefaultStation()
     }
 
-    func store(identifier: Int) {
+    func save(identifier: Int) {
         store.setDefaultStation(identifier)
+    }
+
+    func clear() {
+        store.clearDefaultStation()
     }
 
 }
