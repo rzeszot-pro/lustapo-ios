@@ -124,6 +124,16 @@ private func convertWeatherStationToWeatherStationNumber(station: WeatherStation
 	return weatherStationList.indexOf(station)
 }
 
+private func setSettingsDefaultWeatherStation(station: WeatherStation)
+{
+	if let stationNumber = convertWeatherStationToWeatherStationNumber(station)
+	{
+		putSettingsDefaultWeatherStationNumber(stationNumber)
+	}
+}
+
+
+
 
 private class MainTableViewCell: UITableViewCell
 {
@@ -201,10 +211,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 				self?.localModel = newLocalModel
 				self?.tableView.reloadData()
 
-				// Save selected station as default in case of success
-				if case .Value(let station, _) = newLocalModel, let stationNumber = convertWeatherStationToWeatherStationNumber(station)
+				if case .Value(let station, _) = newLocalModel
 				{
-					putSettingsDefaultWeatherStationNumber(stationNumber)
+					setSettingsDefaultWeatherStation(station)
 				}
 			}
 		
