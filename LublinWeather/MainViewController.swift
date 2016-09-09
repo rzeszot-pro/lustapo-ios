@@ -79,18 +79,16 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 
 
 
-private let kWeatherStationNumberKey = "weatherStationNumber"
-
 private func getSettingsDefaultWeatherStationNumber() -> Int?
 {
-	return NSUserDefaults.standardUserDefaults().integerForKey(kWeatherStationNumberKey)
+    let defaultStation = DefaultWeatherStationInteractor.defaults()
+    return defaultStation.load()
 }
 
 private func putSettingsDefaultWeatherStationNumber(stationNumber: Int)
 {
-	let userDefaults = NSUserDefaults.standardUserDefaults()
-	userDefaults.setInteger(stationNumber, forKey: kWeatherStationNumberKey)
-	userDefaults.synchronize()
+    let defaultStation = DefaultWeatherStationInteractor.defaults()
+    defaultStation.store(stationNumber)
 }
 
 
