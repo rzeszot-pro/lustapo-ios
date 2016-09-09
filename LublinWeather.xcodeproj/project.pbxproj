@@ -120,20 +120,16 @@
 		6470480A1D65E9C6009205F3 /* LublinWeather */ = {
 			isa = PBXGroup;
 			children = (
+				647048171D65E9C6009205F3 /* Info.plist */,
 				647048121D65E9C6009205F3 /* Assets.xcassets */,
 				6425F28A1D67316C00FD9A9A /* Transport.swift */,
-				6425F28D1D6AFE3200FD9A9A /* Model.swift */,
 				6470480B1D65E9C6009205F3 /* AppDelegate.swift */,
-				642EAA581D7EF074008B9261 /* HelpInfoViewController.swift */,
-				64F6DED41D672E0100748281 /* MainViewController.swift */,
-				64F6DED51D672E0100748281 /* MainViewController.xib */,
-				642EAA511D7ECBC5008B9261 /* StationNameCell.swift */,
-				642EAA551D7ECC72008B9261 /* StationNameCell.xib */,
-				6425F2911D6B4DB700FD9A9A /* WeatherStationListViewController.swift */,
-				647048141D65E9C6009205F3 /* LaunchScreen.storyboard */,
-				647048171D65E9C6009205F3 /* Info.plist */,
-				6425F28F1D6B04F800FD9A9A /* Utils.swift */,
-				642EAA5A1D7EF1B5008B9261 /* Information.html */,
+				8B382EA61D82F4CA00ADE9CF /* Model */,
+				8B382EA21D82F47B00ADE9CF /* Help */,
+				8B382EA11D82F47700ADE9CF /* Main */,
+				8B382EA31D82F48600ADE9CF /* Station List */,
+				8B382EA51D82F4B500ADE9CF /* Launch */,
+				8B382EA41D82F4A600ADE9CF /* Utils */,
 			);
 			path = LublinWeather;
 			sourceTree = "<group>";
@@ -163,6 +159,58 @@
 				6470483A1D6725EA009205F3 /* Result.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B382EA11D82F47700ADE9CF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				64F6DED41D672E0100748281 /* MainViewController.swift */,
+				64F6DED51D672E0100748281 /* MainViewController.xib */,
+				642EAA511D7ECBC5008B9261 /* StationNameCell.swift */,
+				642EAA551D7ECC72008B9261 /* StationNameCell.xib */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		8B382EA21D82F47B00ADE9CF /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				642EAA581D7EF074008B9261 /* HelpInfoViewController.swift */,
+				642EAA5A1D7EF1B5008B9261 /* Information.html */,
+			);
+			name = Help;
+			sourceTree = "<group>";
+		};
+		8B382EA31D82F48600ADE9CF /* Station List */ = {
+			isa = PBXGroup;
+			children = (
+				6425F2911D6B4DB700FD9A9A /* WeatherStationListViewController.swift */,
+			);
+			name = "Station List";
+			sourceTree = "<group>";
+		};
+		8B382EA41D82F4A600ADE9CF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6425F28F1D6B04F800FD9A9A /* Utils.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		8B382EA51D82F4B500ADE9CF /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				647048141D65E9C6009205F3 /* LaunchScreen.storyboard */,
+			);
+			name = Launch;
+			sourceTree = "<group>";
+		};
+		8B382EA61D82F4CA00ADE9CF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6425F28D1D6AFE3200FD9A9A /* Model.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
