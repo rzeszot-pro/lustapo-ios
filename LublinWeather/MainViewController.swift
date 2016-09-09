@@ -103,20 +103,12 @@ private func getSettingsDefaultWeatherStation() -> WeatherStation
 			return weatherStation
 		}
 	}
-	// return default weather station
-	return weatherStationList.first!
+	return weatherStationList.first! // default weather station
 }
 
 private func convertWeatherStationNumberToWeatherStation(stationNumber: Int) -> WeatherStation?
 {
-	if 0 <= stationNumber && stationNumber < weatherStationList.count
-	{
-		return weatherStationList[stationNumber]
-	}
-	else
-	{
-		return nil
-	}
+	return 0 <= stationNumber && stationNumber < weatherStationList.count ? weatherStationList[stationNumber] : nil
 }
 
 private func convertWeatherStationToWeatherStationNumber(station: WeatherStation) -> Int?
