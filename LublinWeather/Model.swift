@@ -8,10 +8,17 @@
 
 import Foundation
 
-struct WeatherStation
+struct WeatherStation: Equatable
 {
 	let name: String
 	let ip: String
+	
+	var hashValue: Int { return ip.hash }
+}
+
+func ==(lhs: WeatherStation, rhs: WeatherStation) -> Bool
+{
+	return lhs.ip == rhs.ip
 }
 
 private let mainURL = "http://212.182.4.252/"

@@ -79,6 +79,52 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 
 
 
+private let kWeatherStationNumberKey = "weatherStationNumber"
+
+private func getSettingsDefaultWeatherStationNumber() -> Int?
+{
+	return NSUserDefaults.standardUserDefaults().integerForKey(kWeatherStationNumberKey)
+}
+
+private func putSettingsDefaultWeatherStationNumber(stationNumber: Int)
+{
+	let userDefaults = NSUserDefaults.standardUserDefaults()
+	userDefaults.setInteger(stationNumber, forKey: kWeatherStationNumberKey)
+	userDefaults.synchronize()
+}
+
+
+private func getSettingsDefaultWeatherStation() -> WeatherStation
+{
+	if let weatherStationNumber = getSettingsDefaultWeatherStationNumber()
+	{
+		if let weatherStation = convertWeatherStationNumberToWeatherStation(weatherStationNumber)
+		{
+			return weatherStation
+		}
+	}
+	// return default weather station
+	return weatherStationList.first!
+}
+
+private func convertWeatherStationNumberToWeatherStation(stationNumber: Int) -> WeatherStation?
+{
+	if 0 <= stationNumber && stationNumber < weatherStationList.count
+	{
+		return weatherStationList[stationNumber]
+	}
+	else
+	{
+		return nil
+	}
+}
+
+private func convertWeatherStationToWeatherStationNumber(station: WeatherStation) -> Int?
+{
+	return weatherStationList.indexOf(station)
+}
+
+
 private class MainTableViewCell: UITableViewCell
 {
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?)
@@ -94,6 +140,9 @@ private class MainTableViewCell: UITableViewCell
 }
 
 
+
+
+
 private enum LocalModel
 {
 	case Value(station: WeatherStation, state: WeatherState?)
@@ -103,7 +152,7 @@ private enum LocalModel
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
 	@IBOutlet weak var tableView: UITableView!
-	private var localModel = LocalModel.Value(station: weatherStationList.first!, state: nil)
+	private var localModel = LocalModel.Value(station: getSettingsDefaultWeatherStation(), state: nil)
 	
 	private let cells: [CellDesc] = [
 		.StationName,
@@ -151,6 +200,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			.observeNext { [weak self] newLocalModel in
 				self?.localModel = newLocalModel
 				self?.tableView.reloadData()
+
+				// Save selected station as default in case of success
+				if case .Value(let station, _) = newLocalModel, let stationNumber = convertWeatherStationToWeatherStationNumber(station)
+				{
+					putSettingsDefaultWeatherStationNumber(stationNumber)
+				}
 			}
 		
 		if case .Value(let model) = localModel
