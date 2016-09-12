@@ -93,6 +93,7 @@
 		64F6DED41D672E0100748281 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		64F6DED51D672E0100748281 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		8B24410C1D83060A00E4E68A /* DefaultWeatherStationInteractorUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWeatherStationInteractorUITests.swift; sourceTree = "<group>"; };
+		8B35EADB1D86EC1900C2747E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8B382EA81D82F65700ADE9CF /* DefaultWeatherStationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWeatherStationInteractor.swift; sourceTree = "<group>"; };
 		8B382EAA1D82F75F00ADE9CF /* NSUserDefaults+DefaultStationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+DefaultStationStore.swift"; sourceTree = "<group>"; };
 		8B382EAD1D82FBDA00ADE9CF /* DefaultWeatherStationInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultWeatherStationInteractorTests.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		647047FF1D65E9C6009205F3 = {
 			isa = PBXGroup;
 			children = (
+				8B35EADA1D86EC0D00C2747E /* Other */,
 				6470480A1D65E9C6009205F3 /* LublinWeather */,
 				6470481F1D65E9C6009205F3 /* LublinWeatherTests */,
 				6470482A1D65E9C6009205F3 /* LublinWeatherUITests */,
@@ -194,6 +196,14 @@
 				6470483A1D6725EA009205F3 /* Result.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8B35EADA1D86EC0D00C2747E /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				8B35EADB1D86EC1900C2747E /* README.md */,
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 		8B382EA11D82F47700ADE9CF /* Main */ = {
