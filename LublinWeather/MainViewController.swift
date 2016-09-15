@@ -81,14 +81,14 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 
 private func getSettingsDefaultWeatherStationNumber() -> Int?
 {
-    let defaultStation = DefaultWeatherStationInteractor.defaults()
-    return defaultStation.load()
+    let lastUsedStation = LastUsedStationInteractor.defaults()
+    return lastUsedStation.load()
 }
 
 private func putSettingsDefaultWeatherStationNumber(stationNumber: Int)
 {
-    let defaultStation = DefaultWeatherStationInteractor.defaults()
-    defaultStation.save(stationNumber)
+    let lastUsedStation = LastUsedStationInteractor.defaults()
+    lastUsedStation.save(stationNumber)
 }
 
 
