@@ -11,8 +11,15 @@ import UIKit
 
 private let cellId = "cellid"
 
-class WeatherStationListViewController: UITableViewController
-{
+class WeatherStationListViewController: UITableViewController {
+
+    var listStationsProvider: ListStationsProvider?
+
+    var weatherStationList: [WeatherStation] {
+        return listStationsProvider?.getStations() ?? []
+    }
+
+
 	var completionAction: (WeatherStation? -> Void)?
 	
 	convenience init()
