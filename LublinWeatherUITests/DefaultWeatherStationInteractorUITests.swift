@@ -44,7 +44,7 @@ class DefaultWeatherStationInteractorUITests: XCTestCase {
     }
 
 
-    func testStoringDefaultWeatherStation() {
+    func testStoringLastUsedStation() {
         XCTAssertTrue(mainNav.exists, "should be on main scene")
 
         let old = label(of: firstCell)

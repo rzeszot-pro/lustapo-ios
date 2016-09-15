@@ -10,28 +10,9 @@ import XCTest
 @testable import LuStaPo
 
 
-class MockDefaultWeatherStationStore: DefaultWeatherStationStore {
+class LastUsedStationInteractorTests: XCTestCase {
 
-    private var value: Int?
-
-    func setDefaultStation(identifier: Int) {
-        value = identifier
-    }
-
-    func getDefaultStation() -> Int? {
-        return value
-    }
-
-    func clearDefaultStation() {
-        value = nil
-    }
-
-}
-
-
-class DefaultWeatherStationInteractorTests: XCTestCase {
-
-    let station = DefaultWeatherStationInteractor(store: MockDefaultWeatherStationStore())
+    let station = LastUsedStationInteractor.mock()
 
     func testNoIdentifierOnStartup() {
         station.clear()

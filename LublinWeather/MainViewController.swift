@@ -79,47 +79,30 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 
 
 
-private func getSettingsDefaultWeatherStationNumber() -> Int?
-{
-    let defaultStation = DefaultWeatherStationInteractor.defaults()
-    return defaultStation.load()
-}
 
-private func putSettingsDefaultWeatherStationNumber(stationNumber: Int)
-{
-    let defaultStation = DefaultWeatherStationInteractor.defaults()
-    defaultStation.save(stationNumber)
+var listStationsProvider: ListStationsProvider? = ListStationsInteractor()
+
+var weatherStationList: [WeatherStation] {
+    return listStationsProvider?.getStations() ?? []
 }
 
 
-private func getSettingsDefaultWeatherStation() -> WeatherStation
-{
-	if let weatherStationNumber = getSettingsDefaultWeatherStationNumber()
-	{
-		if let weatherStation = convertWeatherStationNumberToWeatherStation(weatherStationNumber)
-		{
-			return weatherStation
-		}
-	}
+var defaultStationProvider: DefaultStationProvider? = DefaultStationInteractor(listStationsProvider: listStationsProvider!, lastUsedStationProvider: LastUsedStationInteractor.defaults())
+
+
+
+
+
+private func getSettingsDefaultWeatherStation() -> WeatherStation {
+    if let station = defaultStationProvider?.getDefaultStation() {
+        return station
+    }
+
 	return weatherStationList.first! // default weather station
 }
 
-private func convertWeatherStationNumberToWeatherStation(stationNumber: Int) -> WeatherStation?
-{
-	return 0 <= stationNumber && stationNumber < weatherStationList.count ? weatherStationList[stationNumber] : nil
-}
-
-private func convertWeatherStationToWeatherStationNumber(station: WeatherStation) -> Int?
-{
-	return weatherStationList.indexOf(station)
-}
-
-private func setSettingsDefaultWeatherStation(station: WeatherStation)
-{
-	if let stationNumber = convertWeatherStationToWeatherStationNumber(station)
-	{
-		putSettingsDefaultWeatherStationNumber(stationNumber)
-	}
+private func setSettingsDefaultWeatherStation(station: WeatherStation) {
+    defaultStationProvider?.setDefaultStation(station)
 }
 
 
@@ -285,6 +268,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		{
 			deselectCurrentRow()
 			let vc = WeatherStationListViewController()
+            vc.listStationsProvider = listStationsProvider
 			vc.completionAction = { [weak self] station in
 				if let stationValue = station
 				{

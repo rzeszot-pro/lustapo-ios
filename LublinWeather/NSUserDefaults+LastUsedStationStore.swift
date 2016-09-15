@@ -12,19 +12,19 @@ import Foundation
 private let kDefaultWeatherStationKey = "weather-station-number"
 
 
-extension NSUserDefaults: DefaultWeatherStationStore {
+extension NSUserDefaults: LastUsedStationStore {
 
-    func setDefaultStation(number: Int) {
-        setInteger(number, forKey: kDefaultWeatherStationKey)
+    func setLastUsedStation(identifier: Int) {
+        setInteger(identifier, forKey: kDefaultWeatherStationKey)
         synchronize()
     }
 
-    func getDefaultStation() -> Int? {
+    func getLastUsedStation() -> Int? {
         synchronize()
         return valueForKey(kDefaultWeatherStationKey) as? Int
     }
 
-    func clearDefaultStation() {
+    func clearLastUsedStation() {
         setObject(nil, forKey: kDefaultWeatherStationKey)
         synchronize()
     }
@@ -32,10 +32,10 @@ extension NSUserDefaults: DefaultWeatherStationStore {
 }
 
 
-extension DefaultWeatherStationInteractor {
+extension LastUsedStationInteractor {
 
-    static func defaults() -> DefaultWeatherStationInteractor {
-        return DefaultWeatherStationInteractor(store: NSUserDefaults.standardUserDefaults())
+    static func defaults() -> Self {
+        return .init(store: NSUserDefaults.standardUserDefaults())
     }
 
 }
