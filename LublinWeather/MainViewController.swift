@@ -79,18 +79,6 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 
 
 
-private func getSettingsDefaultWeatherStationNumber() -> Int?
-{
-    let lastUsedStation = LastUsedStationInteractor.defaults()
-    return lastUsedStation.load()
-}
-
-private func putSettingsDefaultWeatherStationNumber(stationNumber: Int)
-{
-    let lastUsedStation = LastUsedStationInteractor.defaults()
-    lastUsedStation.save(stationNumber)
-}
-
 
 var listStationsProvider: ListStationsProvider? = ListStationsInteractor()
 
@@ -99,34 +87,22 @@ var weatherStationList: [WeatherStation] {
 }
 
 
-private func getSettingsDefaultWeatherStation() -> WeatherStation
-{
-	if let weatherStationNumber = getSettingsDefaultWeatherStationNumber()
-	{
-		if let weatherStation = convertWeatherStationNumberToWeatherStation(weatherStationNumber)
-		{
-			return weatherStation
-		}
-	}
+var defaultStationProvider: DefaultStationProvider? = DefaultStationInteractor(listStationsProvider: listStationsProvider!, lastUsedStationProvider: LastUsedStationInteractor.defaults())
+
+
+
+
+
+private func getSettingsDefaultWeatherStation() -> WeatherStation {
+    if let station = defaultStationProvider?.getDefaultStation() {
+        return station
+    }
+
 	return weatherStationList.first! // default weather station
 }
 
-private func convertWeatherStationNumberToWeatherStation(stationNumber: Int) -> WeatherStation?
-{
-	return 0 <= stationNumber && stationNumber < weatherStationList.count ? weatherStationList[stationNumber] : nil
-}
-
-private func convertWeatherStationToWeatherStationNumber(station: WeatherStation) -> Int?
-{
-	return weatherStationList.indexOf(station)
-}
-
-private func setSettingsDefaultWeatherStation(station: WeatherStation)
-{
-	if let stationNumber = convertWeatherStationToWeatherStationNumber(station)
-	{
-		putSettingsDefaultWeatherStationNumber(stationNumber)
-	}
+private func setSettingsDefaultWeatherStation(station: WeatherStation) {
+    defaultStationProvider?.setDefaultStation(station)
 }
 
 

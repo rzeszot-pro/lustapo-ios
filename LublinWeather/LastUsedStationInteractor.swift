@@ -14,7 +14,16 @@ protocol LastUsedStationStore {
 }
 
 
-class LastUsedStationInteractor {
+
+protocol LastUsedStationProvider {
+    func load() -> Int?
+    func save(identifier: Int)
+    func clear()
+}
+
+
+
+class LastUsedStationInteractor: LastUsedStationProvider {
 
     var store: LastUsedStationStore
 
