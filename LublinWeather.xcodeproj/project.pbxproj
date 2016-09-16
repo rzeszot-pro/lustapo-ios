@@ -37,6 +37,7 @@
 		8BA817981D8B056300BF82C8 /* MockLastUsedStationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */; };
 		8BA8179B1D8B05B200BF82C8 /* DefaultStationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8179A1D8B05B200BF82C8 /* DefaultStationInteractor.swift */; };
 		8BA8179E1D8B066B00BF82C8 /* ListStationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8179D1D8B066B00BF82C8 /* ListStationsInteractor.swift */; };
+		8BDA0B6F1D8BE33500839A53 /* WeatherStationListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDA0B6E1D8BE33500839A53 /* WeatherStationListViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,7 @@
 		8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLastUsedStationStore.swift; sourceTree = "<group>"; };
 		8BA8179A1D8B05B200BF82C8 /* DefaultStationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStationInteractor.swift; sourceTree = "<group>"; };
 		8BA8179D1D8B066B00BF82C8 /* ListStationsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListStationsInteractor.swift; sourceTree = "<group>"; };
+		8BDA0B6E1D8BE33500839A53 /* WeatherStationListViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStationListViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				8B382EAD1D82FBDA00ADE9CF /* LastUsedStationInteractorTests.swift */,
 				8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */,
 				647048221D65E9C6009205F3 /* Info.plist */,
+				8BDA0B6E1D8BE33500839A53 /* WeatherStationListViewControllerTests.swift */,
 			);
 			path = LublinWeatherTests;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			files = (
 				647048211D65E9C6009205F3 /* LublinWeatherTests.swift in Sources */,
 				8BA817981D8B056300BF82C8 /* MockLastUsedStationStore.swift in Sources */,
+				8BDA0B6F1D8BE33500839A53 /* WeatherStationListViewControllerTests.swift in Sources */,
 				8B382EAE1D82FBDA00ADE9CF /* LastUsedStationInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
