@@ -6,6 +6,8 @@
 //  Copyright © 2016 Piotr Woloszkiewicz. All rights reserved.
 //
 
+// swiftlint:disable force_cast
+
 import UIKit
 import ReactiveCocoa
 import Result
@@ -216,7 +218,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int
 	{
-		return 1
+		return 2
 	}
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int

@@ -6,6 +6,10 @@
 //  Copyright © 2016 Piotr Woloszkiewicz. All rights reserved.
 //
 
+// swiftlint:disable force_try
+// swiftlint:disable variable_name
+// swiftlint:disable force_cast
+
 import Foundation
 import ReactiveCocoa
 import Result

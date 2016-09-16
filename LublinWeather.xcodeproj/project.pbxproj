@@ -180,10 +180,10 @@
 		6470481F1D65E9C6009205F3 /* LublinWeatherTests */ = {
 			isa = PBXGroup;
 			children = (
+				647048221D65E9C6009205F3 /* Info.plist */,
 				647048201D65E9C6009205F3 /* LublinWeatherTests.swift */,
 				8B382EAD1D82FBDA00ADE9CF /* LastUsedStationInteractorTests.swift */,
 				8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */,
-				647048221D65E9C6009205F3 /* Info.plist */,
 				8BDA0B6E1D8BE33500839A53 /* WeatherStationListViewControllerTests.swift */,
 			);
 			path = LublinWeatherTests;
@@ -303,6 +303,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 647048301D65E9C6009205F3 /* Build configuration list for PBXNativeTarget "LublinWeather" */;
 			buildPhases = (
+				8BDA0B701D8BE78B00839A53 /* Linter */,
 				647048041D65E9C6009205F3 /* Sources */,
 				647048051D65E9C6009205F3 /* Frameworks */,
 				647048061D65E9C6009205F3 /* Resources */,
@@ -442,6 +443,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		8BDA0B701D8BE78B00839A53 /* Linter */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Linter;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "which swiftlint && swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

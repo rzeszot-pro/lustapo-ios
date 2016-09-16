@@ -9,43 +9,22 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
-{
+class AppDelegate: UIResponder, UIApplicationDelegate {
+
 	var window: UIWindow?
 
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
-	{
+	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		let mainVC = MainViewController(nibName: "MainViewController", bundle: nil)
+
+        let mainVC = MainViewController(nibName: "MainViewController", bundle: nil)
 		let navVC = UINavigationController(rootViewController: mainVC)
-		window?.rootViewController = navVC
+
+        window?.rootViewController = navVC
 		window?.makeKeyAndVisible()
-		return true
-	}
-	
 
-	func applicationWillResignActive(application: UIApplication)
-	{
+        return true
 	}
-	
 
-	func applicationDidEnterBackground(application: UIApplication)
-	{
-	}
-	
-
-	func applicationWillEnterForeground(application: UIApplication)
-	{
-	}
-	
-
-	func applicationDidBecomeActive(application: UIApplication)
-	{
-	}
-	
-
-	func applicationWillTerminate(application: UIApplication)
-	{
-	}
 }
 
