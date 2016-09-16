@@ -12,10 +12,10 @@ import XCTest
 
 class WeatherStationListViewControllerTests: XCTestCase {
 
-    let vc = WeatherStationListViewController()
+    let sut = WeatherStationListViewController()
 
     var leftBarItem: UIBarButtonItem? {
-        return vc.navigationItem.leftBarButtonItem
+        return sut.navigationItem.leftBarButtonItem
     }
 
 
@@ -23,10 +23,10 @@ class WeatherStationListViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        vc.loadView()
+        sut.loadView()
     }
 
-    
+
     // MARK: - Tests
 
     func testLeftBarItemExists() {
@@ -44,7 +44,7 @@ class WeatherStationListViewControllerTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(target, vc)
+        XCTAssertEqual(target, sut)
         XCTAssertEqual(action, #selector(WeatherStationListViewController.cancelClicked))
     }
 

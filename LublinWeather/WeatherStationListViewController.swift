@@ -23,7 +23,7 @@ class WeatherStationListViewController: UITableViewController {
 
 
 	var completionAction: (WeatherStation? -> Void)?
-	
+
 	convenience init() {
 		self.init(style: .Plain)
 	}
@@ -54,7 +54,7 @@ class WeatherStationListViewController: UITableViewController {
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return list.count
 	}
-	
+
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath)
         let station = list[indexPath.row]
@@ -63,7 +63,7 @@ class WeatherStationListViewController: UITableViewController {
 
 		return cell
 	}
-	
+
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let station = list[indexPath.row]
 
