@@ -62,13 +62,13 @@ class MainTableViewCell: UITableViewCell {
         }
     }
 
-    func unitFor(parameter param: WeatherParameter) -> String {
+    func unitFor(parameter param: WeatherParameter) -> String? {
         switch param {
         case .Temperature: return "°C"
         case .Pressure:    return "hPa"
         case .WindSpeed:   return "km/h"
         case .Rain:        return "mm"
-        case .Date:        return ""
+        case .Date:        return nil
         }
     }
 
@@ -97,19 +97,21 @@ class MainTableViewCell: UITableViewCell {
 
 
     private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: WeatherState?) -> String {
+        let unitString = unitFor(parameter: parameter) ?? ""
+
         switch parameter {
         case .Temperature:
-            return stringRepresentationOfValue(data?.temperature, unit: unitFor(parameter: parameter))
+            return stringRepresentationOfValue(data?.temperature, unit: unitString)
         case .Pressure:
-            return stringRepresentationOfValue(data?.pressure, unit: unitFor(parameter: parameter))
+            return stringRepresentationOfValue(data?.pressure, unit: unitString)
         case .WindSpeed:
             var windSpeedFinal: NSDecimalNumber? = nil
             if let windSpeed = data?.windSpeed {
                 windSpeedFinal = windSpeed.decimalNumberByMultiplyingBy(NSDecimalNumber(double: 3.6))
             }
-            return stringRepresentationOfValue(windSpeedFinal, unit: unitFor(parameter: parameter))
+            return stringRepresentationOfValue(windSpeedFinal, unit: unitString)
         case .Rain:
-            return stringRepresentationOfValue(data?.rain, unit: unitFor(parameter: parameter))
+            return stringRepresentationOfValue(data?.rain, unit: unitString)
         case .Date:
             return data?.date ?? parameterMissingValue
         }
