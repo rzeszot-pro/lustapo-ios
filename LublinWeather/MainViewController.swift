@@ -26,6 +26,15 @@ private enum CellDesc
 private enum LocalModel {
 	case Value(station: WeatherStation, state: WeatherState?)
 	case Error(station: WeatherStation, error: NSError)
+
+
+    var currentStation: WeatherStation? {
+        guard case .Value(let station, _) = self else {
+            return nil
+        }
+
+        return station
+    }
 }
 
 
@@ -210,9 +219,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func showStationSelectionViewController() {
-        let vc = WeatherStationListViewController()
+        let vc = ChooseStationViewController()
 
         vc.listStationsProvider = listStationsProvider
+        vc.activeStation = localModel.currentStation
         vc.completionAction = { [weak self] station in
             if let stationValue = station {
                 self?.weatherStationObserver.sendNext(stationValue)
