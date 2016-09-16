@@ -20,6 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainVC = MainViewController(nibName: "MainViewController", bundle: nil)
 		let navVC = UINavigationController(rootViewController: mainVC)
 
+        mainVC.listStationsProvider = ListStationsInteractor()
+        mainVC.defaultStationProvider = DefaultStationInteractor(listStationsProvider: mainVC.listStationsProvider!, lastUsedStationProvider: LastUsedStationInteractor.defaults())
+
+        mainVC.setup()
+
         window?.rootViewController = navVC
 		window?.makeKeyAndVisible()
 

@@ -12,7 +12,7 @@ import XCTest
 
 class LastUsedStationInteractorTests: XCTestCase {
 
-    let station = LastUsedStationInteractor.mock()
+    let station: LastUsedStationInteractor = .mocked()
 
     func testNoIdentifierOnStartup() {
         station.clear()

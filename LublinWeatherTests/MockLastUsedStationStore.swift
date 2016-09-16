@@ -30,7 +30,7 @@ class MockLastUsedStationStore: LastUsedStationStore {
 
 extension LastUsedStationInteractor {
 
-    class func mock() -> Self {
+    class func mocked() -> Self {
         return .init(store: MockLastUsedStationStore())
     }
 

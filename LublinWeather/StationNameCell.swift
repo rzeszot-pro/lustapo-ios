@@ -10,6 +10,34 @@ import UIKit
 
 class StationNameCell: UITableViewCell {
 
+    var loading: Bool {
+        set {
+            if newValue {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+        }
+        get {
+            return activityIndicator.isAnimating()
+        }
+    }
+
+    var name: String {
+        set {
+            nameLabel.text = newValue
+        }
+        get {
+            return nameLabel.text ?? ""
+        }
+    }
+
+    static var identifier = "cellStationNameReuseIdentifier"
+
+
+
+    // TODO: this should be not exposed
+
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
