@@ -1,5 +1,8 @@
+disabled_rules:
+- todo
+
 excluded:
-  - Carthage
+- Carthage
 
 
 line_length: 200

@@ -6,6 +6,9 @@
 //  Copyright © 2016 Piotr Woloszkiewicz. All rights reserved.
 //
 
+// swiftlint:disable opening_brace
+// swiftlint:disable trailing_whitespace
+
 import Foundation
 import WebKit
 import UIKit
@@ -16,7 +19,7 @@ class HelpInfoViewController: UIViewController, WKNavigationDelegate
 {
 	private var webView: WKWebView!
 	private var url: NSURL!
-	
+
 	convenience init(url: NSURL)
 	{
 		self.init()

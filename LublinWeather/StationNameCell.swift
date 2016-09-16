@@ -8,9 +8,9 @@
 
 import UIKit
 
-class StationNameCell: UITableViewCell
-{
+class StationNameCell: UITableViewCell {
+
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-	
+
 }

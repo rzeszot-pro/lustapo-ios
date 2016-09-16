@@ -9,6 +9,7 @@
 // swiftlint:disable force_try
 // swiftlint:disable variable_name
 // swiftlint:disable force_cast
+// swiftlint:disable opening_brace
 
 import Foundation
 import ReactiveCocoa
@@ -41,13 +42,10 @@ private func decodeNSDataAsUTF8(data: NSData?) -> String?
 
 func parseJSONData(data: NSData) -> [String: AnyObject]?
 {
-	do
-	{
+	do {
 		let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableLeaves)
 		return json as? [String: AnyObject]
-	}
-	catch let exc
-	{
+	} catch let exc {
 		print("ERROR: Parse data JSON: \(exc)")
 	}
 	return nil
@@ -73,19 +71,19 @@ private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProduc
 	return NSURLSession.sharedSession().rac_dataWithRequest(request)
 		.attempt { (data, response) -> Result<(), NSError> in
 			let httpResponse = response as! NSHTTPURLResponse
-			
+
 			if httpResponse.statusCode == 200
 			{
 				return .Success()
 			}
-			
+
 			return .Failure(crateTransportError(.HTTPStatus, localizedString: "HTTP status code \(httpResponse.statusCode)"))
 		}.attemptMap { (data, response) -> Result<JSONDictionary, NSError> in
 			guard let dataFixedJSON = fixBrokenJSON(data) else
 			{
 				return .Failure(crateTransportError(.DataParsing, localizedString: "Data parsing (fixing JSON)"))
 			}
-			
+
 			guard let json = parseJSONData(dataFixedJSON) else
 			{
 				return .Failure(crateTransportError(.DataParsing, localizedString: "Data parsing (JSON)"))
@@ -109,5 +107,3 @@ func weatherStateSignalProducer(station: WeatherStation) -> SignalProducer<Weath
 			return WeatherState(json: json)
 		}
 }
-
-

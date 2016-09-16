@@ -6,6 +6,8 @@
 //  Copyright © 2016 Piotr Woloszkiewicz. All rights reserved.
 //
 
+// swiftlint:disable opening_brace
+
 import Foundation
 import UIKit
 

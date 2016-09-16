@@ -28,7 +28,7 @@ extension NSUserDefaults: LastUsedStationStore {
         setObject(nil, forKey: kDefaultWeatherStationKey)
         synchronize()
     }
-    
+
 }
 
 

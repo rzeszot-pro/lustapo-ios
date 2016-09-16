@@ -7,6 +7,7 @@
 //
 
 // swiftlint:disable force_cast
+// swiftlint:disable opening_brace
 
 import UIKit
 import ReactiveCocoa
@@ -30,10 +31,8 @@ private func createNumberFormatter() -> NSNumberFormatter
 	return result
 }
 
-private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String?
-{
-	if let numberValue = number
-	{
+private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String? {
+	if let numberValue = number {
 		let formatter = createNumberFormatter()
 		formatter.maximumFractionDigits = fractionsDigits
 		formatter.minimumFractionDigits = fractionsDigits
@@ -43,22 +42,17 @@ private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String
 }
 
 
-private func stringRepresentationOfValue(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String
-{
-	if let valueString = formatNumber(value)
-	{
+private func stringRepresentationOfValue(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String {
+	if let valueString = formatNumber(value) {
 		return valueString + " " + unit
-	}
-	else
-	{
+	} else {
 		return defaultResult
 	}
 }
 
 
 // TODO: refactor this
-private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String)
-{
+private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: WeatherState?) -> (title: String, value: String) {
 	switch parameter
 	{
 	case .Temperature:
@@ -67,8 +61,7 @@ private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: W
 		return ("Ciśnienie", stringRepresentationOfValue(data?.pressure, unit: "hPa"))
 	case .WindSpeed:
 		var windSpeedFinal: NSDecimalNumber? = nil
-		if let windSpeed = data?.windSpeed
-		{
+		if let windSpeed = data?.windSpeed {
 			windSpeedFinal = windSpeed.decimalNumberByMultiplyingBy(NSDecimalNumber(double: 3.6))
 		}
 		return ("Wiatr", stringRepresentationOfValue(windSpeedFinal, unit: "km/h"))
@@ -110,16 +103,14 @@ private func setSettingsDefaultWeatherStation(station: WeatherStation) {
 
 
 
-private class MainTableViewCell: UITableViewCell
-{
-	override init(style: UITableViewCellStyle, reuseIdentifier: String?)
-	{
+private class MainTableViewCell: UITableViewCell {
+
+	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: .Value2, reuseIdentifier: reuseIdentifier)
 		selectionStyle = .None
 	}
-	
-	required init?(coder aDecoder: NSCoder)
-	{
+
+	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
@@ -128,17 +119,15 @@ private class MainTableViewCell: UITableViewCell
 
 
 
-private enum LocalModel
-{
+private enum LocalModel {
 	case Value(station: WeatherStation, state: WeatherState?)
 	case Error(station: WeatherStation, error: NSError)
 }
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
-{
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	@IBOutlet weak var tableView: UITableView!
 	private var localModel = LocalModel.Value(station: getSettingsDefaultWeatherStation(), state: nil)
-	
+
 	private let cells: [CellDesc] = [
 		.StationName,
 		.WeatherParameterCell(parameter: .Temperature),
@@ -147,11 +136,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 		.WeatherParameterCell(parameter: .Rain),
 		.WeatherParameterCell(parameter: .Date)
 	]
-	
+
 	private let (weatherStationSignal, weatherStationObserver) = Signal<WeatherStation, NoError>.pipe()
-	
-	override func viewDidLoad()
-	{
+
+	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Lubelskie Stacje Pogodowe"
 		tableView.registerClass(MainTableViewCell.self, forCellReuseIdentifier: cellWeatherParameterReuseIdentifier)
@@ -159,25 +147,21 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
 		// Alternative UNICODE character: \u{2139}
 		navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{24D8}", style: .Plain, target: self, action: #selector(infoClick))
-		
+
 		weatherStationSignal
 			.observeOn(UIScheduler())
 			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
-				if let station = event.value
-				{
+				if let station = event.value {
 					self?.localModel = LocalModel.Value(station: station, state: nil)
 					self?.tableView.reloadData()
 				}
 			})
-			.flatMap(.Latest)
-			{ (station) ->  SignalProducer<LocalModel, NoError> in
+			.flatMap(.Latest) { (station) ->  SignalProducer<LocalModel, NoError> in
 				return weatherStateSignalProducer(station)
-					.map
-					{ (state) -> LocalModel in
+					.map { (state) -> LocalModel in
 						return LocalModel.Value(station: station, state: state)
 					}
-					.flatMapError
-					{ (error) -> SignalProducer<LocalModel, NoError> in
+					.flatMapError { (error) -> SignalProducer<LocalModel, NoError> in
 						return SignalProducer(value: LocalModel.Error(station: station, error: error))
 					}
 			}
@@ -186,48 +170,40 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 				self?.localModel = newLocalModel
 				self?.tableView.reloadData()
 
-				if case .Value(let station, _) = newLocalModel
-				{
+				if case .Value(let station, _) = newLocalModel {
 					setSettingsDefaultWeatherStation(station)
 				}
 			}
-		
-		if case .Value(let model) = localModel
-		{
+
+		if case .Value(let model) = localModel {
 			weatherStationObserver.sendNext(model.station)
 		}
 	}
-	
-	func infoClick()
-	{
+
+	func infoClick() {
 		let url = NSBundle.mainBundle().URLForResource("Information", withExtension: "html")!
 		let vc = HelpInfoViewController(url: url)
 		let nc = UINavigationController(rootViewController: vc)
 		showViewController(nc, sender: self)
 	}
 
-	private func deselectCurrentRow()
-	{
-		if let selectedRow = tableView.indexPathForSelectedRow
-		{
+	private func deselectCurrentRow() {
+		if let selectedRow = tableView.indexPathForSelectedRow {
 			tableView.deselectRowAtIndexPath(selectedRow, animated: true)
 		}
 	}
-	
+
 	// MARK: - UITableViewDelegate, UITableViewDataSource
-	
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int
-	{
+
+	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 2
 	}
-	
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-	{
+
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return cells.count
 	}
-	
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-	{
+
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		switch cells[indexPath.row] {
 		case .StationName:
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellStationNameReuseIdentifier, forIndexPath: indexPath) as! StationNameCell
@@ -236,12 +212,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			switch localModel {
 			case .Value(let station, let state):
 				stationName = station.name
-				if state == nil
-				{
+				if state == nil {
 					cell.activityIndicator.startAnimating()
-				}
-				else
-				{
+				} else {
 					cell.activityIndicator.stopAnimating()
 				}
 			case .Error(let station, _):
@@ -252,10 +225,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			return cell
 		case .WeatherParameterCell(let param):
 			var state: WeatherState? = nil
-			if case .Value(_, let currState) = localModel
-			{
+			if case .Value(_, let currState) = localModel {
 				state = currState
 			}
+
 			let cell = tableView.dequeueReusableCellWithIdentifier(cellWeatherParameterReuseIdentifier, forIndexPath: indexPath)
 			let value = getWeatherParameterDataForCell(param, data: state)
 			cell.textLabel?.text = value.title
@@ -263,17 +236,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			return cell
 		}
 	}
-	
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-	{
-		if case .StationName = cells[indexPath.row]
-		{
+
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if case .StationName = cells[indexPath.row] {
 			deselectCurrentRow()
 			let vc = WeatherStationListViewController()
             vc.listStationsProvider = listStationsProvider
 			vc.completionAction = { [weak self] station in
-				if let stationValue = station
-				{
+				if let stationValue = station {
 					self?.weatherStationObserver.sendNext(stationValue)
 				}
 			}

@@ -6,18 +6,22 @@
 //  Copyright © 2016 Piotr Woloszkiewicz. All rights reserved.
 //
 
+
+// swiftlint:disable opening_brace
+// swiftlint:disable variable_name
+
+
 import Foundation
 
 struct WeatherStation: Equatable
 {
 	let name: String
 	let ip: String
-	
+
 	var hashValue: Int { return ip.hash }
 }
 
-func ==(lhs: WeatherStation, rhs: WeatherStation) -> Bool
-{
+func == (lhs: WeatherStation, rhs: WeatherStation) -> Bool {
 	return lhs.ip == rhs.ip
 }
 
@@ -57,27 +61,19 @@ extension WeatherState
 		temperature = convertNSNumberToNSDecimalNumber(json.get("temperatureInt"))
 		date = json.get("data")
 		pressure = convertNSNumberToNSDecimalNumber(json.get("pressureInt"))
-		
+
 		let windSpeed = convertNSNumberToNSDecimalNumber(json.get("windSpeedInt"))
-		if windSpeed != nil
-		{
+		if windSpeed != nil {
 			self.windSpeed = windSpeed
-		}
-		else
-		{
+		} else {
 			self.windSpeed = convertNSNumberToNSDecimalNumber(json.get("windSpeed"))
 		}
 
 		let rain = convertNSNumberToNSDecimalNumber(json.get("rainCumInt"))
-		if rain != nil
-		{
+		if rain != nil {
 			self.rain = rain
-		}
-		else
-		{
+		} else {
 			self.rain = convertNSNumberToNSDecimalNumber(json.get("rainT"))
 		}
 	}
 }
-
-
