@@ -31,14 +31,13 @@ import XCTest
 class ChooseStationCellTests: XCTestCase {
 
     let cell = ChooseStationCell()
-    let example = "EXAMPLE"
 
 
     // MARK: - Tests
 
     func testNonEmptyName() {
-        cell.name = example
-        XCTAssertEqual(cell.textLabel?.text, example)
+        cell.name = "aaa"
+        XCTAssertEqual(cell.textLabel?.text, "aaa")
     }
 
     func testEmptyName() {
@@ -57,6 +56,9 @@ class ChooseStationCellTests: XCTestCase {
     }
 
     func testClearWhenReused() {
+        cell.choosen = true
+        cell.name = "aaa"
+
         cell.prepareForReuse()
 
         XCTAssertFalse(cell.choosen)

@@ -44,14 +44,17 @@ private enum LocalModel {
 	case Value(station: WeatherStation, state: WeatherState?)
 	case Error(station: WeatherStation, error: NSError)
 
-    var currentStation: WeatherStation? {
-        guard case .Value(let station, _) = self else {
-            return nil
+    var currentStation: WeatherStation {
+        switch self {
+        case .Value(let station, _):
+            return station
+        case .Error(let station, _):
+            return station
         }
-
-        return station
     }
 }
+
+
 
 
 

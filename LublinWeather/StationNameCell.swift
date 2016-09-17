@@ -56,7 +56,7 @@ class StationNameCell: UITableViewCell {
 
 
 
-    // TODO: this should be not exposed
+    // TODO: this should not be exposed
 
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
