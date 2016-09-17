@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class StationNameCell: UITableViewCell {
 
     var loading: Bool {

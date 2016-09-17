@@ -101,9 +101,11 @@ private func createWeatherStationRequest(station: WeatherStation) -> NSURLReques
 
 func weatherStateSignalProducer(station: WeatherStation) -> SignalProducer<WeatherState, NSError>
 {
+    let parser = WeatherStationExtractor()
+
 	return requestForJSONSignalProducer(createWeatherStationRequest(station))
 		.map
 		{ json -> WeatherState in
-			return WeatherState(json: json)
+			return parser.extract(json)
 		}
 }

@@ -30,19 +30,23 @@ import UIKit
 
 class ChooseStationViewController: UITableViewController {
 
+
+    // MARK: - Initialization
+
     var listStationsProvider: ListStationsProvider?
-
-    private var list: [WeatherStation] {
-        return listStationsProvider?.getStations() ?? []
-    }
-
-
     var activeStation: WeatherStation?
-	var completionAction: (WeatherStation? -> Void)?
+    var completionAction: (WeatherStation? -> Void)?
 
 	convenience init() {
 		self.init(style: .Plain)
 	}
+
+
+    // MARK: -
+
+    private var list: [WeatherStation] {
+        return listStationsProvider?.getStations() ?? []
+    }
 
 
     // MARK: - View Life Cycle

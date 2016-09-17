@@ -26,28 +26,23 @@ class MainTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func createNumberFormatter() -> NSNumberFormatter {
-        let result = NSNumberFormatter()
-        result.numberStyle = NSNumberFormatterStyle.DecimalStyle
-        return result
-    }
-
-    private func formatNumber(number: NSNumber?, fractionsDigits: Int = 1) -> String? {
-        if let numberValue = number {
-            let formatter = createNumberFormatter()
-            formatter.maximumFractionDigits = fractionsDigits
-            formatter.minimumFractionDigits = fractionsDigits
-            return formatter.stringFromNumber(numberValue)
-        }
-        return nil
-    }
 
     var parameter: WeatherParameter? {
         didSet {
             if let param = parameter {
                 textLabel?.text = stringify(parameter: param)
             } else {
-                textLabel?.text = "(nil)"
+                textLabel?.text = "-"
+            }
+        }
+    }
+
+    var state: WeatherState? {
+        didSet {
+            if let parameter = parameter, state = state {
+                detailTextLabel?.text = stringify(state: state, parameter: parameter)
+            } else {
+                detailTextLabel?.text = "-"
             }
         }
     }
@@ -72,49 +67,44 @@ class MainTableViewCell: UITableViewCell {
         }
     }
 
-    var state: WeatherState? {
-        didSet {
-            update()
+    func stringify(state state: WeatherState, parameter param: WeatherParameter) -> String {
+        let value: AnyObject?
+
+        switch param {
+        case .Temperature:  value = state.temperature
+        case .Pressure:     value = state.pressure
+        case .Rain:         value = state.rain
+        case .WindSpeed:    value = state.windSpeed
+        case .Date:         value = state.date
         }
+
+        guard let v = value else {
+            return "-"
+        }
+
+        let unit = unitFor(parameter: param)
+
+        if let v = v as? Double {
+            return format(v) + " \(unit!)"
+        }
+
+        if let v = v as? String {
+            return v
+        }
+
+        return "-"
     }
 
-    func update() {
-        guard let parameter = parameter, state = state else {
-            return
-        }
+    lazy var formatter: NSNumberFormatter = {
+        let f = NSNumberFormatter()
+        f.numberStyle = .DecimalStyle
+        f.minimumFractionDigits = 1
+        f.maximumFractionDigits = 1
+        return f
+    }()
 
-        detailTextLabel?.text = getWeatherParameterDataForCell(parameter, data: state)
-    }
-
-
-    private func stringRepresentationOfValue(value: NSDecimalNumber?, unit: String, defaultResult: String = parameterMissingValue) -> String {
-        if let valueString = formatNumber(value) {
-            return valueString + " " + unit
-        } else {
-            return defaultResult
-        }
-    }
-
-
-    private func getWeatherParameterDataForCell(parameter: WeatherParameter, data: WeatherState?) -> String {
-        let unitString = unitFor(parameter: parameter) ?? ""
-
-        switch parameter {
-        case .Temperature:
-            return stringRepresentationOfValue(data?.temperature, unit: unitString)
-        case .Pressure:
-            return stringRepresentationOfValue(data?.pressure, unit: unitString)
-        case .WindSpeed:
-            var windSpeedFinal: NSDecimalNumber? = nil
-            if let windSpeed = data?.windSpeed {
-                windSpeedFinal = windSpeed.decimalNumberByMultiplyingBy(NSDecimalNumber(double: 3.6))
-            }
-            return stringRepresentationOfValue(windSpeedFinal, unit: unitString)
-        case .Rain:
-            return stringRepresentationOfValue(data?.rain, unit: unitString)
-        case .Date:
-            return data?.date ?? parameterMissingValue
-        }
+    func format(number: Double) -> String {
+        return formatter.stringFromNumber(number) ?? "-"
     }
 
 }

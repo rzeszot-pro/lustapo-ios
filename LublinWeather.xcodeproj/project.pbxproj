@@ -38,6 +38,7 @@
 		8B7B47191D8C2AA60028C15C /* ChooseStationCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B47181D8C2AA60028C15C /* ChooseStationCellTests.swift */; };
 		8B7B471B1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B471A1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift */; };
 		8B7B471D1D8C2ED50028C15C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B471C1D8C2ED50028C15C /* Extensions.swift */; };
+		8B7B471F1D8C384B0028C15C /* WeatherStationExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B471E1D8C384B0028C15C /* WeatherStationExtractor.swift */; };
 		8BA817981D8B056300BF82C8 /* MockLastUsedStationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */; };
 		8BA8179B1D8B05B200BF82C8 /* DefaultStationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8179A1D8B05B200BF82C8 /* DefaultStationInteractor.swift */; };
 		8BA8179E1D8B066B00BF82C8 /* ListStationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8179D1D8B066B00BF82C8 /* ListStationsInteractor.swift */; };
@@ -110,6 +111,7 @@
 		8B7B47181D8C2AA60028C15C /* ChooseStationCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseStationCellTests.swift; sourceTree = "<group>"; };
 		8B7B471A1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseStationViewControllerUITests.swift; sourceTree = "<group>"; };
 		8B7B471C1D8C2ED50028C15C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8B7B471E1D8C384B0028C15C /* WeatherStationExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherStationExtractor.swift; sourceTree = "<group>"; };
 		8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLastUsedStationStore.swift; sourceTree = "<group>"; };
 		8BA8179A1D8B05B200BF82C8 /* DefaultStationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStationInteractor.swift; sourceTree = "<group>"; };
 		8BA8179D1D8B066B00BF82C8 /* ListStationsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListStationsInteractor.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				6425F28D1D6AFE3200FD9A9A /* WeatherState.swift */,
 				8B7B470A1D8C08E10028C15C /* WeatherStation.swift */,
 				8B7B470C1D8C09200028C15C /* WeatherParameter.swift */,
+				8B7B471E1D8C384B0028C15C /* WeatherStationExtractor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				8BDA0B721D8BF1DB00839A53 /* MainTableViewCell.swift in Sources */,
 				8B7B470D1D8C09200028C15C /* WeatherParameter.swift in Sources */,
 				6425F2901D6B04F800FD9A9A /* Utils.swift in Sources */,
+				8B7B471F1D8C384B0028C15C /* WeatherStationExtractor.swift in Sources */,
 				8B382EA91D82F65700ADE9CF /* LastUsedStationInteractor.swift in Sources */,
 				8B7B47171D8C254C0028C15C /* ChooseStationCell.swift in Sources */,
 				64F6DED61D672E0100748281 /* MainViewController.swift in Sources */,
