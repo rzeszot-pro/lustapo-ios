@@ -50,8 +50,8 @@ class ChooseStationCell: UITableViewCell {
     }
 
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func prepareForReuse() {
+        super.prepareForReuse()
 
         choosen = false
         name = ""

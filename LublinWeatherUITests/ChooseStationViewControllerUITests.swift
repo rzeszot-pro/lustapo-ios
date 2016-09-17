@@ -1,8 +1,7 @@
 //
-//  Utils.swift
+//  ChooseStationViewControllerUITests.swift
 //  LublinWeather
 //
-//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -25,36 +24,21 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+import XCTest
 
-import UIKit
+
+class ChooseStationViewControllerUITests: XCTestCase {
 
 
-extension UIApplication {
+    // MARK: - Configuration
 
-    var isUnitTesting: Bool {
-        return NSProcessInfo.processInfo().environment["XCTestConfigurationFilePath"] != nil
+    let app = XCUIApplication()
+
+    override func setUp() {
+        super.setUp()
+
+        app.launchArguments.append("UITEST_CHOOSE_STATION")
+        app.launch()
     }
 
-}
-
-
-
-
-typealias JSONDictionary = [String: AnyObject]
-
-extension Dictionary {
-
-	func get<T>(key: Key) -> T? {
-		return self[key] as? T
-	}
-
-}
-
-
-func putAndOverlay(view view: UIView, intoView: UIView) {
-	view.translatesAutoresizingMaskIntoConstraints = false
-	intoView.addSubview(view)
-	let views = ["view":view]
-	intoView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[view]-0-|", options: .DirectionRightToLeft, metrics: nil, views: views))
-	intoView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[view]-0-|", options: .DirectionRightToLeft, metrics: nil, views: views))
 }

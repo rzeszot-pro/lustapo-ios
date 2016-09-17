@@ -36,6 +36,8 @@
 		8B7B470D1D8C09200028C15C /* WeatherParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B470C1D8C09200028C15C /* WeatherParameter.swift */; };
 		8B7B47171D8C254C0028C15C /* ChooseStationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B47161D8C254C0028C15C /* ChooseStationCell.swift */; };
 		8B7B47191D8C2AA60028C15C /* ChooseStationCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B47181D8C2AA60028C15C /* ChooseStationCellTests.swift */; };
+		8B7B471B1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B471A1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift */; };
+		8B7B471D1D8C2ED50028C15C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7B471C1D8C2ED50028C15C /* Extensions.swift */; };
 		8BA817981D8B056300BF82C8 /* MockLastUsedStationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */; };
 		8BA8179B1D8B05B200BF82C8 /* DefaultStationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8179A1D8B05B200BF82C8 /* DefaultStationInteractor.swift */; };
 		8BA8179E1D8B066B00BF82C8 /* ListStationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA8179D1D8B066B00BF82C8 /* ListStationsInteractor.swift */; };
@@ -106,6 +108,8 @@
 		8B7B470C1D8C09200028C15C /* WeatherParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherParameter.swift; sourceTree = "<group>"; };
 		8B7B47161D8C254C0028C15C /* ChooseStationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseStationCell.swift; sourceTree = "<group>"; };
 		8B7B47181D8C2AA60028C15C /* ChooseStationCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseStationCellTests.swift; sourceTree = "<group>"; };
+		8B7B471A1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseStationViewControllerUITests.swift; sourceTree = "<group>"; };
+		8B7B471C1D8C2ED50028C15C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8BA817971D8B056300BF82C8 /* MockLastUsedStationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLastUsedStationStore.swift; sourceTree = "<group>"; };
 		8BA8179A1D8B05B200BF82C8 /* DefaultStationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStationInteractor.swift; sourceTree = "<group>"; };
 		8BA8179D1D8B066B00BF82C8 /* ListStationsInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListStationsInteractor.swift; sourceTree = "<group>"; };
@@ -198,8 +202,10 @@
 		6470482A1D65E9C6009205F3 /* LublinWeatherUITests */ = {
 			isa = PBXGroup;
 			children = (
+				8B7B471A1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift */,
 				8B24410C1D83060A00E4E68A /* DefaultWeatherStationInteractorUITests.swift */,
 				6470482D1D65E9C6009205F3 /* Info.plist */,
+				8B7B471C1D8C2ED50028C15C /* Extensions.swift */,
 			);
 			path = LublinWeatherUITests;
 			sourceTree = "<group>";
@@ -508,6 +514,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B7B471B1D8C2EC30028C15C /* ChooseStationViewControllerUITests.swift in Sources */,
+				8B7B471D1D8C2ED50028C15C /* Extensions.swift in Sources */,
 				8B24410D1D83060A00E4E68A /* DefaultWeatherStationInteractorUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

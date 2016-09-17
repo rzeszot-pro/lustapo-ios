@@ -36,9 +36,14 @@ class ChooseStationCellTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testNonEmptyString() {
+    func testNonEmptyName() {
         cell.name = example
         XCTAssertEqual(cell.textLabel?.text, example)
+    }
+
+    func testEmptyName() {
+        cell.name = ""
+        XCTAssertEqual(cell.textLabel?.text, "")
     }
 
     func testChoosen() {
@@ -49,6 +54,29 @@ class ChooseStationCellTests: XCTestCase {
     func testNotChoosen() {
         cell.choosen = false
         XCTAssertEqual(cell.accessoryType, .Some(.None))
+    }
+
+    func testClearWhenReused() {
+        cell.prepareForReuse()
+
+        XCTAssertFalse(cell.choosen)
+        XCTAssertEqual(cell.name, "")
+    }
+
+    func testNameSameAsLabel() {
+        cell.name = "aaa"
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
+
+        cell.name = ""
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
+    }
+
+    func testLabelSameAsName() {
+        cell.textLabel?.text = "bbb"
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
+
+        cell.textLabel?.text = ""
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
     }
 
 }
