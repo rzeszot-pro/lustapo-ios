@@ -39,6 +39,18 @@ extension UIApplication {
 
 
 
+extension UIActivityIndicatorView {
+
+    convenience init(activityIndicatorStyle style: UIActivityIndicatorViewStyle, animating flag: Bool) {
+        self.init(activityIndicatorStyle: style)
+        if flag {
+            startAnimating()
+        }
+    }
+
+}
+
+
 
 typealias JSONDictionary = [String: AnyObject]
 
