@@ -94,7 +94,7 @@ private func requestForJSONSignalProducer(request: NSURLRequest) -> SignalProduc
 
 private func createWeatherStationRequest(station: WeatherStation) -> NSURLRequest
 {
-	let url = NSURL(string: station.ip)!
+	let url = NSURL(string: station.endpoint)!
 	return NSURLRequest(URL: url)
 }
 

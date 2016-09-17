@@ -14,9 +14,7 @@ import Foundation
 
 struct WeatherStation {
     let name: String
-    let ip: String
-
-    var hashValue: Int { return ip.hash }
+    let endpoint: String
 }
 
 
@@ -24,5 +22,5 @@ struct WeatherStation {
 extension WeatherStation: Equatable {}
 
 func == (lhs: WeatherStation, rhs: WeatherStation) -> Bool {
-    return lhs.ip == rhs.ip
+    return lhs.endpoint == rhs.endpoint && lhs.name == rhs.name
 }

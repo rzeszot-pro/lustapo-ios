@@ -51,12 +51,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     // TODO: refactor start
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        localModel = .Value(station: WeatherStation(name: "?", ip: "?"), state: nil)
+        localModel = .Value(station: WeatherStation(name: "?", endpoint: "?"), state: nil)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     required init?(coder aDecoder: NSCoder) {
-        localModel = .Value(station: WeatherStation(name: "?", ip: "?"), state: nil)
+        localModel = .Value(station: WeatherStation(name: "?", endpoint: "?"), state: nil)
         super.init(coder: aDecoder)
     }
 

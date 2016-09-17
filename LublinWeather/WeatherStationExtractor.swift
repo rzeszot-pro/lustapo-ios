@@ -37,7 +37,7 @@ class WeatherStationExtractor {
         let windSpeed = normalize(windSpeed: extract(windSpeed: json))
         let rain = extract(rain: json)
 
-        return WeatherState(temperature: temperature, date: date, pressure: pressure, windSpeed: windSpeed, rain: rain)
+        return WeatherState(date: date, temperature: temperature, pressure: pressure, windSpeed: windSpeed, rain: rain)
     }
 
 
