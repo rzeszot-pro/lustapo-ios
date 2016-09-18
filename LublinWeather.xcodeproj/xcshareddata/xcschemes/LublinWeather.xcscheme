@@ -48,6 +48,11 @@
                BlueprintName = "LublinWeatherUITests"
                ReferencedContainer = "container:LublinWeather.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "DefaultWeatherStationInteractorUITests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
