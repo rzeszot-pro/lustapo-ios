@@ -1,8 +1,7 @@
 //
-//  DefaultWeatherStationInteractorTests.swift
+//  ChooseStationCell.swift
 //  LublinWeather
 //
-//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -25,36 +24,37 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import XCTest
-@testable import LuStaPo
+import UIKit
 
 
-class LastUsedStationInteractorTests: XCTestCase {
+class ChooseStationCell: UITableViewCell {
 
-    let station: LastUsedStationInteractor = .mocked()
+    static var identifer: String = "ChooseStationCell"
 
-    func testNoIdentifierOnStartup() {
-        station.clear()
-        XCTAssertNil(station.load())
+    var name: String {
+        set(value) {
+            textLabel?.text = value
+        }
+        get {
+            return textLabel?.text ?? ""
+        }
     }
 
-    func testIdentifierWhenStored() {
-        station.save(5)
-        XCTAssertEqual(station.load(), 5)
+    var choosen: Bool {
+        set(value) {
+            accessoryType = value ? .Checkmark : .None
+        }
+        get {
+            return accessoryType == .Checkmark
+        }
     }
 
-    func testDifferentIdentifierThanStored() {
-        station.save(1)
 
-        XCTAssertNotNil(station.load())
-        XCTAssertNotEqual(station.load(), 2)
-    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
 
-    func testClearingStoredIdentifier() {
-        station.save(5)
-        station.clear()
-
-        XCTAssertNil(station.load())
+        choosen = false
+        name = ""
     }
 
 }

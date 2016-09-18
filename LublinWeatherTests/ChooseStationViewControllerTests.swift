@@ -1,8 +1,7 @@
 //
-//  DefaultWeatherStationInteractorTests.swift
+//  ChooseStationViewControllerTests.swift
 //  LublinWeather
 //
-//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -29,32 +28,42 @@ import XCTest
 @testable import LuStaPo
 
 
-class LastUsedStationInteractorTests: XCTestCase {
+class ChooseStationViewControllerTests: XCTestCase {
 
-    let station: LastUsedStationInteractor = .mocked()
+    let sut = ChooseStationViewController()
 
-    func testNoIdentifierOnStartup() {
-        station.clear()
-        XCTAssertNil(station.load())
+    var leftBarItem: UIBarButtonItem? {
+        return sut.navigationItem.leftBarButtonItem
     }
 
-    func testIdentifierWhenStored() {
-        station.save(5)
-        XCTAssertEqual(station.load(), 5)
+
+    // MARK: - Configuration
+
+    override func setUp() {
+        super.setUp()
+        sut.loadView()
     }
 
-    func testDifferentIdentifierThanStored() {
-        station.save(1)
 
-        XCTAssertNotNil(station.load())
-        XCTAssertNotEqual(station.load(), 2)
+    // MARK: - Tests
+
+    func testLeftBarItemExists() {
+        XCTAssertNotNil(leftBarItem)
     }
 
-    func testClearingStoredIdentifier() {
-        station.save(5)
-        station.clear()
+    func testCancelConnected() {
+        guard let target = leftBarItem?.target as? ChooseStationViewController else {
+            XCTFail("cancel button target should be WeatherStationListViewController")
+            return
+        }
 
-        XCTAssertNil(station.load())
+        guard let action = leftBarItem?.action else {
+            XCTFail("cancel button action should be Selector")
+            return
+        }
+
+        XCTAssertEqual(target, sut)
+        XCTAssertEqual(action, #selector(ChooseStationViewController.cancelClicked))
     }
 
 }

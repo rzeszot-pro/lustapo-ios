@@ -1,8 +1,7 @@
 //
-//  DefaultWeatherStationInteractorTests.swift
+//  ChooseStationCellTests.swift
 //  LublinWeather
 //
-//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -29,32 +28,55 @@ import XCTest
 @testable import LuStaPo
 
 
-class LastUsedStationInteractorTests: XCTestCase {
+class ChooseStationCellTests: XCTestCase {
 
-    let station: LastUsedStationInteractor = .mocked()
+    let cell = ChooseStationCell()
+    let example = "EXAMPLE"
 
-    func testNoIdentifierOnStartup() {
-        station.clear()
-        XCTAssertNil(station.load())
+
+    // MARK: - Tests
+
+    func testNonEmptyName() {
+        cell.name = example
+        XCTAssertEqual(cell.textLabel?.text, example)
     }
 
-    func testIdentifierWhenStored() {
-        station.save(5)
-        XCTAssertEqual(station.load(), 5)
+    func testEmptyName() {
+        cell.name = ""
+        XCTAssertEqual(cell.textLabel?.text, "")
     }
 
-    func testDifferentIdentifierThanStored() {
-        station.save(1)
-
-        XCTAssertNotNil(station.load())
-        XCTAssertNotEqual(station.load(), 2)
+    func testChoosen() {
+        cell.choosen = true
+        XCTAssertEqual(cell.accessoryType, .Some(.Checkmark))
     }
 
-    func testClearingStoredIdentifier() {
-        station.save(5)
-        station.clear()
+    func testNotChoosen() {
+        cell.choosen = false
+        XCTAssertEqual(cell.accessoryType, .Some(.None))
+    }
 
-        XCTAssertNil(station.load())
+    func testClearWhenReused() {
+        cell.prepareForReuse()
+
+        XCTAssertFalse(cell.choosen)
+        XCTAssertEqual(cell.name, "")
+    }
+
+    func testNameSameAsLabel() {
+        cell.name = "aaa"
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
+
+        cell.name = ""
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
+    }
+
+    func testLabelSameAsName() {
+        cell.textLabel?.text = "bbb"
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
+
+        cell.textLabel?.text = ""
+        XCTAssertEqual(cell.name, cell.textLabel?.text)
     }
 
 }

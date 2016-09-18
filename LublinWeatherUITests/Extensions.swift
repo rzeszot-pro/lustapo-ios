@@ -1,8 +1,7 @@
 //
-//  DefaultWeatherStationInteractorTests.swift
+//  Extensions.swift
 //  LublinWeather
 //
-//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -26,35 +25,13 @@
 //
 
 import XCTest
-@testable import LuStaPo
 
 
-class LastUsedStationInteractorTests: XCTestCase {
+extension XCUIApplication {
 
-    let station: LastUsedStationInteractor = .mocked()
-
-    func testNoIdentifierOnStartup() {
-        station.clear()
-        XCTAssertNil(station.load())
-    }
-
-    func testIdentifierWhenStored() {
-        station.save(5)
-        XCTAssertEqual(station.load(), 5)
-    }
-
-    func testDifferentIdentifierThanStored() {
-        station.save(1)
-
-        XCTAssertNotNil(station.load())
-        XCTAssertNotEqual(station.load(), 2)
-    }
-
-    func testClearingStoredIdentifier() {
-        station.save(5)
-        station.clear()
-
-        XCTAssertNil(station.load())
+    func restart() {
+        terminate()
+        launch()
     }
 
 }
