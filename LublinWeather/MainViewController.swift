@@ -137,26 +137,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
 				if let station = event.value {
 					self?.localModel = LocalModel.Value(station: station, state: nil)
+                    self?.loadingIndicatorActive = true
 					self?.tableView.reloadData()
 				}
 			})
 			.flatMap(.Latest) { [weak self] (station) ->  SignalProducer<LocalModel, NoError> in
-                self?.loadingIndicatorActive = true
-
 				return weatherStateSignalProducer(station)
 					.map { (state) -> LocalModel in
-                        self?.loadingIndicatorActive = false
 						return LocalModel.Value(station: station, state: state)
 					}
 					.flatMapError { (error) -> SignalProducer<LocalModel, NoError> in
-                        self?.loadingIndicatorActive = false
 						return SignalProducer(value: LocalModel.Error(station: station, error: error))
 					}
 			}
 			.observeOn(UIScheduler())
 			.observeNext { [weak self] newLocalModel in
 				self?.localModel = newLocalModel
-				self?.tableView.reloadData()
+                self?.tableView.reloadData()
+                self?.loadingIndicatorActive = false
 
 				if case .Value(let station, _) = newLocalModel {
                     self?.defaultStation = station
