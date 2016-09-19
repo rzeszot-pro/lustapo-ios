@@ -141,7 +141,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 					self?.tableView.reloadData()
 				}
 			})
-			.flatMap(.Latest) { [weak self] (station) ->  SignalProducer<LocalModel, NoError> in
+			.flatMap(.Latest) { (station) ->  SignalProducer<LocalModel, NoError> in
 				return weatherStateSignalProducer(station)
 					.map { (state) -> LocalModel in
 						return LocalModel.Value(station: station, state: state)
