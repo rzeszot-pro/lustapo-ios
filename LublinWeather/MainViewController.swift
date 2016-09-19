@@ -44,14 +44,17 @@ private enum LocalModel {
 	case Value(station: WeatherStation, state: WeatherState?)
 	case Error(station: WeatherStation, error: NSError)
 
-    var currentStation: WeatherStation? {
-        guard case .Value(let station, _) = self else {
-            return nil
+    var currentStation: WeatherStation {
+        switch self {
+        case .Value(let station, _):
+            return station
+        case .Error(let station, _):
+            return station
         }
-
-        return station
     }
 }
+
+
 
 
 
@@ -87,6 +90,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 	@IBOutlet weak var tableView: UITableView!
     private var localModel: LocalModel
 
+    var loadingIndicatorActive: Bool {
+        set(value) {
+            if value {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UIActivityIndicatorView(activityIndicatorStyle: .Gray, animating: true))
+            } else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: #selector(refreshClick))
+            }
+        }
+        get {
+            return navigationItem.rightBarButtonItem?.target != nil
+        }
+    }
+
 	private let cells: [CellDesc] = [
 		.StationName,
 		.WeatherParameterCell(parameter: .Temperature),
@@ -110,6 +126,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         // Alternative UNICODE character: \u{2139}
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{24D8}", style: .Plain, target: self, action: #selector(infoClick))
+        loadingIndicatorActive = false
     }
 
 	override func viewDidLoad() {
@@ -120,10 +137,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			.on(event: { [weak self] (event: Event<WeatherStation, NoError>) in
 				if let station = event.value {
 					self?.localModel = LocalModel.Value(station: station, state: nil)
+                    self?.loadingIndicatorActive = true
 					self?.tableView.reloadData()
 				}
 			})
-			.flatMap(.Latest) { (station) ->  SignalProducer<LocalModel, NoError> in
+			.flatMap(.Latest) { [weak self] (station) ->  SignalProducer<LocalModel, NoError> in
 				return weatherStateSignalProducer(station)
 					.map { (state) -> LocalModel in
 						return LocalModel.Value(station: station, state: state)
@@ -135,7 +153,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 			.observeOn(UIScheduler())
 			.observeNext { [weak self] newLocalModel in
 				self?.localModel = newLocalModel
-				self?.tableView.reloadData()
+                self?.tableView.reloadData()
+                self?.loadingIndicatorActive = false
 
 				if case .Value(let station, _) = newLocalModel {
                     self?.defaultStation = station
@@ -154,6 +173,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         showHelpViewController()
     }
 
+    @IBAction func refreshClick() {
+        weatherStationObserver.sendNext(localModel.currentStation)
+    }
+
 
 	// MARK: - Table View
 
@@ -161,12 +184,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let stationName: String!
 
         switch localModel {
-        case .Value(let station, let state):
+        case .Value(let station, _):
             stationName = station.name
-            cell.loading = state == nil
         case .Error(let station, _):
             stationName = station.name
-            cell.loading = false
         }
 
         cell.name = stationName
