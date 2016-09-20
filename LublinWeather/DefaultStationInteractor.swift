@@ -51,23 +51,17 @@ class DefaultStationInteractor: DefaultStationProvider {
     }
 
     func getDefaultStation() -> WeatherStation? {
-        guard let index = lastUsedStationProvider.load() else {
+        guard let identifier = lastUsedStationProvider.load() else {
             return nil
         }
 
-        guard 0 <= index && index < weatherStationList.count else {
-            return nil
-        }
-
-        return weatherStationList[index]
+        return weatherStationList
+            .filter { $0.identifier == identifier }
+            .first
     }
 
     func setDefaultStation(station: WeatherStation) {
-        guard let stationNumber = weatherStationList.indexOf(station) else {
-            return
-        }
-
-        lastUsedStationProvider.save(stationNumber)
+        lastUsedStationProvider.save(station.identifier)
     }
 
 }

@@ -39,19 +39,19 @@ class LastUsedStationInteractorTests: XCTestCase {
     }
 
     func testIdentifierWhenStored() {
-        station.save(5)
-        XCTAssertEqual(station.load(), 5)
+        station.save("aaa")
+        XCTAssertEqual(station.load(), "aaa")
     }
 
     func testDifferentIdentifierThanStored() {
-        station.save(1)
+        station.save("aaa")
 
         XCTAssertNotNil(station.load())
-        XCTAssertNotEqual(station.load(), 2)
+        XCTAssertNotEqual(station.load(), "bbb")
     }
 
     func testClearingStoredIdentifier() {
-        station.save(5)
+        station.save("aaa")
         station.clear()
 
         XCTAssertNil(station.load())

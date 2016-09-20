@@ -32,6 +32,17 @@ import Foundation
 struct WeatherStation {
     let name: String
     let endpoint: String
+
+    var identifier: String {
+        return "station-" + normalize(name) + "-" + normalize(endpoint)
+    }
+
+    private func normalize(string: String) -> String {
+        return string
+            .lowercaseString
+            .stringByReplacingOccurrencesOfString(" ", withString: "-", options: .CaseInsensitiveSearch, range: nil)
+    }
+
 }
 
 

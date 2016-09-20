@@ -26,16 +26,16 @@
 
 
 protocol LastUsedStationStore {
-    func setLastUsedStation(identifier: Int)
-    func getLastUsedStation() -> Int?
+    func setLastUsedStation(identifier: String)
+    func getLastUsedStation() -> String?
     func clearLastUsedStation()
 }
 
 
 
 protocol LastUsedStationProvider {
-    func load() -> Int?
-    func save(identifier: Int)
+    func load() -> String?
+    func save(identifier: String)
     func clear()
 }
 
@@ -49,11 +49,11 @@ class LastUsedStationInteractor: LastUsedStationProvider {
         self.store = store
     }
 
-    func load() -> Int? {
+    func load() -> String? {
         return store.getLastUsedStation()
     }
 
-    func save(identifier: Int) {
+    func save(identifier: String) {
         store.setLastUsedStation(identifier)
     }
 

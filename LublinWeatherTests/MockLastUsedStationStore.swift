@@ -31,13 +31,13 @@
 
 class MockLastUsedStationStore: LastUsedStationStore {
 
-    private var value: Int?
+    private var value: String?
 
-    func setLastUsedStation(identifier: Int) {
+    func setLastUsedStation(identifier: String) {
         value = identifier
     }
 
-    func getLastUsedStation() -> Int? {
+    func getLastUsedStation() -> String? {
         return value
     }
 
