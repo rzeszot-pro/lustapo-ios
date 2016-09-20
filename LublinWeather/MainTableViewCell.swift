@@ -100,11 +100,11 @@ class MainTableViewCell: UITableViewCell {
         let unit = unitFor(parameter: param)
 
         if let v = v as? NSDate {
-            return normalize(date: v)
+            return stringify(date: v)
         }
 
         if let v = v as? Double {
-            return normalize(number: v) + " \(unit!)"
+            return stringify(number: v) + " \(unit!)"
         }
 
         if let v = v as? String {
@@ -114,7 +114,7 @@ class MainTableViewCell: UITableViewCell {
         return "-"
     }
 
-    func normalize(date date: NSDate) -> String {
+    func stringify(date date: NSDate) -> String {
         let f = NSDateFormatter()
         f.dateFormat = "yyyy-MM-dd HH:mm"
         f.locale = NSLocale(localeIdentifier: "pl_PL")
@@ -124,7 +124,7 @@ class MainTableViewCell: UITableViewCell {
     }
 
 
-    func normalize(number number: Double) -> String {
+    func stringify(number number: Double) -> String {
         let f = NSNumberFormatter()
         f.numberStyle = .DecimalStyle
         f.minimumFractionDigits = 1
