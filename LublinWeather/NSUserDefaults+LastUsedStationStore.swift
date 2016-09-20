@@ -33,28 +33,19 @@ private let kDefaultWeatherStationKey = "weather-station-number"
 
 extension NSUserDefaults: LastUsedStationStore {
 
-    func setLastUsedStation(identifier: String) {
+    func storeLastUsedStation(identifier: String) {
         setValue(identifier, forKey: kDefaultWeatherStationKey)
         synchronize()
     }
 
-    func getLastUsedStation() -> String? {
+    func loadLastUsedStation() -> String? {
         synchronize()
         return valueForKey(kDefaultWeatherStationKey) as? String
     }
 
-    func clearLastUsedStation() {
+    func forgotLastUsedStation() {
         setObject(nil, forKey: kDefaultWeatherStationKey)
         synchronize()
-    }
-
-}
-
-
-extension LastUsedStationInteractor {
-
-    static func defaults() -> Self {
-        return .init(store: NSUserDefaults.standardUserDefaults())
     }
 
 }

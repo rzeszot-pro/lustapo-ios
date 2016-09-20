@@ -25,40 +25,42 @@
 //
 
 
-protocol LastUsedStationStore {
-    func setLastUsedStation(identifier: String)
-    func getLastUsedStation() -> String?
-    func clearLastUsedStation()
-}
-
-
-
-protocol LastUsedStationProvider {
-    func load() -> String?
-    func save(identifier: String)
-    func clear()
-}
-
-
-
 class LastUsedStationInteractor: LastUsedStationProvider {
 
-    var store: LastUsedStationStore
+    var listStationsProvider: ListStationsProvider
+    var lastUsedStationStore: LastUsedStationStore
 
-    init(store: LastUsedStationStore) {
-        self.store = store
+    var weatherStationList: [WeatherStation] {
+        return listStationsProvider.getStations()
     }
 
-    func load() -> String? {
-        return store.getLastUsedStation()
+
+    // MARK: - Initialization
+
+    init(listStationsProvider: ListStationsProvider, lastUsedStationStore: LastUsedStationStore) {
+        self.listStationsProvider = listStationsProvider
+        self.lastUsedStationStore = lastUsedStationStore
     }
 
-    func save(identifier: String) {
-        store.setLastUsedStation(identifier)
+
+    // MARK: - Provider
+
+    func getLastUsedStation() -> WeatherStation? {
+        guard let identifier = lastUsedStationStore.loadLastUsedStation() else {
+            return nil
+        }
+
+        return weatherStationList
+            .filter { $0.identifier == identifier }
+            .first
     }
 
-    func clear() {
-        store.clearLastUsedStation()
+    func clearLastUsedStation() {
+        lastUsedStationStore.forgotLastUsedStation()
+    }
+
+    func setLastUsedStation(station: WeatherStation) {
+        lastUsedStationStore.storeLastUsedStation(station.identifier)
     }
 
 }

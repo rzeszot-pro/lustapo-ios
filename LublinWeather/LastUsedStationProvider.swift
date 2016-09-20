@@ -1,8 +1,7 @@
 //
-//  DefaultStationInteractor.swift
+//  LastUsedStationInteractor.swift
 //  LublinWeather
 //
-//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -25,43 +24,16 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import UIKit
-
-
-
-protocol DefaultStationProvider {
-    func getDefaultStation() -> WeatherStation?
-    func setDefaultStation(station: WeatherStation)
+protocol LastUsedStationStore {
+    func storeLastUsedStation(identifier: String)
+    func loadLastUsedStation() -> String?
+    func forgotLastUsedStation()
 }
 
 
 
-class DefaultStationInteractor: DefaultStationProvider {
-
-    var listStationsProvider: ListStationsProvider
-    var lastUsedStationProvider: LastUsedStationProvider
-
-    var weatherStationList: [WeatherStation] {
-        return listStationsProvider.getStations()
-    }
-
-    init(listStationsProvider: ListStationsProvider, lastUsedStationProvider: LastUsedStationProvider) {
-        self.listStationsProvider = listStationsProvider
-        self.lastUsedStationProvider = lastUsedStationProvider
-    }
-
-    func getDefaultStation() -> WeatherStation? {
-        guard let identifier = lastUsedStationProvider.load() else {
-            return nil
-        }
-
-        return weatherStationList
-            .filter { $0.identifier == identifier }
-            .first
-    }
-
-    func setDefaultStation(station: WeatherStation) {
-        lastUsedStationProvider.save(station.identifier)
-    }
-
+protocol LastUsedStationProvider {
+    func getLastUsedStation() -> WeatherStation?
+    func setLastUsedStation(station: WeatherStation)
+    func clearLastUsedStation()
 }

@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let navVC = UINavigationController(rootViewController: mainVC)
 
         mainVC.listStationsProvider = ListStationsInteractor()
-        mainVC.defaultStationProvider = DefaultStationInteractor(listStationsProvider: mainVC.listStationsProvider!, lastUsedStationProvider: LastUsedStationInteractor.defaults())
+        mainVC.defaultStationProvider = LastUsedStationInteractor(listStationsProvider: mainVC.listStationsProvider!, lastUsedStationStore: NSUserDefaults.standardUserDefaults())
 
         mainVC.setup()
 

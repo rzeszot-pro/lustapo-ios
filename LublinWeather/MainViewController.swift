@@ -61,7 +61,7 @@ private enum LocalModel {
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var listStationsProvider: ListStationsProvider?
-    var defaultStationProvider: DefaultStationProvider?
+    var defaultStationProvider: LastUsedStationProvider?
 
     var weatherStationList: [WeatherStation] {
         return listStationsProvider?.getStations() ?? []
@@ -240,10 +240,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     var defaultStation: WeatherStation {
         get {
-            return defaultStationProvider?.getDefaultStation() ?? weatherStationList.first!
+            return defaultStationProvider?.getLastUsedStation() ?? weatherStationList.first!
         }
         set {
-            defaultStationProvider?.setDefaultStation(newValue)
+            defaultStationProvider?.setLastUsedStation(newValue)
         }
     }
 

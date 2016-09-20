@@ -33,24 +33,17 @@ class MockLastUsedStationStore: LastUsedStationStore {
 
     private var value: String?
 
-    func setLastUsedStation(identifier: String) {
+
+    func storeLastUsedStation(identifier: String) {
         value = identifier
     }
 
-    func getLastUsedStation() -> String? {
+    func loadLastUsedStation() -> String? {
         return value
     }
 
-    func clearLastUsedStation() {
+    func forgotLastUsedStation() {
         value = nil
-    }
-
-}
-
-extension LastUsedStationInteractor {
-
-    class func mocked() -> Self {
-        return .init(store: MockLastUsedStationStore())
     }
 
 }

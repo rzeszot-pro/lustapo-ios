@@ -31,30 +31,30 @@ import XCTest
 
 class LastUsedStationInteractorTests: XCTestCase {
 
-    let station: LastUsedStationInteractor = .mocked()
+    let store: LastUsedStationStore = MockLastUsedStationStore()
 
     func testNoIdentifierOnStartup() {
-        station.clear()
-        XCTAssertNil(station.load())
+        store.forgotLastUsedStation()
+        XCTAssertNil(store.loadLastUsedStation())
     }
 
     func testIdentifierWhenStored() {
-        station.save("aaa")
-        XCTAssertEqual(station.load(), "aaa")
+        store.storeLastUsedStation("aaa")
+        XCTAssertEqual(store.loadLastUsedStation(), "aaa")
     }
 
     func testDifferentIdentifierThanStored() {
-        station.save("aaa")
+        store.storeLastUsedStation("aaa")
 
-        XCTAssertNotNil(station.load())
-        XCTAssertNotEqual(station.load(), "bbb")
+        XCTAssertNotNil(store.loadLastUsedStation())
+        XCTAssertNotEqual(store.loadLastUsedStation(), "bbb")
     }
 
     func testClearingStoredIdentifier() {
-        station.save("aaa")
-        station.clear()
+        store.storeLastUsedStation("aaa")
+        store.forgotLastUsedStation()
 
-        XCTAssertNil(station.load())
+        XCTAssertNil(store.loadLastUsedStation())
     }
 
 }
