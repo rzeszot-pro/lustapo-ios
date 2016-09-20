@@ -39,6 +39,16 @@ extension UIApplication {
 
 
 
+extension NSTimeZone {
+
+    class func GMT() -> NSTimeZone {
+        return NSTimeZone(forSecondsFromGMT: 0)
+    }
+
+}
+
+
+
 extension UIActivityIndicatorView {
 
     convenience init(activityIndicatorStyle style: UIActivityIndicatorViewStyle, animating flag: Bool) {

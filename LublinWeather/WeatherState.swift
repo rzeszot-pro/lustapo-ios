@@ -28,7 +28,7 @@ import Foundation
 
 
 struct WeatherState {
-    let date: String?
+    let date: NSDate?
 	let temperature: Double?
 	let pressure: Double?
 	let windSpeed: Double?

@@ -47,8 +47,17 @@ class WeatherStationExtractor {
         return json["temperatureInt"] as? Double
     }
 
-    private func extract(date json: JSONDictionary) -> String? {
-        return json["data"] as? String
+    private func extract(date json: JSONDictionary) -> NSDate? {
+        guard let str = json["data"] as? String else {
+            return nil
+        }
+
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.locale = NSLocale(localeIdentifier: "pl_PL")
+        formatter.timeZone = .GMT()
+
+        return formatter.dateFromString(str)
     }
 
     private func extract(pressure json: JSONDictionary) -> Double? {
