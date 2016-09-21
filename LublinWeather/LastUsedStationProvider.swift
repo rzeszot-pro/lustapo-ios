@@ -24,43 +24,16 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-
-class LastUsedStationInteractor: LastUsedStationProvider {
-
-    var listStationsProvider: ListStationsProvider
-    var lastUsedStationStore: LastUsedStationStore
-
-    var weatherStationList: [WeatherStation] {
-        return listStationsProvider.getStations()
-    }
+protocol LastUsedStationStore {
+    func storeLastUsedStation(identifier: String)
+    func loadLastUsedStation() -> String?
+    func forgotLastUsedStation()
+}
 
 
-    // MARK: - Initialization
 
-    init(listStationsProvider: ListStationsProvider, lastUsedStationStore: LastUsedStationStore) {
-        self.listStationsProvider = listStationsProvider
-        self.lastUsedStationStore = lastUsedStationStore
-    }
-
-
-    // MARK: - Provider
-
-    func getLastUsedStation() -> WeatherStation? {
-        guard let identifier = lastUsedStationStore.loadLastUsedStation() else {
-            return nil
-        }
-
-        return weatherStationList
-            .filter { $0.identifier == identifier }
-            .first
-    }
-
-    func clearLastUsedStation() {
-        lastUsedStationStore.forgotLastUsedStation()
-    }
-
-    func setLastUsedStation(station: WeatherStation) {
-        lastUsedStationStore.storeLastUsedStation(station.identifier)
-    }
-
+protocol LastUsedStationProvider {
+    func getLastUsedStation() -> WeatherStation?
+    func setLastUsedStation(station: WeatherStation)
+    func clearLastUsedStation()
 }
