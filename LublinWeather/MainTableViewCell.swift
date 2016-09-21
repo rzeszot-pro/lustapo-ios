@@ -99,8 +99,12 @@ class MainTableViewCell: UITableViewCell {
 
         let unit = unitFor(parameter: param)
 
+        if let v = v as? NSDate {
+            return stringify(date: v)
+        }
+
         if let v = v as? Double {
-            return format(v) + " \(unit!)"
+            return stringify(number: v) + " \(unit!)"
         }
 
         if let v = v as? String {
@@ -110,16 +114,23 @@ class MainTableViewCell: UITableViewCell {
         return "-"
     }
 
-    lazy var formatter: NSNumberFormatter = {
+    func stringify(date date: NSDate) -> String {
+        let f = NSDateFormatter()
+        f.dateFormat = "yyyy-MM-dd HH:mm"
+        f.locale = NSLocale(localeIdentifier: "pl_PL")
+        f.timeZone = .systemTimeZone()
+
+        return f.stringFromDate(date) ?? "-"
+    }
+
+
+    func stringify(number number: Double) -> String {
         let f = NSNumberFormatter()
         f.numberStyle = .DecimalStyle
         f.minimumFractionDigits = 1
         f.maximumFractionDigits = 1
-        return f
-    }()
 
-    func format(number: Double) -> String {
-        return formatter.stringFromNumber(number) ?? "-"
+        return f.stringFromNumber(number) ?? "-"
     }
 
 }
