@@ -24,10 +24,6 @@
 		8B382EA91D82F65700ADE9CF /* LastUsedStationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B382EA81D82F65700ADE9CF /* LastUsedStationInteractor.swift */; };
 		8B382EAB1D82F75F00ADE9CF /* NSUserDefaults+LastUsedStationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B382EAA1D82F75F00ADE9CF /* NSUserDefaults+LastUsedStationStore.swift */; };
 		8B382EAE1D82FBDA00ADE9CF /* LastUsedStationInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B382EAD1D82FBDA00ADE9CF /* LastUsedStationInteractorTests.swift */; };
-		8B382EB51D83001F00ADE9CF /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647048391D6725EA009205F3 /* ReactiveCocoa.framework */; };
-		8B382EB61D83001F00ADE9CF /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 647048391D6725EA009205F3 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8B382EB71D83001F00ADE9CF /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6470483A1D6725EA009205F3 /* Result.framework */; };
-		8B382EB81D83001F00ADE9CF /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6470483A1D6725EA009205F3 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8B382EBA1D83005300ADE9CF /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647048391D6725EA009205F3 /* ReactiveCocoa.framework */; };
 		8B382EBB1D83005F00ADE9CF /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6470483A1D6725EA009205F3 /* Result.framework */; };
 		8B382EBC1D83009700ADE9CF /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647048391D6725EA009205F3 /* ReactiveCocoa.framework */; };
@@ -62,21 +58,6 @@
 			remoteInfo = LublinWeather;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		8B382EB91D83001F00ADE9CF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8B382EB61D83001F00ADE9CF /* ReactiveCocoa.framework in Embed Frameworks */,
-				8B382EB81D83001F00ADE9CF /* Result.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6425F28A1D67316C00FD9A9A /* Transport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
@@ -124,8 +105,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B382EB51D83001F00ADE9CF /* ReactiveCocoa.framework in Frameworks */,
-				8B382EB71D83001F00ADE9CF /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,8 +296,7 @@
 				647048041D65E9C6009205F3 /* Sources */,
 				647048051D65E9C6009205F3 /* Frameworks */,
 				647048061D65E9C6009205F3 /* Resources */,
-				6470483E1D6726E8009205F3 /* ShellScript */,
-				8B382EB91D83001F00ADE9CF /* Embed Frameworks */,
+				6470483E1D6726E8009205F3 /* Copy frameworks */,
 			);
 			buildRules = (
 			);
@@ -439,7 +417,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6470483E1D6726E8009205F3 /* ShellScript */ = {
+		6470483E1D6726E8009205F3 /* Copy frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -448,11 +426,13 @@
 				"$(SRCROOT)/Carthage/Build/iOS/ReactiveCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 			);
+			name = "Copy frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			showEnvVarsInLog = 0;
 		};
 		8BDA0B701D8BE78B00839A53 /* Linter */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -625,6 +605,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -641,7 +622,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = LublinWeather/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.lublinweather;
 				PRODUCT_NAME = LuStaPo;
@@ -659,7 +640,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = LublinWeather/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.lublinweather;
 				PRODUCT_NAME = LuStaPo;
