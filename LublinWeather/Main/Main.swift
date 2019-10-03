@@ -51,83 +51,59 @@ struct Main: View {
 
     var body: some View {
         NavigationView {
-            Dashboard(select: { self.subview = .selection })
-                .navigationBarTitle("app.title")
-                .navigationBarItems(leading: settings, trailing: reload)
-                .sheet(item: $subview) { id in
-                    if id == .selection {
-                        Stations(dismiss: { self.subview = nil }).environmentObject(self.model)
-                    } else {
-                        Settings(dismiss: { self.subview = nil }).environmentObject(self.model)
-                    }
+            List {
+                Section {
+                    Button(action: {
+                        self.subview = .selection
+                    }, label: {
+                        Text(model.station?.name ?? "Select")
+                    })
                 }
+
+                if model.data != nil {
+                    Properties(payload: model.data!)
+                }
+            }
+            .listStyle(GroupedListStyle())
+            .navigationBarTitle("app.title")
+            .navigationBarItems(leading: settings, trailing: reload)
+            .sheet(item: $subview) { id in
+                if id == .selection {
+                    Stations(select: { self.subview = nil; self.model.reload() }).environmentObject(self.model)
+                } else {
+                    Settings(dismiss: { self.subview = nil }).environmentObject(self.model)
+                }
+            }
+            .onAppear(perform: model.reload)
         }
     }
 
     private var settings: some View {
         Button(action: { self.subview = .settings }, label: {
-            Text("settings.title")
+            Image(systemName: "gear")
         })
     }
 
     private var reload: some View {
-        Button(action: { print("reload") }, label: {
-            Text("Reload")
-        })
-    }
-}
-
-
-struct Dashboard: View {
-
-    @EnvironmentObject
-    var model: Model
-
-    var select: (() -> Void)?
-
-    var body: some View {
-        List {
-            Selection(select: select)
-            Properties()
-        }
-        .listStyle(GroupedListStyle())
-    }
-}
-
-
-
-
-
-
-
-struct Properties: View {
-
-    @EnvironmentObject
-    var model: Model
-
-    var body: some View {
-        Section {
-            Property()
-            Property()
-            Property()
-            Property()
+        VStack {
+            if model.isReloading {
+                ActivityIndicator()
+            } else {
+                Button(action: model.reload, label: {
+                    Image(systemName: "arrow.2.circlepath")
+                })
+            }
         }
     }
+
 }
 
-struct Property: View {
-    var body: some View {
-        HStack {
-            Text("Wind speed")
-                .foregroundColor(Color.primary)
-                .font(.body)
-            Spacer()
-            Text("3.1")
-                .foregroundColor(Color.primary)
-                .font(.headline)
-            Text("m/s")
-                .foregroundColor(Color.secondary)
-                .font(.caption)
-        }
+private struct ActivityIndicator: UIViewRepresentable {
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        UIActivityIndicatorView(style: .medium)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        uiView.startAnimating()
     }
 }

@@ -8,6 +8,12 @@
 
 "app.title" = "LuStaPo";
 
+"data.temperature" = "Temperature";
+"data.wind-speed" = "Wind speed";
+"data.pressure" = "Pressure";
+"data.rain" = "Rain (since 0:00 UTC)";
+"data.updated" = "Last update";
+
 "stations.title" = "Weather stations";
 
 "settings.title" = "Settings";
