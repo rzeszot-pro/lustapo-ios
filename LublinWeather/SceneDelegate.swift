@@ -1,7 +1,8 @@
 //
-//  LastUsedStationInteractor.swift
+//  SceneDelegate.swift
 //  LublinWeather
 //
+//  Copyright (c) 2016 Piotr Woloszkiewicz
 //  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
@@ -24,43 +25,43 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+import UIKit
+import SwiftUI
 
-class LastUsedStationInteractor: LastUsedStationProvider {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var listStationsProvider: ListStationsProvider
-    var lastUsedStationStore: LastUsedStationStore
+    var window: UIWindow?
 
-    var weatherStationList: [WeatherStation] {
-        return listStationsProvider.getStations()
-    }
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
+        let view = Main().environmentObject(Model.standard)
 
-    // MARK: - Initialization
-
-    init(listStationsProvider: ListStationsProvider, lastUsedStationStore: LastUsedStationStore) {
-        self.listStationsProvider = listStationsProvider
-        self.lastUsedStationStore = lastUsedStationStore
-    }
-
-
-    // MARK: - Provider
-
-    func getLastUsedStation() -> WeatherStation? {
-        guard let identifier = lastUsedStationStore.loadLastUsedStation() else {
-            return nil
+        if let windowScene = scene as? UIWindowScene {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = UIHostingController(rootView: view)
+            self.window = window
+            window.makeKeyAndVisible()
         }
-
-        return weatherStationList
-            .filter { $0.identifier == identifier }
-            .first
     }
 
-    func clearLastUsedStation() {
-        lastUsedStationStore.forgotLastUsedStation()
+    func sceneDidDisconnect(_ scene: UIScene) {
+
     }
 
-    func setLastUsedStation(station: WeatherStation) {
-        lastUsedStationStore.storeLastUsedStation(station.identifier)
+    func sceneDidBecomeActive(_ scene: UIScene) {
+
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+
+    }
+
+    func sceneWillEnterForeground(_ scene: UIScene) {
+
+    }
+
+    func sceneDidEnterBackground(_ scene: UIScene) {
+
     }
 
 }

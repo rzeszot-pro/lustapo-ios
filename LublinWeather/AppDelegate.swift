@@ -30,24 +30,20 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	var window: UIWindow?
+    // MARK: -
 
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
-		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-
-        let mainVC = MainViewController(nibName: "MainViewController", bundle: nil)
-		let navVC = UINavigationController(rootViewController: mainVC)
-
-        mainVC.listStationsProvider = ListStationsInteractor()
-        mainVC.defaultStationProvider = LastUsedStationInteractor(listStationsProvider: mainVC.listStationsProvider!, lastUsedStationStore: NSUserDefaults.standardUserDefaults())
-
-        mainVC.setup()
-
-        window?.rootViewController = navVC
-		window?.makeKeyAndVisible()
-
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
-	}
+    }
+
+    // MARK: UISceneSession Lifecycle
+
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "default", sessionRole: connectingSceneSession.role)
+    }
+
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+
+    }
 
 }
