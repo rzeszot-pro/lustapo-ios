@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  LublinWeather
+
+  Created by Damian Rzeszot on 03/10/2019.
+  Copyright © 2019 Piotr Woloszkiewicz. All rights reserved.
+*/
+
+"app.title" = "LuStaPo";
+
+"stations.title" = "Weather stations";
+
+"settings.title" = "Settings";
+
+"languages.title" = "Languages";
+
+"about.title" = "This version";
+
+"info.title" = "Disclaimer";
+"info.top" = "Dane pogodowe są własnością Zakładu Meteorologii i Klimatologii Uniwersytetu Marii Curie-Skłodowskiej w Lublinie, aplikacja powstała jedynie, aby ułatwić szybki dostęp do ogólnodostępnych danych - nie odpowiadam za ich poprawność, brak oraz ewentualną niedostępność. Jest to aplikacjanon-profit, nie czerpię z niej żadnych korzyści finansowych.";
+"info.bottom" = "Prezentowane dane są danymi pochodzącymi z mierników automatycznych i nie są weryfikowane przez człowieka. Dane te nie mogą być wykorzystywane jako materiał dowodowy w sprawach roszczeniowych.";
+"info.more" = "More";

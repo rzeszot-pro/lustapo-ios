@@ -16,21 +16,21 @@ struct Settings: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: Text("Języki"), label: {
-                        Text("Języki")
+                    NavigationLink(destination: Languages(), label: {
+                        Text("languages.title")
                     })
                 }
                 Section {
-                    NavigationLink(destination: Text("O aplikacji"), label: {
-                        Text("O aplikacji")
+                    NavigationLink(destination: About(), label: {
+                        Text("about.title")
                     })
                     NavigationLink(destination: Info(), label: {
-                        Text("Informacje")
+                        Text("info.title")
                     })
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Ustawienia")
+            .navigationBarTitle("settings.title")
             .navigationBarItems(leading: close)
         }
     }

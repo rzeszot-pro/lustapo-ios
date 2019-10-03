@@ -52,7 +52,7 @@ struct Main: View {
     var body: some View {
         NavigationView {
             Dashboard(select: { self.subview = .selection })
-                .navigationBarTitle("LuStaPo")
+                .navigationBarTitle("app.title")
                 .navigationBarItems(leading: settings, trailing: reload)
                 .sheet(item: $subview) { id in
                     if id == .selection {
@@ -65,11 +65,15 @@ struct Main: View {
     }
 
     private var settings: some View {
-        Button(action: { self.subview = .settings }, label: { Text("Settings") })
+        Button(action: { self.subview = .settings }, label: {
+            Text("settings.title")
+        })
     }
 
     private var reload: some View {
-        Button(action: { print("reload") }, label: { Text("Reload") })
+        Button(action: { print("reload") }, label: {
+            Text("Reload")
+        })
     }
 }
 

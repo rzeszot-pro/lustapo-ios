@@ -27,7 +27,7 @@ struct Stations: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Stacje pogodowe")
+            .navigationBarTitle("stations.title")
             .navigationBarItems(leading: close)
         }
     }
