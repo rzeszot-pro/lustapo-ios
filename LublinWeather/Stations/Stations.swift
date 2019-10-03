@@ -13,7 +13,8 @@ struct Stations: View {
     @EnvironmentObject
     var model: Model
 
-    var select: (() -> Void)?
+    var select: (Station) -> Void
+    var cancel: () -> Void
 
     var body: some View {
         NavigationView {
@@ -21,24 +22,21 @@ struct Stations: View {
                 ForEach(model.regions) { region in
                     Section(header: Text(region.name)) {
                         ForEach(region.stations) { station in
-                            Row(select: {
-                                self.model.active = station.name
-                                self.select?()
-                            }, station: station, selected: self.model.active == station.name)
+                            Row(select: self.select, station: station, isSelected: station.name == self.model.active)
                         }
                     }
                 }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("stations.title")
-            .navigationBarItems(leading: close)
+            .navigationBarItems(leading: dismiss)
         }
     }
 
     // MARK: -
 
-    private var close: some View {
-        Button(action: select ?? {}, label: {
+    private var dismiss: some View {
+        Button(action: cancel, label: {
             Image(systemName: "xmark")
         })
     }
@@ -46,19 +44,22 @@ struct Stations: View {
     // MARK: -
 
     struct Row: View {
-        var select: (() -> Void)?
-
+        var select: (Station) -> Void
         var station: Station
-        var selected: Bool
+        var isSelected: Bool
 
         var body: some View {
             HStack {
-                Button(action: select ?? {}, label: {
+                Button(action: {
+                    self.select(self.station)
+                }, label: {
+
                     Text(station.name)
                 })
+
                 Spacer()
 
-                if selected {
+                if isSelected {
                     Image(systemName: "checkmark")
                         .foregroundColor(.blue)
                 }

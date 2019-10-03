@@ -13,12 +13,8 @@ struct Info: View {
     var body: some View {
         VStack {
             Text("info.top")
-
-            more
-                .padding(.vertical, 20)
-
+            more.padding(.vertical, 20)
             Text("info.bottom")
-
             Spacer()
         }
         .padding(20)

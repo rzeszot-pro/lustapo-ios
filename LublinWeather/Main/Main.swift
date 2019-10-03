@@ -69,7 +69,12 @@ struct Main: View {
             .navigationBarItems(leading: settings, trailing: reload)
             .sheet(item: $subview) { id in
                 if id == .selection {
-                    Stations(select: { self.subview = nil; self.model.reload() }).environmentObject(self.model)
+                    Stations(select: { station in
+                        self.model.reload()
+                        self.subview = nil
+                    }, cancel: {
+                        self.subview = nil
+                    }).environmentObject(self.model)
                 } else {
                     Settings(dismiss: { self.subview = nil }).environmentObject(self.model)
                 }

@@ -10,22 +10,19 @@ import SwiftUI
 
 struct Settings: View {
 
-    var dismiss: (() -> Void)?
+    var dismiss: () -> Void
 
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: Languages(), label: {
-                        Text("languages.title")
+                    NavigationLink(destination: Info(), label: {
+                        Text("info.title")
                     })
                 }
                 Section {
                     NavigationLink(destination: About(), label: {
                         Text("about.title")
-                    })
-                    NavigationLink(destination: Info(), label: {
-                        Text("info.title")
                     })
                 }
             }
@@ -35,8 +32,10 @@ struct Settings: View {
         }
     }
 
+    // MARK: -
+
     private var close: some View {
-        Button(action: dismiss ?? {}, label: {
+        Button(action: dismiss, label: {
             Image(systemName: "xmark")
         })
     }

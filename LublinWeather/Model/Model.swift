@@ -34,6 +34,14 @@ class Model: ObservableObject {
         self.regions = regions
     }
 
+    let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = [
+            "user-agent": "Lustapo (\(Bundle.main.version ?? "nil")+\(Bundle.main.build ?? "nil")) \(UIDevice.current.systemName) (\(UIDevice.current.systemVersion))"
+        ]
+        return URLSession(configuration: config)
+    }()
+
 
     var cancellable: AnyCancellable?
 
@@ -46,7 +54,7 @@ class Model: ObservableObject {
         isReloading = true
 
         cancellable?.cancel()
-        cancellable = URLSession.shared
+        cancellable = session
             .dataTaskPublisher(for: station.endpoint)
             .map { value in try! JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data()) }
             .receive(on: RunLoop.main)
