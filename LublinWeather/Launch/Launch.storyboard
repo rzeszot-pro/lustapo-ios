@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QBh-9t-KGl">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="kGX-J3-zan">
+            <objects>
+                <viewController id="QBh-9t-KGl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1wE-TO-do5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbW-aY-yFE">
+                                <rect key="frame" x="0.0" y="490.5" width="414" height="405.5"/>
+                                <color key="backgroundColor" red="0.22503834962844849" green="0.67443263530731201" blue="0.21124932169914246" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-al-hua">
+                                <rect key="frame" x="50" y="291" width="314" height="314"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qGE-al-hua" secondAttribute="height" id="UPy-t3-PSq"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lubelskie Stacje Pogodowe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwK-eR-9Uf">
+                                <rect key="frame" x="25" y="232" width="364" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RbW-aY-yFE" secondAttribute="bottom" id="0J0-Hh-q5X"/>
+                            <constraint firstAttribute="trailing" secondItem="qGE-al-hua" secondAttribute="trailing" constant="50" id="3q1-OK-HcT"/>
+                            <constraint firstItem="dwK-eR-9Uf" firstAttribute="leading" secondItem="ATp-Qq-uEE" secondAttribute="leading" constant="25" id="D2F-re-Cxo"/>
+                            <constraint firstItem="qGE-al-hua" firstAttribute="centerX" secondItem="1wE-TO-do5" secondAttribute="centerX" id="QjJ-Bb-44k"/>
+                            <constraint firstItem="qGE-al-hua" firstAttribute="top" secondItem="dwK-eR-9Uf" secondAttribute="bottom" constant="30" id="e9j-CK-vem"/>
+                            <constraint firstItem="ATp-Qq-uEE" firstAttribute="trailing" secondItem="dwK-eR-9Uf" secondAttribute="trailing" constant="25" id="ek9-9A-NdU"/>
+                            <constraint firstItem="RbW-aY-yFE" firstAttribute="top" secondItem="qGE-al-hua" secondAttribute="centerY" multiplier="1.095" id="m1X-d7-bYg"/>
+                            <constraint firstAttribute="right" secondItem="RbW-aY-yFE" secondAttribute="right" id="o8H-XP-Yjf"/>
+                            <constraint firstItem="qGE-al-hua" firstAttribute="leading" secondItem="1wE-TO-do5" secondAttribute="leading" constant="50" id="p7R-bz-QBB"/>
+                            <constraint firstItem="qGE-al-hua" firstAttribute="centerY" secondItem="1wE-TO-do5" secondAttribute="centerY" id="wFD-TM-AYu"/>
+                            <constraint firstItem="RbW-aY-yFE" firstAttribute="left" secondItem="1wE-TO-do5" secondAttribute="left" id="wfJ-Vt-39u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ATp-Qq-uEE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mtx-Le-ndF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-518" y="-403"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Launch" width="500" height="500"/>
+    </resources>
+</document>
