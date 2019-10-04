@@ -30,73 +30,64 @@ import SwiftUI
 
 struct Main: View {
 
+    enum Subview: String, Identifiable {
+        case settings
+        case selection
+    }
+
     @EnvironmentObject
     var model: Model
+
+    @State
+    var subview: Subview?
 
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    Button(action: selection, label: {
-                        Text(model.station.name)
-                    })
+                    StationButton(station: model.station, action: selection)
                 }
-
-                if model.data != nil {
-                    Properties(payload: model.data!)
-                }
+                model.data.map { Properties(payload: $0) }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: leading, trailing: reload)
-            .sheet(item: $subview) { id in
-                if id == .selection {
-                    Stations(regions: self.model.regions, active: self.model.station, select: { station in
-                        self.model.station = station
-                        self.subview = nil
-                    }, cancel: self.dismiss)
-                } else {
-                    Settings(dismiss: self.dismiss).environmentObject(self.model)
-                }
-            }
+            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.isReloading ? AnyView(ActivityIndicator()) : AnyView(ReloadButton(action: model.reload)))
+            .sheet(item: $subview, content: sheet)
             .onAppear(perform: model.reload)
-        }
-    }
-
-    private var leading: some View {
-        Button(action: settings, label: {
-            Image(systemName: "gear")
-        })
-    }
-
-    private var reload: some View {
-        VStack {
-            if model.isReloading {
-                ActivityIndicator()
-            } else {
-                Button(action: model.reload, label: {
-                    Image(systemName: "arrow.2.circlepath")
-                })
-            }
         }
     }
 
     // MARK: -
 
-    enum Subview: Identifiable {
-        case settings
-        case selection
-
-        var id: String {
-            switch self {
-            case .selection: return "selection"
-            case .settings: return "settings"
-            }
+    struct StationButton: View {
+        var station: Station
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Text(station.name)
+            })
         }
     }
 
-    @State
-    var subview: Subview?
+    struct SettingsButton: View {
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Image(systemName: "gear")
+            })
+        }
+    }
+
+    struct ReloadButton: View {
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Image(systemName: "arrow.2.circlepath")
+            })
+        }
+    }
+
+    // MARK: -
 
     func settings() {
         subview = .settings
@@ -108,6 +99,18 @@ struct Main: View {
 
     func dismiss() {
         subview = nil
+    }
+
+    func sheet(_ id: Subview) -> some View {
+        switch id {
+        case .settings:
+            return AnyView(Settings(dismiss: self.dismiss))
+        case .selection:
+            return AnyView(Stations(regions: self.model.regions, active: self.model.station, select: { station in
+                self.model.station = station
+                self.subview = nil
+            }, cancel: self.dismiss))
+        }
     }
 
 }

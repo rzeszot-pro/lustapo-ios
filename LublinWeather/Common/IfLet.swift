@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  IfLet.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,37 +25,23 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
 
-@propertyWrapper
-struct UserDefault<T> {
+struct IfLet<Value, Output: View> : View {
+    var value: Value?
+    var block: (Value) -> Output
 
-    let defaults: UserDefaults
-    let key: String
-    let value: T
-
-    init(wrappedValue value: T, key: String, defaults: UserDefaults) {
+    init(_ value: Value?, block: @escaping (Value) -> Output) {
         self.value = value
-        self.defaults = defaults
-        self.key = key
+        self.block = block
     }
 
-    init(wrappedValue: T, key: String) {
-        self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
-    }
-
-    var wrappedValue: T {
-        get {
-            defaults.object(forKey: key) as? T ?? value
-        }
-        set {
-            defaults.set(newValue, forKey: key)
+    var body: some View {
+        if value != nil {
+            return AnyView(block(value!))
+        } else {
+            return AnyView(EmptyView())
         }
     }
-
-    func reset() {
-        defaults.set(nil, forKey: key)
-    }
-
 }

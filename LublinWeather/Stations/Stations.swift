@@ -27,6 +27,7 @@
 
 import SwiftUI
 
+
 struct Stations: View {
 
     var regions: [Region]
@@ -48,16 +49,8 @@ struct Stations: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("stations.title")
-            .navigationBarItems(leading: dismiss)
+            .navigationBarItems(leading: CloseButton(action: cancel))
         }
-    }
-
-    // MARK: -
-
-    var dismiss: some View {
-        Button(action: cancel, label: {
-            Image(systemName: "xmark")
-        })
     }
 
     // MARK: -

@@ -35,7 +35,7 @@ struct About: View {
         let build: String
     }
 
-    var data: Data = .init()
+    var data: Data
 
     var body: some View {
         List {
@@ -46,6 +46,8 @@ struct About: View {
         .listStyle(GroupedListStyle())
         .navigationBarTitle("about.title")
     }
+
+    // MARK: -
 
     struct Row: View {
         var key: String
@@ -64,15 +66,15 @@ struct About: View {
 
 }
 
-private extension About.Data {
+extension About.Data {
 
     init(bundle: Bundle) {
         version = bundle.version ?? ""
         build = bundle.build ?? ""
     }
 
-    init() {
-        self.init(bundle: .main)
+    static var main: About.Data {
+        .init(bundle: .main)
     }
 
 }

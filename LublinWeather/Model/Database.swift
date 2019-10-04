@@ -30,7 +30,6 @@ import Foundation
 
 struct Database {
 
-
     @UserDefault(key: "last-station")
     var last: String? = nil
 
@@ -55,4 +54,3 @@ struct Database {
     }
 
 }
-

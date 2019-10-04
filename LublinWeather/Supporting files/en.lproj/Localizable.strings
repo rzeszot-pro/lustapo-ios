@@ -11,16 +11,10 @@
 "data.temperature-air" = "Air temperature";
 "data.temperature-ground" = "Ground temperature";
 "data.temperature-sense" = "Perceived temperature";
-"data.pressure" = "Pressure";
 "data.wind" = "Wind";
-"data.rain" = "Precipitation (since 0:00 UTC)";
-"data.humidity" = "Humidity";
-"data.date" = "Last update";
-
-"data.temperature" = "Temperature";
-"data.wind-speed" = "Wind speed";
 "data.pressure" = "Pressure";
-"data.rain" = "Rain (since 0:00 UTC)";
+"data.humidity" = "Humidity";
+"data.rain" = "Precipitation (since 0:00 UTC)";
 "data.updated" = "Last update";
 
 "stations.title" = "Weather stations";
@@ -33,7 +27,7 @@
 "about.app" = "App";
 "about.app.version" = "Version";
 
-"info.title" = "Disclaimer";
-"info.top" = "Dane pogodowe są własnością Zakładu Meteorologii i Klimatologii Uniwersytetu Marii Curie-Skłodowskiej w Lublinie, aplikacja powstała jedynie, aby ułatwić szybki dostęp do ogólnodostępnych danych - nie odpowiadam za ich poprawność, brak oraz ewentualną niedostępność. Jest to aplikacjanon-profit, nie czerpię z niej żadnych korzyści finansowych.";
-"info.bottom" = "Prezentowane dane są danymi pochodzącymi z mierników automatycznych i nie są weryfikowane przez człowieka. Dane te nie mogą być wykorzystywane jako materiał dowodowy w sprawach roszczeniowych.";
-"info.more" = "More";
+"disclaimer.title" = "Disclaimer";
+"disclaimer.top" = "Dane pogodowe są własnością Zakładu Meteorologii i Klimatologii Uniwersytetu Marii Curie-Skłodowskiej w Lublinie, aplikacja powstała jedynie, aby ułatwić szybki dostęp do ogólnodostępnych danych - nie odpowiadam za ich poprawność, brak oraz ewentualną niedostępność. Jest to aplikacjanon-profit, nie czerpię z niej żadnych korzyści finansowych.";
+"disclaimer.bottom" = "Prezentowane dane są danymi pochodzącymi z mierników automatycznych i nie są weryfikowane przez człowieka. Dane te nie mogą być wykorzystywane jako materiał dowodowy w sprawach roszczeniowych.";
+"disclaimer.more" = "More";

@@ -27,6 +27,7 @@
 
 import SwiftUI
 
+
 struct Settings: View {
 
     var dismiss: () -> Void
@@ -35,28 +36,26 @@ struct Settings: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: Info(), label: {
-                        Text("info.title")
-                    })
+                    Row(text: "disclaimer.title", destination: Disclaimer())
                 }
                 Section {
-                    NavigationLink(destination: About(), label: {
-                        Text("about.title")
-                    })
+                    Row(text: "about.title", destination: About(data: .main))
                 }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("settings.title")
-            .navigationBarItems(leading: close)
+            .navigationBarItems(leading: CloseButton(action: dismiss))
         }
     }
 
     // MARK: -
 
-    private var close: some View {
-        Button(action: dismiss, label: {
-            Image(systemName: "xmark")
-        })
+    struct Row<Destination: View>: View {
+        var text: String
+        var destination: Destination
+        var body: some View {
+            NavigationLink(destination: destination, label: { Text(LocalizedStringKey(text)) })
+        }
     }
 
 }

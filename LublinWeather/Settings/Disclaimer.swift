@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Disclaimer.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,37 +25,45 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
 
-@propertyWrapper
-struct UserDefault<T> {
+struct Disclaimer: View {
 
-    let defaults: UserDefaults
-    let key: String
-    let value: T
+    var body: some View {
+        VStack {
+            Text("disclaimer.top")
 
-    init(wrappedValue value: T, key: String, defaults: UserDefaults) {
-        self.value = value
-        self.defaults = defaults
-        self.key = key
-    }
+            MoreButton(action: open)
+                .padding(.vertical, 20)
 
-    init(wrappedValue: T, key: String) {
-        self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
-    }
+            Text("disclaimer.bottom")
 
-    var wrappedValue: T {
-        get {
-            defaults.object(forKey: key) as? T ?? value
+            Spacer()
         }
-        set {
-            defaults.set(newValue, forKey: key)
+        .padding(20)
+        .navigationBarTitle("disclaimer.title")
+    }
+
+    // MARK: -
+
+    struct MoreButton: View {
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Text("disclaimer.more")
+            })
         }
     }
 
-    func reset() {
-        defaults.set(nil, forKey: key)
+    // MARK: -
+
+    func open() {
+        UIApplication.shared.open(URL(string: "https://www.umcs.pl/pl/pogoda-w-regionie,2812.htm")!, options: [:]) { success in
+            if !success {
+                // TODO: report failure
+            }
+        }
     }
 
 }

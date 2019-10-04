@@ -52,8 +52,6 @@ class Model: ObservableObject {
     @Published
     private(set) var data: Payload?
 
-
-
     // MARK: -
 
     init(regions: [Region], station: Station) {
@@ -71,7 +69,7 @@ class Model: ObservableObject {
     }()
 
 
-    var cancellable: AnyCancellable?
+    private var cancellable: AnyCancellable?
 
     func reload() {
         guard !isReloading else { return }
@@ -105,7 +103,7 @@ private func fix(_ data: Data) -> Data? {
     return result.data(using: String.Encoding.utf8.rawValue)
 }
 
-private extension URL {
+extension URL {
     init(station: Station) {
         let parts = station.id.split(separator: "-")
         let version = parts[0] == "0" ? "" : parts[0]

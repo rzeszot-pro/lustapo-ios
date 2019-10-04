@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Swift.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -28,34 +28,8 @@
 import Foundation
 
 
-@propertyWrapper
-struct UserDefault<T> {
-
-    let defaults: UserDefaults
-    let key: String
-    let value: T
-
-    init(wrappedValue value: T, key: String, defaults: UserDefaults) {
-        self.value = value
-        self.defaults = defaults
-        self.key = key
+extension Identifiable where Self: RawRepresentable {
+    var id: RawValue {
+        rawValue
     }
-
-    init(wrappedValue: T, key: String) {
-        self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
-    }
-
-    var wrappedValue: T {
-        get {
-            defaults.object(forKey: key) as? T ?? value
-        }
-        set {
-            defaults.set(newValue, forKey: key)
-        }
-    }
-
-    func reset() {
-        defaults.set(nil, forKey: key)
-    }
-
 }
