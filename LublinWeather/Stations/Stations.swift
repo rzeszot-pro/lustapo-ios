@@ -10,8 +10,8 @@ import SwiftUI
 
 struct Stations: View {
 
-    @EnvironmentObject
-    var model: Model
+    var regions: [Region]
+    var active: Station
 
     var select: (Station) -> Void
     var cancel: () -> Void
@@ -19,10 +19,10 @@ struct Stations: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(model.regions) { region in
+                ForEach(regions) { region in
                     Section(header: Text(region.name)) {
                         ForEach(region.stations) { station in
-                            Row(select: self.select, station: station, isSelected: station.id == self.model.active)
+                            Row(select: { self.select(station) }, station: station, active: station == self.active)
                         }
                     }
                 }
@@ -35,7 +35,7 @@ struct Stations: View {
 
     // MARK: -
 
-    private var dismiss: some View {
+    var dismiss: some View {
         Button(action: cancel, label: {
             Image(systemName: "xmark")
         })
@@ -44,21 +44,19 @@ struct Stations: View {
     // MARK: -
 
     struct Row: View {
-        var select: (Station) -> Void
+        var select: () -> Void
         var station: Station
-        var isSelected: Bool
+        var active: Bool
 
         var body: some View {
             HStack {
-                Button(action: {
-                    self.select(self.station)
-                }, label: {
+                Button(action: select, label: {
                     Text(station.name)
                 })
 
                 Spacer()
 
-                if isSelected {
+                if active {
                     Image(systemName: "checkmark")
                         .foregroundColor(.blue)
                 }

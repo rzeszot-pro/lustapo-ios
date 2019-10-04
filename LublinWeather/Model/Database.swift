@@ -10,6 +10,10 @@ import Foundation
 
 struct Database {
 
+
+    @UserDefault(key: "last-station")
+    var last: String? = nil
+
     func load() -> Model {
         let url = Bundle.main.url(forResource: "database", withExtension: "json")!
         let data = try! Data(contentsOf: url)
@@ -24,7 +28,10 @@ struct Database {
             Region(name: "Other", stations: other)
         ]
 
-        return Model(regions: regions)
+        let all = regions.flatMap { $0.stations }
+        let active = all.first(where: { $0.id == last }) ?? all.first!
+
+        return Model(regions: regions, station: active)
     }
 
 }

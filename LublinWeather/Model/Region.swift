@@ -13,6 +13,8 @@ struct Region: Identifiable {
     let name: String
     let stations: [Station]
 
+    // MARK: - Identifiable
+
     var id: String {
         name
     }

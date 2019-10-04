@@ -31,32 +31,15 @@ import SwiftUI
 
 struct Main: View {
 
-    enum Subview: Identifiable {
-        case settings
-        case selection
-
-        var id: String {
-            switch self {
-            case .selection: return "selection"
-            case .settings: return "settings"
-            }
-        }
-    }
-
     @EnvironmentObject
     var model: Model
-
-    @State
-    var subview: Subview?
 
     var body: some View {
         NavigationView {
             List {
                 Section {
-                    Button(action: {
-                        self.subview = .selection
-                    }, label: {
-                        Text(model.station?.name ?? "Select")
+                    Button(action: selection, label: {
+                        Text(model.station.name)
                     })
                 }
 
@@ -66,26 +49,23 @@ struct Main: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: settings, trailing: reload)
+            .navigationBarItems(leading: leading, trailing: reload)
             .sheet(item: $subview) { id in
                 if id == .selection {
-                    Stations(select: { station in
-                        self.model.active = station.id
-                        self.model.reload()
+                    Stations(regions: self.model.regions, active: self.model.station, select: { station in
+                        self.model.station = station
                         self.subview = nil
-                    }, cancel: {
-                        self.subview = nil
-                    }).environmentObject(self.model)
+                    }, cancel: self.dismiss)
                 } else {
-                    Settings(dismiss: { self.subview = nil }).environmentObject(self.model)
+                    Settings(dismiss: self.dismiss).environmentObject(self.model)
                 }
             }
             .onAppear(perform: model.reload)
         }
     }
 
-    private var settings: some View {
-        Button(action: { self.subview = .settings }, label: {
+    private var leading: some View {
+        Button(action: settings, label: {
             Image(systemName: "gear")
         })
     }
@@ -100,6 +80,35 @@ struct Main: View {
                 })
             }
         }
+    }
+
+    // MARK: -
+
+    enum Subview: Identifiable {
+        case settings
+        case selection
+
+        var id: String {
+            switch self {
+            case .selection: return "selection"
+            case .settings: return "settings"
+            }
+        }
+    }
+
+    @State
+    var subview: Subview?
+
+    func settings() {
+        subview = .settings
+    }
+
+    func selection() {
+        subview = .selection
+    }
+
+    func dismiss() {
+        subview = nil
     }
 
 }

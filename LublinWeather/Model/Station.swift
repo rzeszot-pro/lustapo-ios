@@ -9,22 +9,7 @@
 import Foundation
 
 
-struct Station: Decodable, Identifiable {
+struct Station: Decodable, Identifiable, Equatable {
+    let id: String
     let name: String
-    let source: String
-
-    // MARK: - Identifiable
-
-    var id: String {
-        name.lowercased()
-    }
-}
-
-extension Station {
-    var endpoint: URL {
-        let parts = source.split(separator: "-")
-        let version = parts[0] == "0" ? "" : parts[0]
-
-        return URL(string: "http://212.182.4.252/data\(version).php?s=\(parts[1])")!
-    }
 }

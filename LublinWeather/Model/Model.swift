@@ -16,13 +16,14 @@ class Model: ObservableObject {
     @UserDefault(key: "last-station")
     var last: String? = nil
 
+    @Published
     var regions: [Region]
 
     @Published
-    var active: String? {
+    var station: Station {
         didSet {
-            last = active
-            data = nil
+            last = station.id
+            reload()
         }
     }
 
@@ -32,20 +33,13 @@ class Model: ObservableObject {
     @Published
     private(set) var data: Payload?
 
-    var station: Station? {
-        stations.first { $0.id == active }
-    }
+
 
     // MARK: -
 
-    init(regions: [Region]) {
+    init(regions: [Region], station: Station) {
         self.regions = regions
-
-        if let last = last, regions.flatMap({ $0.stations }).contains(where: { $0.id == last }) {
-            self.active = last
-        } else {
-            self.active = regions.first?.stations.first?.id
-        }
+        self.station = station
     }
 
     let session: URLSession = {
@@ -61,14 +55,13 @@ class Model: ObservableObject {
     var cancellable: AnyCancellable?
 
     func reload() {
-        guard let station = station else { return }
         guard !isReloading else { return }
 
         isReloading = true
 
         cancellable?.cancel()
         cancellable = session
-            .dataTaskPublisher(for: station.endpoint)
+            .dataTaskPublisher(for: URL(station: station))
             .map { value in
                 try? JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data())
             }
@@ -78,18 +71,6 @@ class Model: ObservableObject {
             }, receiveValue: { value in
                 self.data = value
             })
-    }
-
-    // MARK: -
-
-    var stations: [Station] {
-        regions.flatMap { $0.stations }
-    }
-
-    // MARK: -
-
-    static var standard: Model {
-        Database().load()
     }
 
 }
@@ -103,4 +84,13 @@ private func fix(_ data: Data) -> Data? {
     regexp.replaceMatches(in: result, options: .withoutAnchoringBounds, range: NSRange(location: 0, length: string.count), withTemplate: "\"$1\":")
 
     return result.data(using: String.Encoding.utf8.rawValue)
+}
+
+private extension URL {
+    init(station: Station) {
+        let parts = station.id.split(separator: "-")
+        let version = parts[0] == "0" ? "" : parts[0]
+
+        self = URL(string: "http://212.182.4.252/data\(version).php?s=\(parts[1])")!
+    }
 }
