@@ -56,6 +56,7 @@
 		2D4AF50F23464E1300DB38AA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2DAE0F1B23480ABB00060D59 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
 		2DAE0F1E23480D3100060D59 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		2DAE0F1F23480D3100060D59 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		2DAE0F222348114C00060D59 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		647048081D65E9C6009205F3 /* LuStaPo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuStaPo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6470480B1D65E9C6009205F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +175,7 @@
 		2DAE0F1D23480D1B00060D59 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				2DAE0F1F23480D3100060D59 /* .gitignore */,
 				2DAE0F1E23480D3100060D59 /* .swiftlint.yml */,
 			);
 			name = Tools;
