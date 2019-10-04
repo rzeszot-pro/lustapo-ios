@@ -1,9 +1,9 @@
 //
 //  SceneDelegate.swift
-//  LublinWeather
+//  Lubelskie Stacje Pogodowe
 //
+//  Copyright (c) 2016-2019 Damian Rzeszot
 //  Copyright (c) 2016 Piotr Woloszkiewicz
-//  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the
@@ -26,7 +26,6 @@
 //
 
 import SwiftUI
-
 
 
 struct Main: View {
