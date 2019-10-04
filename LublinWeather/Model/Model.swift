@@ -13,10 +13,18 @@ import SwiftUI
 
 class Model: ObservableObject {
 
+    @UserDefault(key: "last-station")
+    var last: String? = nil
+
     var regions: [Region]
 
     @Published
-    var active: String? = "Lublin - Ogród Botaniczny UMCS"
+    var active: String? {
+        didSet {
+            last = active
+            data = nil
+        }
+    }
 
     @Published
     private(set) var isReloading: Bool = false
@@ -25,13 +33,19 @@ class Model: ObservableObject {
     private(set) var data: Payload?
 
     var station: Station? {
-        stations.first { $0.name == active }
+        stations.first { $0.id == active }
     }
 
     // MARK: -
 
-    init(regions: [Region], active: String?) {
+    init(regions: [Region]) {
         self.regions = regions
+
+        if let last = last, regions.flatMap({ $0.stations }).contains(where: { $0.id == last }) {
+            self.active = last
+        } else {
+            self.active = regions.first?.stations.first?.id
+        }
     }
 
     let session: URLSession = {
@@ -39,6 +53,7 @@ class Model: ObservableObject {
         config.httpAdditionalHeaders = [
             "user-agent": "Lustapo (\(Bundle.main.version ?? "nil")+\(Bundle.main.build ?? "nil")) \(UIDevice.current.systemName) (\(UIDevice.current.systemVersion))"
         ]
+        config.timeoutIntervalForRequest = 10
         return URLSession(configuration: config)
     }()
 
@@ -46,8 +61,6 @@ class Model: ObservableObject {
     var cancellable: AnyCancellable?
 
     func reload() {
-        print("reload")
-
         guard let station = station else { return }
         guard !isReloading else { return }
 
@@ -56,7 +69,9 @@ class Model: ObservableObject {
         cancellable?.cancel()
         cancellable = session
             .dataTaskPublisher(for: station.endpoint)
-            .map { value in try! JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data()) }
+            .map { value in
+                try? JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data())
+            }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 self.isReloading = false

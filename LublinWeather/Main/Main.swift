@@ -70,6 +70,7 @@ struct Main: View {
             .sheet(item: $subview) { id in
                 if id == .selection {
                     Stations(select: { station in
+                        self.model.active = station.id
                         self.model.reload()
                         self.subview = nil
                     }, cancel: {

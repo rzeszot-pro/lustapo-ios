@@ -8,12 +8,15 @@
 
 "app.title" = "LuStaPo";
 
-"data.temperature" = "Temperatura";
-"data.wind-speed" = "Prędkość wiatru";
+"data.temperature-air" = "Temperatura powietrza";
+"data.temperature-ground" = "Temperatura powietrza";
+"data.temperature-sense" = "Temperatura odczuwalna";
+"data.wind" = "Wiatr";
+"data.humidity" = "Wilgotność";
 "data.pressure" = "Ciśnienie";
 "data.rain" = "Opad (od 0:00 UTC)";
 "data.updated" = "Ostatnia aktualizacja";
- 
+
 "stations.title" = "Stacje pogodowe";
 
 "settings.title" = "Ustawienia";
@@ -23,10 +26,6 @@
 "about.title" = "O aplikacji (ta wersja)";
 "about.app" = "Aplikacja";
 "about.app.version" = "Wersja";
-"about.app.build" = "Build";
-"about.device" = "Urządzenie";
-"about.device.model" = "Model";
-"about.device.system" = "System";
 
 "info.title" = "Informacje";
 "info.top" = "Dane pogodowe są własnością Zakładu Meteorologii i Klimatologii Uniwersytetu Marii Curie-Skłodowskiej w Lublinie, aplikacja powstała jedynie, aby ułatwić szybki dostęp do ogólnodostępnych danych - nie odpowiadam za ich poprawność, brak oraz ewentualną niedostępność. Jest to aplikacjanon-profit, nie czerpię z niej żadnych korzyści finansowych.";

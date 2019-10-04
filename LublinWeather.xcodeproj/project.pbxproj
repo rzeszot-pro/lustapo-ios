@@ -21,6 +21,7 @@
 		2D2FD846234629260076D247 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2D2FD848234629260076D247 /* Localizable.strings */; };
 		2D2FD84E23462B990076D247 /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2FD84D23462B990076D247 /* About.swift */; };
 		2D2FD85223462DCC0076D247 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2FD85123462DCC0076D247 /* Properties.swift */; };
+		2D46169C23478B08005A3397 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46169B23478B08005A3397 /* UserDefault.swift */; };
 		2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50A23463D2300DB38AA /* Payload.swift */; };
 		2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50F23464E1300DB38AA /* Bundle.swift */; };
 		6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470480B1D65E9C6009205F3 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 		2D2FD849234629340076D247 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2D2FD84D23462B990076D247 /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		2D2FD85123462DCC0076D247 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
+		2D46169B23478B08005A3397 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		2D4AF50A23463D2300DB38AA /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		2D4AF50F23464E1300DB38AA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		647048081D65E9C6009205F3 /* LuStaPo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuStaPo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 				2D042AD1234607BE0057F153 /* Database.swift */,
 				2D042ACD2346047A0057F153 /* database.json */,
 				2D4AF50A23463D2300DB38AA /* Payload.swift */,
+				2D46169B23478B08005A3397 /* UserDefault.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				2D042AD8234619A90057F153 /* Model.swift in Sources */,
 				2D2FD83D234626450076D247 /* Stations.swift in Sources */,
+				2D46169C23478B08005A3397 /* UserDefault.swift in Sources */,
 				2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */,
 				2D042AD2234607BE0057F153 /* Database.swift in Sources */,
 				2D2FD84E23462B990076D247 /* About.swift in Sources */,

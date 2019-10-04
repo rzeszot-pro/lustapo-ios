@@ -24,7 +24,7 @@ struct Database {
             Region(name: "Other", stations: other)
         ]
 
-        return Model(regions: regions, active: "Lublin - Plac Litewski i wieża")
+        return Model(regions: regions)
     }
 
 }

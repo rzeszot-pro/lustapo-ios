@@ -16,7 +16,7 @@ struct Station: Decodable, Identifiable {
     // MARK: - Identifiable
 
     var id: String {
-        name
+        name.lowercased()
     }
 }
 

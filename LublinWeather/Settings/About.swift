@@ -14,9 +14,6 @@ struct About: View {
     struct Data {
         let version: String
         let build: String
-
-        let model: String
-        let system: String
     }
 
     var data: Data = .init()
@@ -24,12 +21,7 @@ struct About: View {
     var body: some View {
         List {
             Section(header: Text("about.app")) {
-                Row(key: "about.app.version", value: data.version)
-                Row(key: "about.app.build", value: data.build)
-            }
-            Section(header: Text("about.device")) {
-                Row(key: "about.device.model", value: data.model)
-                Row(key: "about.device.system", value: data.system)
+                Row(key: "about.app.version", value: "\(data.version) (\(data.build))")
             }
         }
         .listStyle(GroupedListStyle())
@@ -55,16 +47,13 @@ struct About: View {
 
 private extension About.Data {
 
-    init(bundle: Bundle, device: UIDevice) {
+    init(bundle: Bundle) {
         version = bundle.version ?? ""
         build = bundle.build ?? ""
-
-        model = device.model
-        system = [device.systemName, device.systemVersion].joined(separator: " ")
     }
 
     init() {
-        self.init(bundle: .main, device: .current)
+        self.init(bundle: .main)
     }
 
 }

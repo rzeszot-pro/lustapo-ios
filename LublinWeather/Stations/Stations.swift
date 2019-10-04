@@ -22,7 +22,7 @@ struct Stations: View {
                 ForEach(model.regions) { region in
                     Section(header: Text(region.name)) {
                         ForEach(region.stations) { station in
-                            Row(select: self.select, station: station, isSelected: station.name == self.model.active)
+                            Row(select: self.select, station: station, isSelected: station.id == self.model.active)
                         }
                     }
                 }
@@ -53,7 +53,6 @@ struct Stations: View {
                 Button(action: {
                     self.select(self.station)
                 }, label: {
-
                     Text(station.name)
                 })
 
