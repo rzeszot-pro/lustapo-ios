@@ -1,9 +1,28 @@
 //
 //  Settings.swift
-//  LublinWeather
+//  Lubelskie Stacje Pogodowe
 //
-//  Created by Damian Rzeszot on 03/10/2019.
-//  Copyright © 2019 Piotr Woloszkiewicz. All rights reserved.
+//  Copyright (c) 2016-2019 Damian Rzeszot
+//  Copyright (c) 2016 Piotr Woloszkiewicz
+//
+//  Permission is hereby granted, free of charge, to any person obtaining
+//  a copy of this software and associated documentation files (the
+//  "Software"), to deal in the Software without restriction, including
+//  without limitation the rights to use, copy, modify, merge, publish,
+//  distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to
+//  the following conditions:
+//
+//  The above copyright notice and this permission notice shall be
+//  included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+//  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+//  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+//  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 import SwiftUI
@@ -16,28 +35,26 @@ struct Settings: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink(destination: Info(), label: {
-                        Text("info.title")
-                    })
+                    Row(text: "disclaimer.title", destination: Disclaimer())
                 }
                 Section {
-                    NavigationLink(destination: About(), label: {
-                        Text("about.title")
-                    })
+                    Row(text: "about.title", destination: About(data: .main))
                 }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("settings.title")
-            .navigationBarItems(leading: close)
+            .navigationBarItems(leading: CloseButton(action: dismiss))
         }
     }
 
     // MARK: -
 
-    private var close: some View {
-        Button(action: dismiss, label: {
-            Image(systemName: "xmark")
-        })
+    struct Row<Destination: View>: View {
+        var text: String
+        var destination: Destination
+        var body: some View {
+            NavigationLink(destination: destination, label: { Text(LocalizedStringKey(text)) })
+        }
     }
 
 }

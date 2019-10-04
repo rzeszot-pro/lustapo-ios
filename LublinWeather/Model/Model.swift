@@ -1,28 +1,47 @@
 //
 //  Model.swift
-//  LublinWeather
+//  Lubelskie Stacje Pogodowe
 //
-//  Created by Damian Rzeszot on 03/10/2019.
-//  Copyright © 2019 Piotr Woloszkiewicz. All rights reserved.
+//  Copyright (c) 2016-2019 Damian Rzeszot
+//  Copyright (c) 2016 Piotr Woloszkiewicz
+//
+//  Permission is hereby granted, free of charge, to any person obtaining
+//  a copy of this software and associated documentation files (the
+//  "Software"), to deal in the Software without restriction, including
+//  without limitation the rights to use, copy, modify, merge, publish,
+//  distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to
+//  the following conditions:
+//
+//  The above copyright notice and this permission notice shall be
+//  included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+//  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+//  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+//  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 import Foundation
 import Combine
 import SwiftUI
 
-
 class Model: ObservableObject {
 
     @UserDefault(key: "last-station")
-    var last: String? = nil
+    var last: String?
 
+    @Published
     var regions: [Region]
 
     @Published
-    var active: String? {
+    var station: Station {
         didSet {
-            last = active
-            data = nil
+            last = station.id
+            reload()
         }
     }
 
@@ -32,20 +51,11 @@ class Model: ObservableObject {
     @Published
     private(set) var data: Payload?
 
-    var station: Station? {
-        stations.first { $0.id == active }
-    }
-
     // MARK: -
 
-    init(regions: [Region]) {
+    init(regions: [Region], station: Station) {
         self.regions = regions
-
-        if let last = last, regions.flatMap({ $0.stations }).contains(where: { $0.id == last }) {
-            self.active = last
-        } else {
-            self.active = regions.first?.stations.first?.id
-        }
+        self.station = station
     }
 
     let session: URLSession = {
@@ -57,43 +67,28 @@ class Model: ObservableObject {
         return URLSession(configuration: config)
     }()
 
-
-    var cancellable: AnyCancellable?
+    private var cancellable: AnyCancellable?
 
     func reload() {
-        guard let station = station else { return }
         guard !isReloading else { return }
 
         isReloading = true
 
         cancellable?.cancel()
         cancellable = session
-            .dataTaskPublisher(for: station.endpoint)
+            .dataTaskPublisher(for: URL(station: station))
             .map { value in
                 try? JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data())
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { _ in
                 self.isReloading = false
             }, receiveValue: { value in
                 self.data = value
             })
     }
 
-    // MARK: -
-
-    var stations: [Station] {
-        regions.flatMap { $0.stations }
-    }
-
-    // MARK: -
-
-    static var standard: Model {
-        Database().load()
-    }
-
 }
-
 
 private func fix(_ data: Data) -> Data? {
     guard let string = String(data: data, encoding: .utf8) else { return nil }
@@ -103,4 +98,13 @@ private func fix(_ data: Data) -> Data? {
     regexp.replaceMatches(in: result, options: .withoutAnchoringBounds, range: NSRange(location: 0, length: string.count), withTemplate: "\"$1\":")
 
     return result.data(using: String.Encoding.utf8.rawValue)
+}
+
+extension URL {
+    init(station: Station) {
+        let parts = station.id.split(separator: "-")
+        let version = parts[0] == "0" ? "" : parts[0]
+
+        self = URL(string: "http://212.182.4.252/data\(version).php?s=\(parts[1])")!
+    }
 }

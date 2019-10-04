@@ -1,13 +1,31 @@
 //
 //  Dashboard.swift
-//  LublinWeather
+//  Lubelskie Stacje Pogodowe
 //
-//  Created by Damian Rzeszot on 03/10/2019.
-//  Copyright © 2019 Piotr Woloszkiewicz. All rights reserved.
+//  Copyright (c) 2016-2019 Damian Rzeszot
+//  Copyright (c) 2016 Piotr Woloszkiewicz
+//
+//  Permission is hereby granted, free of charge, to any person obtaining
+//  a copy of this software and associated documentation files (the
+//  "Software"), to deal in the Software without restriction, including
+//  without limitation the rights to use, copy, modify, merge, publish,
+//  distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to
+//  the following conditions:
+//
+//  The above copyright notice and this permission notice shall be
+//  included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+//  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+//  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+//  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 import SwiftUI
-
 
 struct Properties: View {
 
@@ -15,146 +33,230 @@ struct Properties: View {
 
     var body: some View {
         Section {
-            if payload.temperature_air != nil {
-                Row(key: "data.temperature-air", value: String(payload.temperature_air!), unit: "°C")
-            }
-
-            if payload.temperature_ground != nil {
-                Row(key: "data.temperature-ground", value: String(payload.temperature_ground!), unit: "°C")
-            }
-
-            if payload.temperature_sense != nil {
-                Row(key: "data.temperature-sense", value: String(payload.temperature_sense!), unit: "°C")
-            }
+            IfLet(payload.temperature_air) { Temperature(air: $0) }
+            IfLet(payload.temperature_ground) { Temperature(ground: $0) }
+            IfLet(payload.temperature_sense) { Temperature(sense: $0) }
 
             if payload.wind_direction != nil || payload.wind_speed != nil {
-                WindProperty(speed: payload.wind_speed, direction: payload.wind_direction)
+                Wind(speed: payload.wind_speed, direction: payload.wind_direction)
             }
 
-            if payload.humidity != nil {
-                Row(key: "data.humidity", value: String(payload.humidity!), unit: "%")
-            }
+            IfLet(payload.humidity) { Humidity(value: $0) }
+            IfLet(payload.pressure) { Pressure(value: $0) }
+            IfLet(payload.rain) { Rain(value: $0) }
 
-            if payload.pressure != nil {
-                Row(key: "data.pressure", value: String(payload.pressure!), unit: "hPa")
-            }
-
-            if payload.rain != nil {
-                Row(key: "data.rain", value: String(payload.rain!), unit: "mm")
-            }
-
-            DateProperty(date: payload.date)
+            Updated(date: payload.date)
         }
     }
 
     // MARK: -
 
-    struct WindProperty: View {
+    struct Temperature: View {
+        var number: NumberFormatter = .standard
+        var key: String
+        var value: Double
+
+        init(air value: Double) {
+            self.key = "data.temperature-air"
+            self.value = value
+        }
+
+        init(ground value: Double) {
+            self.key = "data.temperature-ground"
+            self.value = value
+        }
+
+        init(sense value: Double) {
+            self.key = "data.temperature-sense"
+            self.value = value
+        }
+
+        var body: some View {
+            Dual(key: key, value: number.string(from: value) ?? "", unit: "°C")
+        }
+    }
+
+    struct Wind: View {
         var speed: Double?
         var direction: Double?
 
         var text: String? {
-            guard let value = direction else { return nil }
-
-            if value <= 22 || value >= 338 {
-                return "N"
-            } else if value <= 67 {
-                return "NE"
-            } else if value <= 112 {
-                return "E"
-            } else if value <= 157 {
-                return "SE"
-            } else if value <= 202 {
-                return "S"
-            } else if value <= 247 {
-                return "SW"
-            } else if value <= 292 {
-                return "W"
-            } else if value <= 337 {
-                return "NW"
-            } else {
-                return nil
+            switch direction ?? -1 {
+            case 0...22:    return "N"
+            case 22...67:   return "NE"
+            case 67...112:  return "E"
+            case 112...157: return "SE"
+            case 157...202: return "S"
+            case 202...247: return "SW"
+            case 247...292: return "W"
+            case 292...337: return "NW"
+            case 337...360: return "N"
+            default: return nil
             }
         }
 
         var body: some View {
-            HStack {
-                Text(LocalizedStringKey("data.wind"))
-                    .foregroundColor(Color.primary)
-                    .font(.body)
+            Triple(key: "data.wind", first: text, second: speed.map { String($0) }, unit: "km/h")
+        }
+    }
 
+    struct Humidity: View {
+        var number: NumberFormatter = .standard
+        var value: Double
+
+        var body: some View {
+            Dual(key: "data.humidity", value: number.string(from: value) ?? "", unit: "%")
+        }
+    }
+
+    struct Pressure: View {
+        var number: NumberFormatter = .standard
+        var value: Double
+
+        var body: some View {
+            Dual(key: "data.pressure", value: number.string(from: value) ?? "", unit: "hPa")
+        }
+    }
+
+    struct Rain: View {
+        var number: NumberFormatter = .standard
+        var value: Double
+
+        var body: some View {
+            Dual(key: "data.rain", value: number.string(from: value) ?? "", unit: "mm")
+        }
+    }
+
+    struct Updated: View {
+        var date: Date
+
+        var body: some View {
+            Single(key: "data.updated", value: DateFormatter.standard.string(from: date))
+                .listRowBackground(date.obsolete ? Color.obsolete : nil)
+        }
+    }
+
+    // MARK: -
+
+    struct Single: View {
+        var key: String
+        var value: String
+
+        var body: some View {
+            HStack {
+                Key(text: key)
+                Spacer()
+                Value(text: value)
+            }
+        }
+    }
+
+    struct Dual: View {
+        var key: String
+        var value: String
+        var unit: String
+
+        var body: some View {
+            HStack {
+                Key(text: key)
+                Spacer()
+                Value(text: value)
+                Unit(text: unit)
+            }
+        }
+    }
+
+    struct Triple: View {
+        var key: String
+        var first: String?
+        var second: String?
+        var unit: String
+
+        var body: some View {
+            HStack {
+                Key(text: key)
                 Spacer()
 
-                if text != nil {
-                    Text(String(text!))
-                        .foregroundColor(Color.primary)
-                        .font(.headline)
+                if first != nil {
+                    Value(text: first!)
 
-                    if speed != nil {
-                        Text(verbatim: "|")
-                            .foregroundColor(Color.secondary)
+                    if second != nil {
+                        Pipe()
                     }
                 }
 
-                if speed != nil {
-                    Text(String(speed!))
-                        .foregroundColor(Color.primary)
-                        .font(.headline)
-                    Text(verbatim: "km/h")
-                        .foregroundColor(Color.secondary)
-                        .font(.caption)
-                }
-            }
-        }
-    }
-    
-
-    struct DateProperty: View {
-        var date: Date
-
-        var text: String {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            return formatter.string(from: date)
-        }
-
-        var obsolete: Bool {
-            date.timeIntervalSinceNow < -20 * 60
-        }
-
-        var body: some View {
-            Row(key: "data.updated", value: text)
-                .listRowBackground(obsolete ? Color.obsolete : nil)
-        }
-    }
-
-    struct Row: View {
-        var key: String
-        var value: String
-        var unit: String? = nil
-
-        var body: some View {
-            HStack {
-                Text(LocalizedStringKey(key))
-                    .foregroundColor(Color.primary)
-                    .font(.body)
-                Spacer()
-                Text(value)
-                    .foregroundColor(Color.primary)
-                    .font(.headline)
-
-                if unit != nil {
-                    Text(unit!)
-                        .foregroundColor(Color.secondary)
-                        .font(.caption)
+                if second != nil {
+                    Value(text: second!)
+                    Unit(text: "km/h")
                 }
             }
         }
     }
 
+    // MARK: -
+
+    struct Key: View {
+        var text: String
+
+        var body: some View {
+            Text(LocalizedStringKey(text))
+                .foregroundColor(.primary)
+                .font(.body)
+        }
+    }
+
+    struct Value: View {
+        var text: String
+
+        var body: some View {
+            Text(text)
+                .foregroundColor(.primary)
+                .font(.headline)
+        }
+    }
+
+    struct Unit: View {
+        var text: String
+
+        var body: some View {
+            Text(text)
+                .foregroundColor(.secondary)
+                .font(.caption)
+        }
+    }
+
+    struct Pipe: View {
+        var body: some View {
+            Unit(text: "|")
+        }
+    }
 }
 
+extension DateFormatter {
+    static var standard: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        return formatter
+    }
+}
 
-private extension Color {
-    static let obsolete = Color("obsolete")
+extension NumberFormatter {
+    static var standard: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = true
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 1
+        return formatter
+    }
+
+    func string(from value: Double) -> String? {
+        string(from: NSNumber(value: value))
+    }
+}
+
+extension Date {
+    var obsolete: Bool {
+        timeIntervalSinceNow < -20 * 60
+    }
 }

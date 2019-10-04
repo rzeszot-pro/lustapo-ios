@@ -1,5 +1,5 @@
 //
-//  Station.swift
+//  Swift.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -27,7 +27,8 @@
 
 import Foundation
 
-struct Station: Decodable, Identifiable, Equatable {
-    let id: String
-    let name: String
+extension Identifiable where Self: RawRepresentable {
+    var id: RawValue {
+        rawValue
+    }
 }

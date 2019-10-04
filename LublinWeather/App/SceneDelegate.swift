@@ -1,9 +1,9 @@
 //
 //  SceneDelegate.swift
-//  LublinWeather
+//  Lubelskie Stacje Pogodowe
 //
+//  Copyright (c) 2016-2019 Damian Rzeszot
 //  Copyright (c) 2016 Piotr Woloszkiewicz
-//  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the
@@ -33,8 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
-        let view = Main().environmentObject(Model.standard)
+        let view = Main().environmentObject(Database().load())
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -42,26 +41,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
-    }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-
-    }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-
-    }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-
     }
 
 }

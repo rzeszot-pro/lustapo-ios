@@ -1,9 +1,9 @@
 //
 //  SceneDelegate.swift
-//  LublinWeather
+//  Lubelskie Stacje Pogodowe
 //
+//  Copyright (c) 2016-2019 Damian Rzeszot
 //  Copyright (c) 2016 Piotr Woloszkiewicz
-//  Copyright (c) 2016 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the
@@ -27,20 +27,11 @@
 
 import SwiftUI
 
-
-
 struct Main: View {
 
-    enum Subview: Identifiable {
+    enum Subview: String, Identifiable {
         case settings
         case selection
-
-        var id: String {
-            switch self {
-            case .selection: return "selection"
-            case .settings: return "settings"
-            }
-        }
     }
 
     @EnvironmentObject
@@ -53,52 +44,71 @@ struct Main: View {
         NavigationView {
             List {
                 Section {
-                    Button(action: {
-                        self.subview = .selection
-                    }, label: {
-                        Text(model.station?.name ?? "Select")
-                    })
+                    StationButton(station: model.station, action: selection)
                 }
-
-                if model.data != nil {
-                    Properties(payload: model.data!)
-                }
+                model.data.map { Properties(payload: $0) }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: settings, trailing: reload)
-            .sheet(item: $subview) { id in
-                if id == .selection {
-                    Stations(select: { station in
-                        self.model.active = station.id
-                        self.model.reload()
-                        self.subview = nil
-                    }, cancel: {
-                        self.subview = nil
-                    }).environmentObject(self.model)
-                } else {
-                    Settings(dismiss: { self.subview = nil }).environmentObject(self.model)
-                }
-            }
+            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.isReloading ? AnyView(ActivityIndicator()) : AnyView(ReloadButton(action: model.reload)))
+            .sheet(item: $subview, content: sheet)
             .onAppear(perform: model.reload)
         }
     }
 
-    private var settings: some View {
-        Button(action: { self.subview = .settings }, label: {
-            Image(systemName: "gear")
-        })
+    // MARK: -
+
+    struct StationButton: View {
+        var station: Station
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Text(station.name)
+            })
+        }
     }
 
-    private var reload: some View {
-        VStack {
-            if model.isReloading {
-                ActivityIndicator()
-            } else {
-                Button(action: model.reload, label: {
-                    Image(systemName: "arrow.2.circlepath")
-                })
-            }
+    struct SettingsButton: View {
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Image(systemName: "gear")
+            })
+        }
+    }
+
+    struct ReloadButton: View {
+        var action: () -> Void
+        var body: some View {
+            Button(action: action, label: {
+                Image(systemName: "arrow.2.circlepath")
+            })
+        }
+    }
+
+    // MARK: -
+
+    func settings() {
+        subview = .settings
+    }
+
+    func selection() {
+        subview = .selection
+    }
+
+    func dismiss() {
+        subview = nil
+    }
+
+    func sheet(_ id: Subview) -> some View {
+        switch id {
+        case .settings:
+            return AnyView(Settings(dismiss: self.dismiss))
+        case .selection:
+            return AnyView(Stations(regions: self.model.regions, active: self.model.station, select: { station in
+                self.model.station = station
+                self.subview = nil
+            }, cancel: self.dismiss))
         }
     }
 

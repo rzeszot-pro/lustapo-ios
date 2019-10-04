@@ -1,5 +1,5 @@
 //
-//  Station.swift
+//  IfLet.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,9 +25,22 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
-struct Station: Decodable, Identifiable, Equatable {
-    let id: String
-    let name: String
+struct IfLet<Value, Output: View>: View {
+    var value: Value?
+    var block: (Value) -> Output
+
+    init(_ value: Value?, block: @escaping (Value) -> Output) {
+        self.value = value
+        self.block = block
+    }
+
+    var body: some View {
+        if value != nil {
+            return AnyView(block(value!))
+        } else {
+            return AnyView(EmptyView())
+        }
+    }
 }

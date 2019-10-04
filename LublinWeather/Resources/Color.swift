@@ -1,5 +1,5 @@
 //
-//  Station.swift
+//  Color.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,9 +25,8 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
-struct Station: Decodable, Identifiable, Equatable {
-    let id: String
-    let name: String
+extension Color {
+    static let obsolete = Color("obsolete")
 }
