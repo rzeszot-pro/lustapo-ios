@@ -27,8 +27,7 @@
 
 import SwiftUI
 
-
-struct IfLet<Value, Output: View> : View {
+struct IfLet<Value, Output: View>: View {
     var value: Value?
     var block: (Value) -> Output
 

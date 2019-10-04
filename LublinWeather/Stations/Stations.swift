@@ -27,7 +27,6 @@
 
 import SwiftUI
 
-
 struct Stations: View {
 
     var regions: [Region]

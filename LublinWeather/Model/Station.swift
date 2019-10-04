@@ -27,7 +27,6 @@
 
 import Foundation
 
-
 struct Station: Decodable, Identifiable, Equatable {
     let id: String
     let name: String

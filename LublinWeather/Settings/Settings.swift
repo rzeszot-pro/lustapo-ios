@@ -27,7 +27,6 @@
 
 import SwiftUI
 
-
 struct Settings: View {
 
     var dismiss: () -> Void

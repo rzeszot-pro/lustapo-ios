@@ -29,11 +29,10 @@ import Foundation
 import Combine
 import SwiftUI
 
-
 class Model: ObservableObject {
 
     @UserDefault(key: "last-station")
-    var last: String? = nil
+    var last: String?
 
     @Published
     var regions: [Region]
@@ -68,7 +67,6 @@ class Model: ObservableObject {
         return URLSession(configuration: config)
     }()
 
-
     private var cancellable: AnyCancellable?
 
     func reload() {
@@ -83,7 +81,7 @@ class Model: ObservableObject {
                 try? JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data())
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
+            .sink(receiveCompletion: { _ in
                 self.isReloading = false
             }, receiveValue: { value in
                 self.data = value
@@ -91,7 +89,6 @@ class Model: ObservableObject {
     }
 
 }
-
 
 private func fix(_ data: Data) -> Data? {
     guard let string = String(data: data, encoding: .utf8) else { return nil }

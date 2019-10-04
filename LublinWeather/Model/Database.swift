@@ -27,30 +27,33 @@
 
 import Foundation
 
-
 struct Database {
 
     @UserDefault(key: "last-station")
-    var last: String? = nil
+    var last: String?
 
     func load() -> Model {
-        let url = Bundle.main.url(forResource: "database", withExtension: "json")!
-        let data = try! Data(contentsOf: url)
+        do {
+            let url = Bundle.main.url(forResource: "database", withExtension: "json")!
+            let data = try Data(contentsOf: url)
 
-        let stations = try! JSONDecoder().decode([Station].self, from: data)
+            let stations = try JSONDecoder().decode([Station].self, from: data)
 
-        let lublin = stations.filter { $0.name.starts(with: "Lublin - ") }
-        let other = stations.filter { !$0.name.starts(with: "Lublin - ") }
+            let lublin = stations.filter { $0.name.starts(with: "Lublin - ") }
+            let other = stations.filter { !$0.name.starts(with: "Lublin - ") }
 
-        let regions = [
-            Region(name: "Lublin", stations: lublin),
-            Region(name: "Other", stations: other)
-        ]
+            let regions = [
+                Region(name: "Lublin", stations: lublin),
+                Region(name: "Other", stations: other)
+            ]
 
-        let all = regions.flatMap { $0.stations }
-        let active = all.first(where: { $0.id == last }) ?? all.first!
+            let all = regions.flatMap { $0.stations }
+            let active = all.first(where: { $0.id == last }) ?? all.first!
 
-        return Model(regions: regions, station: active)
+            return Model(regions: regions, station: active)
+        } catch {
+            fatalError()
+        }
     }
 
 }

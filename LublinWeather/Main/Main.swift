@@ -27,7 +27,6 @@
 
 import SwiftUI
 
-
 struct Main: View {
 
     enum Subview: String, Identifiable {

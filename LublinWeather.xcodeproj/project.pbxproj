@@ -55,6 +55,7 @@
 		2D4AF50A23463D2300DB38AA /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		2D4AF50F23464E1300DB38AA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2DAE0F1B23480ABB00060D59 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
+		2DAE0F1E23480D3100060D59 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		647048081D65E9C6009205F3 /* LuStaPo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuStaPo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6470480B1D65E9C6009205F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		647048121D65E9C6009205F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,9 +170,18 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		2DAE0F1D23480D1B00060D59 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				2DAE0F1E23480D3100060D59 /* .swiftlint.yml */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		647047FF1D65E9C6009205F3 = {
 			isa = PBXGroup;
 			children = (
+				2DAE0F1D23480D1B00060D59 /* Tools */,
 				8B35EADA1D86EC0D00C2747E /* Other */,
 				6470480A1D65E9C6009205F3 /* LublinWeather */,
 				6470483D1D6725F4009205F3 /* Frameworks */,
@@ -303,7 +313,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    echo swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

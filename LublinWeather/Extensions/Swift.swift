@@ -27,7 +27,6 @@
 
 import Foundation
 
-
 extension Identifiable where Self: RawRepresentable {
     var id: RawValue {
         rawValue

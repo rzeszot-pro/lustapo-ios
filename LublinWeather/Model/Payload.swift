@@ -24,9 +24,9 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
+// swiftlint:disable identifier_name
 
 import Foundation
-
 
 struct Payload: Decodable {
     let date: Date
@@ -65,7 +65,10 @@ struct Payload: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
 
-        guard let date = DateFormatter.remote.date(from: try container.decode(String.self, forKey: .data)) else { throw DecodingError.dataCorruptedError(forKey: .data, in: container, debugDescription: "invalid date encoding")}
+        let dateString = try container.decode(String.self, forKey: .data)
+        guard let date = DateFormatter.remote.date(from: dateString) else {
+                throw DecodingError.dataCorruptedError(forKey: .data, in: container, debugDescription: "invalid date encoding")
+        }
 
         self.date = date
 

@@ -27,27 +27,26 @@
 
 import Foundation
 
-
 @propertyWrapper
-struct UserDefault<T> {
+struct UserDefault<Value> {
 
     let defaults: UserDefaults
     let key: String
-    let value: T
+    let value: Value
 
-    init(wrappedValue value: T, key: String, defaults: UserDefaults) {
+    init(wrappedValue value: Value, key: String, defaults: UserDefaults) {
         self.value = value
         self.defaults = defaults
         self.key = key
     }
 
-    init(wrappedValue: T, key: String) {
+    init(wrappedValue: Value, key: String) {
         self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
     }
 
-    var wrappedValue: T {
+    var wrappedValue: Value {
         get {
-            defaults.object(forKey: key) as? T ?? value
+            defaults.object(forKey: key) as? Value ?? value
         }
         set {
             defaults.set(newValue, forKey: key)
@@ -58,4 +57,10 @@ struct UserDefault<T> {
         defaults.set(nil, forKey: key)
     }
 
+}
+
+extension UserDefault {
+    init<Other>(key: String) where Value == Other? {
+        self.init(wrappedValue: nil, key: key)
+    }
 }

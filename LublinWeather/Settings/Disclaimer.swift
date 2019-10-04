@@ -27,7 +27,6 @@
 
 import SwiftUI
 
-
 struct Disclaimer: View {
 
     var body: some View {

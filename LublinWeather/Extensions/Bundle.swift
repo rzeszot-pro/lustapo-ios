@@ -27,7 +27,6 @@
 
 import Foundation
 
-
 extension Bundle {
 
     open var version: String? {

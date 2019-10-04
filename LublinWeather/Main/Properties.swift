@@ -27,7 +27,6 @@
 
 import SwiftUI
 
-
 struct Properties: View {
 
     var payload: Payload

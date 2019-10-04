@@ -27,7 +27,6 @@
 
 import SwiftUI
 
-
 struct About: View {
 
     struct Data {
