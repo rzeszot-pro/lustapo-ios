@@ -40,13 +40,11 @@ class Model: ObservableObject {
     @Published
     var station: Station {
         didSet {
+            data = nil
             last = station.id
             reload()
         }
     }
-
-    @Published
-    private(set) var isReloading: Bool = false
 
     @Published
     private(set) var data: Payload?
@@ -70,10 +68,6 @@ class Model: ObservableObject {
     private var cancellable: AnyCancellable?
 
     func reload() {
-        guard !isReloading else { return }
-
-        isReloading = true
-
         cancellable?.cancel()
         cancellable = session
             .dataTaskPublisher(for: URL(station: station))
@@ -81,9 +75,7 @@ class Model: ObservableObject {
                 try? JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data())
             }
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-                self.isReloading = false
-            }, receiveValue: { value in
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 self.data = value
             })
     }
