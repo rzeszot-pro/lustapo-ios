@@ -483,7 +483,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.lublinweather;
 				PRODUCT_NAME = LuStaPo;
 				SWIFT_VERSION = 5.0;
@@ -502,7 +502,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.12;
+				MARKETING_VERSION = 1.13;
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.lublinweather;
 				PRODUCT_NAME = LuStaPo;
 				SWIFT_VERSION = 5.0;
