@@ -31,6 +31,8 @@ import SwiftUI
 
 class Model: ObservableObject {
 
+    // MARK: -
+
     @UserDefault(key: "last-station")
     var last: String?
 
@@ -40,14 +42,23 @@ class Model: ObservableObject {
     @Published
     var station: Station {
         didSet {
-            data = nil
+            measurements.data = nil
             last = station.id
             reload()
         }
     }
 
-    @Published
-    private(set) var data: Payload?
+    // MARK: -
+
+    class Measurements: ObservableObject {
+        @Published
+        var loading: Bool = false
+
+        @Published
+        var data: Payload?
+    }
+
+    private(set) var measurements: Measurements = .init()
 
     // MARK: -
 
@@ -65,19 +76,30 @@ class Model: ObservableObject {
         return URLSession(configuration: config)
     }()
 
-    private var cancellable: AnyCancellable?
-
     func reload() {
-        cancellable?.cancel()
-        cancellable = session
-            .dataTaskPublisher(for: URL(station: station))
-            .map { value in
-                try? JSONDecoder().decode(Payload.self, from: fix(value.data) ?? Data())
+        guard !measurements.loading else { return }
+
+        measurements.loading = true
+        measurements.data = nil
+
+        objectWillChange.send()
+
+        session.dataTask(with: URL(station: station)) { [weak self] data, _, _ in
+            DispatchQueue.main.async {
+                self?.handle(data)
             }
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in }, receiveValue: { value in
-                self.data = value
-            })
+        }.resume()
+    }
+
+    private func handle(_ data: Data?) {
+        measurements.loading = false
+        objectWillChange.send()
+
+        guard let data = data, let fixed = fix(data) else { return }
+        let decoder = JSONDecoder()
+
+        measurements.data = try? decoder.decode(Payload.self, from: fixed)
+        objectWillChange.send()
     }
 
 }
