@@ -99,7 +99,15 @@ class Model: ObservableObject {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(.remote)
 
-        measurements.data = try? decoder.decode(Payload.self, from: fixed)
+        do {
+            measurements.data = try decoder.decode(Payload.self, from: fixed)
+        } catch {
+            #if DEBUG
+                print("error \(error)")
+            #endif
+            // TODO: report error
+        }
+
         objectWillChange.send()
     }
 
