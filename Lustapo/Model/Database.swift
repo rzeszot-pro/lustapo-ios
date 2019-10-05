@@ -36,10 +36,15 @@ struct Database {
         Bundle.main.url(forResource: "database", withExtension: "json")!
     }
 
-    func load() -> Model {
-        guard let data = try? Data(contentsOf: url) else { fatalError("cannot read database.json") }
-        guard let stations = try? JSONDecoder().decode([Station].self, from: data) else { fatalError("cannot decode database.json")}
+    // swiftlint:disable force_try
+    var stations: [Station] {
+        let data = try! Data(contentsOf: url)
+        let decoder = JSONDecoder()
 
+        return try! decoder.decode([Station].self, from: data)
+    }
+
+    func load() -> Model {
         func condition(_ station: Station) -> Bool {
             station.name.starts(with: "Lublin - ")
         }
