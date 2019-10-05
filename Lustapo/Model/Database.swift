@@ -32,28 +32,38 @@ struct Database {
     @UserDefault(key: "last-station")
     var last: String?
 
-    func load() -> Model {
-        do {
-            let url = Bundle.main.url(forResource: "database", withExtension: "json")!
-            let data = try Data(contentsOf: url)
-
-            let stations = try JSONDecoder().decode([Station].self, from: data)
-
-            let lublin = stations.filter { $0.name.starts(with: "Lublin - ") }
-            let other = stations.filter { !$0.name.starts(with: "Lublin - ") }
-
-            let regions = [
-                Region(name: "Lublin", stations: lublin),
-                Region(name: "Other", stations: other)
-            ]
-
-            let all = regions.flatMap { $0.stations }
-            let active = all.first(where: { $0.id == last }) ?? all.first!
-
-            return Model(regions: regions, station: active)
-        } catch {
-            fatalError()
-        }
+    var url: URL {
+        Bundle.main.url(forResource: "database", withExtension: "json")!
     }
 
+    func load() -> Model {
+        guard let data = try? Data(contentsOf: url) else { fatalError("cannot read database.json") }
+        guard let stations = try? JSONDecoder().decode([Station].self, from: data) else { fatalError("cannot decode database.json")}
+
+        func condition(_ station: Station) -> Bool {
+            station.name.starts(with: "Lublin - ")
+        }
+
+        let lublin = stations.select(condition)
+        let other = stations.reject(condition)
+
+        let active = stations.first { $0.id == last } ?? stations[0]
+        let regions = [
+            Region(name: "Lublin", stations: lublin),
+            Region(name: "Other", stations: other)
+        ]
+
+        return Model(regions: regions, station: active)
+    }
+
+}
+
+extension Array {
+    func select(_ condition: (Element) -> Bool) -> Array {
+        filter(condition)
+    }
+
+    func reject(_ condition: (Element) -> Bool) -> Array {
+        filter { !condition($0) }
+    }
 }
