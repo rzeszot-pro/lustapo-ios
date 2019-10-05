@@ -100,7 +100,7 @@ struct Payload: Decodable {
         wind = try decoder.singleValueContainer().decode(Wind.self)
 
         humidity = try container.decodeIfPresentAndNotString(Double.self, forKey: .humidity)
-        pressure = nullify(try container.decodeIfPresent(Double.self, forKey: .pressure))
+        pressure = nullify(try container.decodeIfPresentAndNotString(Double.self, forKey: .pressure))
         rain = try container.decodeIfPresent(Double.self, forKey: .rain)
     }
 }
