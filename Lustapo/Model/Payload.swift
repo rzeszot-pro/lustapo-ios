@@ -30,33 +30,62 @@ import Foundation
 
 struct Payload: Decodable {
     let date: Date
-
-    let temperature_air: Double?
-    let temperature_sense: Double?
-    let temperature_ground: Double?
-
-    let wind_speed: Double?
-    let wind_direction: Double?
+    let temperature: Temperature
+    let wind: Wind
 
     let humidity: Double?
     let pressure: Double?
     let rain: Double?
 
+    // MARK: -
+
+    struct Temperature: Decodable {
+        let air: Double?
+        let sense: Double?
+        let ground: Double?
+
+        // MARK: - Decodable
+
+        private enum Key: String, CodingKey {
+            case ground = "T5"
+            case air = "temperatureInt"
+            case sense = "windChillInt"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: Key.self)
+
+            air = try container.decodeIfPresent(Double.self, forKey: .air)
+            sense = try container.decodeIfPresent(Double.self, forKey: .sense)
+            ground = try container.decodeIfPresent(Double.self, forKey: .ground)
+        }
+    }
+
+    struct Wind: Decodable {
+        let speed: Double?
+        let direction: Double?
+
+        // MARK: - Decodable
+
+        private enum Key: String, CodingKey {
+            case wind_dir_a = "windDirInt"
+            case wind_dir_b = "windDir"
+            case wind_speed_a = "windSpeedInt"
+            case wind_speed_b = "windSpeed"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: Key.self)
+
+            direction = try container.decodeIfPresent(Double.self, forKeys: [.wind_dir_a, .wind_dir_b])
+            speed = try container.decodeIfPresent(Double.self, forKeys: [.wind_speed_a, .wind_speed_b])
+        }
+    }
+
     // MARK: - Decodable
 
     private enum Key: String, CodingKey {
         case data
-
-        case temperature_ground = "T5"
-        case temperature_air = "temperatureInt"
-        case temperature_sense = "windChillInt"
-
-        case wind_dir_a = "windDirInt"
-        case wind_dir_b = "windDir"
-
-        case wind_speed_a = "windSpeedInt"
-        case wind_speed_b = "windSpeed"
-
         case humidity = "humidityInt"
         case pressure = "pressureInt"
         case rain = "rainT"
@@ -65,19 +94,10 @@ struct Payload: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: Key.self)
 
-        let dateString = try container.decode(String.self, forKey: .data)
-        guard let date = DateFormatter.remote.date(from: dateString) else {
-                throw DecodingError.dataCorruptedError(forKey: .data, in: container, debugDescription: "invalid date encoding")
-        }
+        date = try container.decode(Date.self, forKey: .data)
 
-        self.date = date
-
-        temperature_air = try container.decodeIfPresent(Double.self, forKey: .temperature_air)
-        temperature_sense = try container.decodeIfPresent(Double.self, forKey: .temperature_sense)
-        temperature_ground = try container.decodeIfPresent(Double.self, forKey: .temperature_ground)
-
-        wind_direction = try container.decodeIfPresent(Double.self, forKeys: [.wind_dir_a, .wind_dir_b])
-        wind_speed = try container.decodeIfPresent(Double.self, forKeys: [.wind_speed_a, .wind_speed_b])
+        temperature = try decoder.singleValueContainer().decode(Temperature.self)
+        wind = try decoder.singleValueContainer().decode(Wind.self)
 
         humidity = try container.decodeIfPresentAndNotString(Double.self, forKey: .humidity)
         pressure = nullify(try container.decodeIfPresent(Double.self, forKey: .pressure))
@@ -88,16 +108,6 @@ struct Payload: Decodable {
 private func nullify(_ value: Double?) -> Double? {
     guard let value = value else { return nil }
     return value == 0 ? nil : value
-}
-
-private extension DateFormatter {
-    static var remote: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        formatter.locale = Locale(identifier: "pl_PL")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        return formatter
-    }
 }
 
 private extension KeyedDecodingContainer {

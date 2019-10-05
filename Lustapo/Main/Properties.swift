@@ -33,12 +33,12 @@ struct Properties: View {
 
     var body: some View {
         Section {
-            IfLet(payload.temperature_air) { Temperature(air: $0) }
-            IfLet(payload.temperature_ground) { Temperature(ground: $0) }
-            IfLet(payload.temperature_sense) { Temperature(sense: $0) }
+            IfLet(payload.temperature.air) { Temperature(air: $0) }
+            IfLet(payload.temperature.ground) { Temperature(ground: $0) }
+            IfLet(payload.temperature.sense) { Temperature(sense: $0) }
 
-            if payload.wind_direction != nil || payload.wind_speed != nil {
-                Wind(speed: payload.wind_speed, direction: payload.wind_direction)
+            if payload.wind.direction != nil || payload.wind.speed != nil {
+                Wind(speed: payload.wind.speed, direction: payload.wind.direction)
             }
 
             IfLet(payload.humidity) { Humidity(value: $0) }

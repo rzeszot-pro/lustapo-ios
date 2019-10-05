@@ -97,6 +97,7 @@ class Model: ObservableObject {
 
         guard let data = data, let fixed = fix(data) else { return }
         let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(.remote)
 
         measurements.data = try? decoder.decode(Payload.self, from: fixed)
         objectWillChange.send()
@@ -120,5 +121,15 @@ extension URL {
         let version = parts[0] == "0" ? "" : parts[0]
 
         self = URL(string: "http://212.182.4.252/data\(version).php?s=\(parts[1])")!
+    }
+}
+
+extension DateFormatter {
+    static var remote: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.locale = Locale(identifier: "pl_PL")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
     }
 }
