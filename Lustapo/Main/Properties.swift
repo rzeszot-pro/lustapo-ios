@@ -27,29 +27,7 @@
 
 import SwiftUI
 
-struct Properties: View {
-
-    var payload: Payload
-
-    var body: some View {
-        Section {
-            IfLet(payload.temperature.air) { Temperature(air: $0) }
-            IfLet(payload.temperature.ground) { Temperature(ground: $0) }
-            IfLet(payload.temperature.sense) { Temperature(sense: $0) }
-
-            if payload.wind.direction != nil || payload.wind.speed != nil {
-                Wind(speed: payload.wind.speed, direction: payload.wind.direction)
-            }
-
-            IfLet(payload.humidity) { Humidity(value: $0) }
-            IfLet(payload.pressure) { Pressure(value: $0) }
-            IfLet(payload.rain) { Rain(value: $0) }
-
-            Updated(date: payload.date)
-        }
-    }
-
-    // MARK: -
+enum Properties {
 
     struct Temperature: View {
         var number: NumberFormatter = .standard

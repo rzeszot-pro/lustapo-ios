@@ -46,7 +46,21 @@ struct Main: View {
                 Section {
                     StationButton(station: model.station, action: selection)
                 }
-                model.measurements.data.map { Properties(payload: $0) }
+                Section {
+                    IfLet(model.measurements.data?.temperature.air) { Properties.Temperature(air: $0) }
+                    IfLet(model.measurements.data?.temperature.ground) { Properties.Temperature(ground: $0) }
+                    IfLet(model.measurements.data?.temperature.sense) { Properties.Temperature(sense: $0) }
+
+                    if model.measurements.data?.wind.direction != nil || model.measurements.data?.wind.speed != nil {
+                        Properties.Wind(speed: model.measurements.data?.wind.speed, direction: model.measurements.data?.wind.direction)
+                    }
+
+                    IfLet(model.measurements.data?.humidity) { Properties.Humidity(value: $0) }
+                    IfLet(model.measurements.data?.pressure) { Properties.Pressure(value: $0) }
+                    IfLet(model.measurements.data?.rain) { Properties.Rain(value: $0) }
+
+                    IfLet(model.measurements.data?.date) { value in Properties.Updated(date: value) }
+                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
