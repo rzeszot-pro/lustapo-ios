@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - UISceneSession Lifecycle
 
     func application(_ app: UIApplication, configurationForConnecting session: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        UISceneConfiguration(name: "default", sessionRole: session.role)
+        UISceneConfiguration(name: "Default Configuration", sessionRole: session.role)
     }
 
 }
