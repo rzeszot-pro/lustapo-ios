@@ -50,7 +50,7 @@ struct Main: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.isReloading ? AnyView(ActivityIndicator()) : AnyView(ReloadButton(action: model.reload)))
+            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.data == nil ? AnyView(ActivityIndicator()) : AnyView(ReloadButton(action: model.reload)))
             .sheet(item: $subview, content: sheet)
             .onAppear(perform: model.reload)
         }
