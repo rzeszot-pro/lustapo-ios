@@ -27,6 +27,9 @@
 		2D4616A42347F4DC005A3397 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4616A32347F4DC005A3397 /* CloseButton.swift */; };
 		2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50A23463D2300DB38AA /* Payload.swift */; };
 		2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50F23464E1300DB38AA /* Bundle.swift */; };
+		2D8E8D3C234907450020EC59 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3B234907450020EC59 /* NumberFormatter.swift */; };
+		2D8E8D3E234907640020EC59 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3D234907640020EC59 /* DateFormatter.swift */; };
+		2D8E8D40234907850020EC59 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3F234907850020EC59 /* Date.swift */; };
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470480B1D65E9C6009205F3 /* AppDelegate.swift */; };
 		647048131D65E9C6009205F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 647048121D65E9C6009205F3 /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 		2D4616A32347F4DC005A3397 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		2D4AF50A23463D2300DB38AA /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		2D4AF50F23464E1300DB38AA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		2D8E8D3B234907450020EC59 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
+		2D8E8D3D234907640020EC59 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		2D8E8D3F234907850020EC59 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2DAE0F1B23480ABB00060D59 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
 		2DAE0F1E23480D3100060D59 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2DAE0F1F23480D3100060D59 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -168,6 +174,9 @@
 			children = (
 				2D4AF50F23464E1300DB38AA /* Bundle.swift */,
 				2D46169F2347EE4D005A3397 /* Swift.swift */,
+				2D8E8D3B234907450020EC59 /* NumberFormatter.swift */,
+				2D8E8D3D234907640020EC59 /* DateFormatter.swift */,
+				2D8E8D3F234907850020EC59 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -327,7 +336,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D042AD8234619A90057F153 /* Model.swift in Sources */,
+				2D8E8D3C234907450020EC59 /* NumberFormatter.swift in Sources */,
 				2D2FD83D234626450076D247 /* Stations.swift in Sources */,
+				2D8E8D3E234907640020EC59 /* DateFormatter.swift in Sources */,
 				2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */,
 				2D46169C23478B08005A3397 /* UserDefault.swift in Sources */,
 				2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */,
@@ -343,6 +354,7 @@
 				2D042AB92345FFAB0057F153 /* SceneDelegate.swift in Sources */,
 				2D042ACC234603950057F153 /* Station.swift in Sources */,
 				6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */,
+				2D8E8D40234907850020EC59 /* Date.swift in Sources */,
 				2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */,
 				2D2FD839234621530076D247 /* Disclaimer.swift in Sources */,
 			);

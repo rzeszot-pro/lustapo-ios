@@ -231,32 +231,3 @@ struct Properties: View {
         }
     }
 }
-
-extension DateFormatter {
-    static var standard: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        return formatter
-    }
-}
-
-extension NumberFormatter {
-    static var standard: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.usesGroupingSeparator = true
-        formatter.minimumFractionDigits = 1
-        formatter.maximumFractionDigits = 1
-        return formatter
-    }
-
-    func string(from value: Double) -> String? {
-        string(from: NSNumber(value: value))
-    }
-}
-
-extension Date {
-    var obsolete: Bool {
-        timeIntervalSinceNow < -20 * 60
-    }
-}
