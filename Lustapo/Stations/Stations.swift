@@ -37,6 +37,9 @@ struct Stations: View {
 
     // MARK: -
 
+    @State
+    var modal: Bool = false
+
     class Model: ObservableObject {
         @Published
         var show: Bool = false
@@ -73,8 +76,15 @@ struct Stations: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("stations.title")
-            .navigationBarItems(leading: CloseButton(action: cancel))
+            .navigationBarItems(leading: CloseButton(action: cancel), trailing: MapButton(action: { self.modal = true }))
+            .sheet(isPresented: $modal, content: map)
         }
+    }
+
+    // MARK: -
+
+    func map() -> some View {
+        Map(cancel: { self.modal = false }, stations: self.regions.flatMap { $0.stations })
     }
 
     // MARK: -
@@ -140,6 +150,17 @@ struct Stations: View {
                 }
             }
             .padding(.vertical, 10)
+        }
+    }
+
+    struct MapButton: View {
+        var action: () -> Void
+
+        var body: some View {
+            Button(action: action, label: {
+                Image(systemName: "mappin.and.ellipse")
+                    .padding(5)
+            })
         }
     }
 

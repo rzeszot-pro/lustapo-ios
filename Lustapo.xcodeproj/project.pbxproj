@@ -30,6 +30,8 @@
 		2D8E8D3C234907450020EC59 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3B234907450020EC59 /* NumberFormatter.swift */; };
 		2D8E8D3E234907640020EC59 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3D234907640020EC59 /* DateFormatter.swift */; };
 		2D8E8D40234907850020EC59 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3F234907850020EC59 /* Date.swift */; };
+		2D96E419234A2457000D174D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E418234A2457000D174D /* Map.swift */; };
+		2D96E41B234A261B000D174D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D96E41A234A261B000D174D /* MapKit.framework */; };
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470480B1D65E9C6009205F3 /* AppDelegate.swift */; };
 		647048131D65E9C6009205F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 647048121D65E9C6009205F3 /* Assets.xcassets */; };
@@ -60,6 +62,8 @@
 		2D8E8D3B234907450020EC59 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		2D8E8D3D234907640020EC59 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		2D8E8D3F234907850020EC59 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		2D96E418234A2457000D174D /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		2D96E41A234A261B000D174D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2DAE0F1B23480ABB00060D59 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
 		2DAE0F1E23480D3100060D59 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2DAE0F1F23480D3100060D59 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D96E41B234A261B000D174D /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				2D2FD83C234626450076D247 /* Stations.swift */,
+				2D96E418234A2457000D174D /* Map.swift */,
 			);
 			path = Stations;
 			sourceTree = "<group>";
@@ -229,6 +235,7 @@
 		6470483D1D6725F4009205F3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D96E41A234A261B000D174D /* MapKit.framework */,
 				647048391D6725EA009205F3 /* ReactiveCocoa.framework */,
 				6470483A1D6725EA009205F3 /* Result.framework */,
 			);
@@ -353,6 +360,7 @@
 				2D4616A42347F4DC005A3397 /* CloseButton.swift in Sources */,
 				2D042AB92345FFAB0057F153 /* SceneDelegate.swift in Sources */,
 				2D042ACC234603950057F153 /* Station.swift in Sources */,
+				2D96E419234A2457000D174D /* Map.swift in Sources */,
 				6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */,
 				2D8E8D40234907850020EC59 /* Date.swift in Sources */,
 				2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */,
