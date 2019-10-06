@@ -25,7 +25,10 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+import Combine
 import SwiftUI
+import CoreLocation
+import MapKit
 
 struct Stations: View {
 
@@ -40,13 +43,36 @@ struct Stations: View {
     @State
     var modal: Bool = false
 
+    // MARK: -
+
     class Model: ObservableObject {
+
+        @ObservedObject
+        var location: Location = .shared
+
+        @UserDefault(key: "ask-shown")
+        var shown: Bool = false
+
         @Published
-        var show: Bool = false
+        var visible: Bool = false
+
+        init() {
+            visible = !shown
+        }
+
+        func distance(to coordinates: CLLocationCoordinate2D) -> CLLocationDistance? {
+            location.location?.distance(from: coordinates)
+        }
 
         func permission(_ success: Bool) {
+            if success {
+                location.request()
+            }
+
+            shown = true
+
             withAnimation {
-                self.show = false
+                self.visible = false
             }
         }
     }
@@ -59,7 +85,7 @@ struct Stations: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                if model.show {
+                if model.visible {
                     Ask(action: model.permission)
                     Divider()
                 }
@@ -68,7 +94,7 @@ struct Stations: View {
                     ForEach(regions) { region in
                         Section(header: Text(region.name)) {
                             ForEach(region.stations) { station in
-                                Row(select: { self.select(station) }, station: station, active: station == self.active)
+                                Row(select: { self.select(station) }, station: station, active: station == self.active, distance: self.model.distance(to: station.coordinates))
                             }
                         }
                     }
@@ -134,6 +160,9 @@ struct Stations: View {
         var select: () -> Void
         var station: Station
         var active: Bool
+        var distance: CLLocationDistance?
+
+        var formatter: MKDistanceFormatter = .init()
 
         var body: some View {
             HStack {
@@ -141,6 +170,12 @@ struct Stations: View {
                     Text(station.name)
                         .foregroundColor(.primary)
                 })
+
+                IfLet(distance) { value in
+                    Text(self.formatter.string(fromDistance: value))
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
 
                 Spacer()
 

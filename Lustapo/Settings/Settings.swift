@@ -31,6 +31,9 @@ struct Settings: View {
 
     var dismiss: () -> Void
 
+    @EnvironmentObject
+    var location: Location
+
     var body: some View {
         NavigationView {
             List {
@@ -38,6 +41,7 @@ struct Settings: View {
                     Row(text: "disclaimer.title", destination: Disclaimer())
                 }
                 Section {
+                    Row(text: "permissions.title", destination: Permissions())
                     Row(text: "about.title", destination: About(data: .main))
                 }
             }

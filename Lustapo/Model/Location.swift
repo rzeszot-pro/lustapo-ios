@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Location.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -26,50 +26,57 @@
 //
 
 import Foundation
+import CoreLocation
 import Combine
-import SwiftUI
 
-@propertyWrapper
-class UserDefault<Value>: ObservableObject {
+class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
 
-    let objectWillChange = ObservableObjectPublisher()
+    // MARK: -
 
-    let defaults: UserDefaults
-    let key: String
-    let value: Value
+    static var shared = Location()
 
-    init(wrappedValue value: Value, key: String, defaults: UserDefaults) {
-        self.value = value
-        self.defaults = defaults
-        self.key = key
+    // MARK: -
+
+    private let manager: CLLocationManager
+
+    init(manager: CLLocationManager = .init()) {
+        self.manager = manager
+        super.init()
+        self.manager.delegate = self
     }
 
-    convenience init(wrappedValue: Value, key: String) {
-        self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
+    // MARK: -
+
+    var status: CLAuthorizationStatus {
+        CLLocationManager.authorizationStatus()
     }
 
-    var wrappedValue: Value {
-        get {
-            defaults.object(forKey: key) as? Value ?? value
-        }
-        set {
-            defaults.set(newValue, forKey: key)
-        }
+    var location: CLLocation? {
+        manager.location
     }
 
-    func reset() {
-        defaults.set(nil, forKey: key)
+    func request() {
+        manager.requestWhenInUseAuthorization()
     }
-}
 
-extension UserDefault {
-    convenience init<Other>(key: String) where Value == Other? {
-        self.init(wrappedValue: nil, key: key)
-    }
-}
+    // MARK: - ObservableObject
 
-extension Binding {
-    init(_ defaults: UserDefault<Value>) {
-        self.init(get: { defaults.wrappedValue }, set: { defaults.wrappedValue = $0 })
+    let objectWillChange: ObservableObjectPublisher = .init()
+
+    // MARK: - CustomStringConvertible
+
+    override var description: String {
+        super.description + " | " + status.description
     }
+
+    // MARK: - CLLocationManagerDelegate
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        objectWillChange.send()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        objectWillChange.send()
+    }
+
 }

@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Permissions.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,51 +25,45 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-import Combine
 import SwiftUI
+import Combine
 
-@propertyWrapper
-class UserDefault<Value>: ObservableObject {
+struct Permissions: View {
 
-    let objectWillChange = ObservableObjectPublisher()
+    @EnvironmentObject
+    var location: Location
 
-    let defaults: UserDefaults
-    let key: String
-    let value: Value
+    @UserDefault(key: "ask-shown")
+    var shown: Bool = false
 
-    init(wrappedValue value: Value, key: String, defaults: UserDefaults) {
-        self.value = value
-        self.defaults = defaults
-        self.key = key
-    }
-
-    convenience init(wrappedValue: Value, key: String) {
-        self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
-    }
-
-    var wrappedValue: Value {
-        get {
-            defaults.object(forKey: key) as? Value ?? value
+    var body: some View {
+        List {
+            debug
         }
-        set {
-            defaults.set(newValue, forKey: key)
+        .listStyle(GroupedListStyle())
+        .navigationBarTitle("permissions.title")
+    }
+
+    var debug: some View {
+        Section {
+            Row(key: Text("Status"), value: Text(location.status.description))
+            Toggle(isOn: Binding(_shown), label: { Text("Shown") })
         }
     }
 
-    func reset() {
-        defaults.set(nil, forKey: key)
-    }
-}
+    // MARK: -
 
-extension UserDefault {
-    convenience init<Other>(key: String) where Value == Other? {
-        self.init(wrappedValue: nil, key: key)
-    }
-}
+    struct Row<Key: View, Value: View>: View {
+        var key: Key
+        var value: Value
 
-extension Binding {
-    init(_ defaults: UserDefault<Value>) {
-        self.init(get: { defaults.wrappedValue }, set: { defaults.wrappedValue = $0 })
+        var body: some View {
+            HStack {
+                key
+                Spacer()
+                value
+            }
+        }
     }
+
 }
