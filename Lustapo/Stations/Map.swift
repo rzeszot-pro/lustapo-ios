@@ -85,5 +85,7 @@ struct MapView: UIViewRepresentable {
         view.addAnnotations(annotations)
 
         view.showAnnotations(annotations, animated: true)
+
+        view.showsUserLocation = true
     }
 }
