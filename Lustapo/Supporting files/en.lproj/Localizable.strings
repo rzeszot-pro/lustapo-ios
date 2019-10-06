@@ -21,6 +21,11 @@
 
 "settings.title" = "Settings";
 
+"ask.title" = "Location access";
+"ask.subtitle" = "In order to show distance to stations, LuStaPo needs access to your location.";
+"ask.approve" = "Allow";
+"ask.decline" = "Cancel";
+
 "about.title" = "This version";
 "about.app" = "App";
 "about.app.version" = "Version";

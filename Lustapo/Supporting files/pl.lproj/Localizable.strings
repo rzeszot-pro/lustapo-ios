@@ -21,6 +21,11 @@
 
 "settings.title" = "Ustawienia";
 
+"ask.title" = "Dostęp do lokalizacji";
+"ask.subtitle" = "Aby wyświetlać odległość do stacji, LuStaPo potrzebuje dostępu do lokalizacji.";
+"ask.approve" = "Zezwalaj";
+"ask.decline" = "Anuluj";
+
 "about.title" = "O aplikacji (ta wersja)";
 "about.app" = "Aplikacja";
 "about.app.version" = "Wersja";

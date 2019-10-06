@@ -35,13 +35,38 @@ struct Stations: View {
     var select: (Station) -> Void
     var cancel: () -> Void
 
+    // MARK: -
+
+    class Model: ObservableObject {
+        @Published
+        var show: Bool = false
+
+        func permission(_ success: Bool) {
+            withAnimation {
+                self.show = false
+            }
+        }
+    }
+
+    @ObservedObject
+    var model: Model = .init()
+
+    // MARK: -
+
     var body: some View {
         NavigationView {
-            List {
-                ForEach(regions) { region in
-                    Section(header: Text(region.name)) {
-                        ForEach(region.stations) { station in
-                            Row(select: { self.select(station) }, station: station, active: station == self.active)
+            VStack(spacing: 0) {
+                if model.show {
+                    Ask(action: model.permission)
+                    Divider()
+                }
+
+                List {
+                    ForEach(regions) { region in
+                        Section(header: Text(region.name)) {
+                            ForEach(region.stations) { station in
+                                Row(select: { self.select(station) }, station: station, active: station == self.active)
+                            }
                         }
                     }
                 }
@@ -54,6 +79,47 @@ struct Stations: View {
 
     // MARK: -
 
+    struct Ask: View {
+        var action: (Bool) -> Void
+        var body: some View {
+            VStack {
+                Text("ask.title")
+                    .foregroundColor(.primary)
+                    .font(.headline)
+                    .padding(.bottom, 5)
+
+                Text("ask.subtitle")
+                    .frame(height: 40)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+
+                HStack(alignment: .center, spacing: 10) {
+                    Button(action: decline, label: {
+                        Text("ask.decline")
+                            .padding(2)
+                    })
+
+                    Button(action: approve, label: {
+                        Text("ask.approve")
+                            .padding(2)
+                            .padding(.horizontal, 20)
+                            .font(Font.body.bold())
+                    })
+                }
+            }
+            .padding(20)
+        }
+
+        func approve() {
+            action(true)
+        }
+
+        func decline() {
+            action(false)
+        }
+    }
+
     struct Row: View {
         var select: () -> Void
         var station: Station
@@ -63,6 +129,7 @@ struct Stations: View {
             HStack {
                 Button(action: select, label: {
                     Text(station.name)
+                        .foregroundColor(.primary)
                 })
 
                 Spacer()
@@ -72,6 +139,7 @@ struct Stations: View {
                         .foregroundColor(.blue)
                 }
             }
+            .padding(.vertical, 10)
         }
     }
 
