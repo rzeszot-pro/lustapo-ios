@@ -29,9 +29,11 @@ import SwiftUI
 
 struct CloseButton: View {
     var action: () -> Void
+
     var body: some View {
         Button(action: action, label: {
             Image(systemName: "xmark")
+                .padding(5)
         })
     }
 }

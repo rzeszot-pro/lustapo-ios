@@ -64,7 +64,7 @@ struct Main: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.measurements.loading ? AnyView(ActivityIndicator()) : AnyView(ReloadButton(action: model.reload)))
+            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.measurements.loading ? AnyView(ActivityIndicator().padding(5)) : AnyView(ReloadButton(action: model.reload)))
             .sheet(item: $subview, content: sheet)
             .onAppear(perform: model.reload)
         }
@@ -88,6 +88,7 @@ struct Main: View {
         var body: some View {
             Button(action: action, label: {
                 Image(systemName: "gear")
+                    .padding(5)
             })
         }
     }
@@ -97,6 +98,7 @@ struct Main: View {
         var body: some View {
             Button(action: action, label: {
                 Image(systemName: "arrow.2.circlepath")
+                    .padding(5)
             })
         }
     }
