@@ -74,7 +74,7 @@ enum Properties {
         }
 
         var body: some View {
-            Triple(key: "data.wind", first: text, second: speed.map { String($0) }, unit: "km/h")
+            Triple(key: "data.wind", first: text, second: speed.map { String($0) }, unit: "m/s")
         }
     }
 
@@ -165,7 +165,7 @@ enum Properties {
 
                 if second != nil {
                     Value(text: second!)
-                    Unit(text: "km/h")
+                    Unit(text: unit)
                 }
             }
         }
