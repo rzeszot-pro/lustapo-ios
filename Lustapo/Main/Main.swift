@@ -79,6 +79,7 @@ struct Main: View {
             Button(action: action, label: {
                 Text(station.name)
             })
+            .padding(.vertical, 10)
         }
     }
 
