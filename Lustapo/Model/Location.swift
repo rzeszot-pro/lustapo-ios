@@ -51,6 +51,10 @@ class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
         CLLocationManager.authorizationStatus()
     }
 
+    var authorized: Bool {
+        status == .authorizedAlways || status == .authorizedWhenInUse
+    }
+
     var location: CLLocation? {
         manager.location
     }

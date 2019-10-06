@@ -26,6 +26,13 @@
 "ask.approve" = "Zezwalaj";
 "ask.decline" = "Anuluj";
 
+"customization.title" = "Wygląd";
+"customization.show-distance" = "Pokazuj odległość";
+
+"permission.alert.title" = "Lokalizacja wyłączona";
+"permission.alert.message" = "Aby użyć tej funkcjonalności, musisz zgodzić się na udostępnianie Twojej lokalizacji.";
+"permission.alert.goto" = "Przejdź do Ustawień";
+
 "about.title" = "O aplikacji (ta wersja)";
 "about.app" = "Aplikacja";
 "about.app.version" = "Wersja";

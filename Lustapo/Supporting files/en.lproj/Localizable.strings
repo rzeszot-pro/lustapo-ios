@@ -26,6 +26,13 @@
 "ask.approve" = "Allow";
 "ask.decline" = "Cancel";
 
+"customization.title" = "Appearance";
+"customization.show-distance" = "Show distance";
+
+"permission.alert.title" = "Location disabled";
+"permission.alert.message" = "To use this feature, you need to allow LuStaPo to access your Location.";
+"permission.alert.goto" = "Open Settings";
+
 "about.title" = "This version";
 "about.app" = "App";
 "about.app.version" = "Version";

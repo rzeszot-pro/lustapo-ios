@@ -1,5 +1,5 @@
 //
-//  Permissions.swift
+//  URL.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,45 +25,11 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import SwiftUI
-import Combine
+import Foundation
+import UIKit
 
-struct Permissions: View {
-
-    @EnvironmentObject
-    var location: Location
-
-    @UserDefault(key: "ask-shown")
-    var shown: Bool = false
-
-    var body: some View {
-        List {
-            debug
-        }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("permissions.title")
+extension URL {
+    static var settings: URL {
+        URL(string: UIApplication.openSettingsURLString)!
     }
-
-    var debug: some View {
-        Section {
-            Row(key: Text("Status"), value: Text(location.status.description))
-            Toggle(isOn: Binding(_shown), label: { Text("Shown") })
-        }
-    }
-
-    // MARK: -
-
-    struct Row<Key: View, Value: View>: View {
-        var key: Key
-        var value: Value
-
-        var body: some View {
-            HStack {
-                key
-                Spacer()
-                value
-            }
-        }
-    }
-
 }

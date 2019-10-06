@@ -38,10 +38,12 @@ struct Settings: View {
         NavigationView {
             List {
                 Section {
+                    Row(text: "customization.title", destination: Customization())
+                }
+                Section {
                     Row(text: "disclaimer.title", destination: Disclaimer())
                 }
                 Section {
-                    Row(text: "permissions.title", destination: Permissions())
                     Row(text: "about.title", destination: About(data: .main))
                 }
             }
