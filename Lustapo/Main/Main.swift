@@ -26,6 +26,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct Main: View {
 
@@ -33,6 +34,9 @@ struct Main: View {
         case settings
         case selection
     }
+
+    @EnvironmentObject
+    var location: Location
 
     @EnvironmentObject
     var model: Model
@@ -75,10 +79,28 @@ struct Main: View {
     struct StationButton: View {
         var station: Station
         var action: () -> Void
+
+        var location: Location = .shared
+
+        var formatter: MKDistanceFormatter = .init()
+
+        var distance: CLLocationDistance? {
+             location.location?.distance(from: CLLocation(coordinates: station.coordinates))
+         }
+
         var body: some View {
-            Button(action: action, label: {
-                Text(station.name)
-            })
+            HStack {
+                Button(action: action, label: {
+                    Text(station.name)
+                    .foregroundColor(.primary)
+                })
+
+                IfLet(distance) { value in
+                    Text(self.formatter.string(fromDistance: value))
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+            }
             .padding(.vertical, 10)
         }
     }
@@ -120,7 +142,7 @@ struct Main: View {
     func sheet(_ id: Subview) -> some View {
         switch id {
         case .settings:
-            return AnyView(Settings(dismiss: self.dismiss))
+            return AnyView(Settings(dismiss: self.dismiss).environmentObject(location))
         case .selection:
             return AnyView(Stations(regions: self.model.regions, active: self.model.station, select: { station in
                 self.model.station = station
