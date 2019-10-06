@@ -80,8 +80,8 @@ struct Main: View {
         var station: Station
         var action: () -> Void
 
-        @UserDefault(key: "show-distance")
-        var show: Bool?
+        @ObservedObject
+        var show = UserDefaults.show_instance
 
         @ObservedObject
         var location: Location = .shared
@@ -89,7 +89,7 @@ struct Main: View {
         var formatter: MKDistanceFormatter = .init()
 
         var distance: CLLocationDistance? {
-            guard show == true else { return nil }
+            guard show.get() == true else { return nil }
             return location.location?.distance(from: CLLocation(coordinates: station.coordinates))
         }
 

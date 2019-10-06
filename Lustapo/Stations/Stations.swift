@@ -50,31 +50,31 @@ struct Stations: View {
         @ObservedObject
         var location: Location = .shared
 
-        @UserDefault(key: "show-distance")
-        var show: Bool?
+        @ObservedObject
+        var show = UserDefaults.show_instance
 
-        @UserDefault(key: "ask-shown")
-        var shown: Bool = false
+        @ObservedObject
+        var shown = UserDefaults.ask_shown
 
         @Published
         var visible: Bool = false
 
         init() {
-            visible = !shown && location.status == .notDetermined
+            visible = !shown.get() && location.status == .notDetermined
         }
 
         func distance(to coordinates: CLLocationCoordinate2D) -> CLLocationDistance? {
-            guard show == true else { return nil }
+            guard show.get() == true else { return nil }
             return location.location?.distance(from: coordinates)
         }
 
         func permission(_ success: Bool) {
             if success {
-                show = true
+                show.set(true)
                 location.request()
             }
 
-            shown = true
+            shown.set(true)
 
             withAnimation {
                 self.visible = false

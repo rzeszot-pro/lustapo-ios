@@ -33,11 +33,11 @@ struct Customization: View {
     @EnvironmentObject
     var location: Location
 
-    @UserDefault(key: "show-distance")
-    var show: Bool?
+    @ObservedObject
+    var show = UserDefaults.show_instance
 
-    @UserDefault(key: "ask-shown")
-    var shown: Bool = false
+    @ObservedObject
+    var shown = UserDefaults.ask_shown
 
     var body: some View {
         List {
@@ -76,34 +76,36 @@ struct Customization: View {
         @ObservedObject
         var location: Location = .shared
 
-        @UserDefault(key: "show-distance")
-        var distance: Bool?
+        @ObservedObject
+        var distance = UserDefaults.show_instance
 
         @State
         var ask: Bool = false
 
         var body: some View {
-            Toggle(isOn: Binding<Bool>(get: { self.distance == true && self.location.authorized }, set: show), label: { Text("customization.show-distance") })
+            Toggle(isOn: Binding<Bool>(get: { self.distance.get() == true && self.location.authorized }, set: show), label: { Text("customization.show-distance") })
                 .alert(isPresented: $ask, content: { Alert.redirect(action: settings) })
         }
 
         func show(_ value: Bool) {
             guard value else {
-                distance = false
+                distance.set(false)
                 return
             }
 
             switch location.status {
             case .notDetermined:
-                distance = true
+                distance.set(true)
                 location.request()
             case .authorizedWhenInUse, .authorizedAlways:
-                distance = true
+                distance.set(true)
             case .denied:
                 ask = true
             default:
                 print("other")
             }
+
+            location.objectWillChange.send()
         }
 
         func settings() {

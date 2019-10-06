@@ -29,47 +29,38 @@ import Foundation
 import Combine
 import SwiftUI
 
-@propertyWrapper
-class UserDefault<Value>: ObservableObject {
+class Default<Value>: ObservableObject {
+
+    // MARK: -
 
     let objectWillChange = ObservableObjectPublisher()
-
-    let defaults: UserDefaults
     let key: String
     let value: Value
+    let userDefaults: UserDefaults
 
-    init(wrappedValue value: Value, key: String, defaults: UserDefaults) {
-        self.value = value
-        self.defaults = defaults
+    // MARK: -
+
+    init(key: String, value: Value, userDefaults: UserDefaults = .standard) {
         self.key = key
+        self.value = value
+        self.userDefaults = userDefaults
     }
 
-    convenience init(wrappedValue: Value, key: String) {
-        self.init(wrappedValue: wrappedValue, key: key, defaults: .standard)
+    func get() -> Value {
+        userDefaults.object(forKey: key) as? Value ?? value
     }
 
-    var wrappedValue: Value {
-        get {
-            defaults.object(forKey: key) as? Value ?? value
-        }
-        set {
-            defaults.set(newValue, forKey: key)
-        }
+    func set(_ value: Value) {
+        userDefaults.set(value, forKey: key)
+        objectWillChange.send()
     }
 
-    func reset() {
-        defaults.set(nil, forKey: key)
-    }
 }
 
-extension UserDefault {
-    convenience init<Other>(key: String) where Value == Other? {
-        self.init(wrappedValue: nil, key: key)
-    }
-}
+extension UserDefaults {
+    // swiftlint:disable identifier_name
+    static var show_instance: Default<Bool?> = .init(key: "show-distance", value: nil)
 
-extension Binding {
-    init(_ defaults: UserDefault<Value>) {
-        self.init(get: { defaults.wrappedValue }, set: { defaults.wrappedValue = $0 })
-    }
+    static var last_station: Default<String?> = .init(key: "last-station", value: nil)
+    static var ask_shown: Default<Bool> = .init(key: "ask-shown", value: false)
 }
