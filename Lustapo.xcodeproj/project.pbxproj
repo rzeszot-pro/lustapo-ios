@@ -32,6 +32,8 @@
 		2D8E8D40234907850020EC59 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3F234907850020EC59 /* Date.swift */; };
 		2D96E419234A2457000D174D /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E418234A2457000D174D /* Map.swift */; };
 		2D96E41B234A261B000D174D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D96E41A234A261B000D174D /* MapKit.framework */; };
+		2D96E41D234A3809000D174D /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E41C234A3809000D174D /* CLLocation.swift */; };
+		2D96E41F234A3F00000D174D /* CLAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */; };
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470480B1D65E9C6009205F3 /* AppDelegate.swift */; };
 		647048131D65E9C6009205F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 647048121D65E9C6009205F3 /* Assets.xcassets */; };
@@ -64,6 +66,8 @@
 		2D8E8D3F234907850020EC59 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2D96E418234A2457000D174D /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		2D96E41A234A261B000D174D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2D96E41C234A3809000D174D /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
+		2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLAuthorizationStatus.swift; sourceTree = "<group>"; };
 		2DAE0F1B23480ABB00060D59 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
 		2DAE0F1E23480D3100060D59 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2DAE0F1F23480D3100060D59 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 				2D8E8D3B234907450020EC59 /* NumberFormatter.swift */,
 				2D8E8D3D234907640020EC59 /* DateFormatter.swift */,
 				2D8E8D3F234907850020EC59 /* Date.swift */,
+				2D96E41C234A3809000D174D /* CLLocation.swift */,
+				2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -343,6 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D042AD8234619A90057F153 /* Model.swift in Sources */,
+				2D96E41D234A3809000D174D /* CLLocation.swift in Sources */,
 				2D8E8D3C234907450020EC59 /* NumberFormatter.swift in Sources */,
 				2D2FD83D234626450076D247 /* Stations.swift in Sources */,
 				2D8E8D3E234907640020EC59 /* DateFormatter.swift in Sources */,
@@ -364,6 +371,7 @@
 				6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */,
 				2D8E8D40234907850020EC59 /* Date.swift in Sources */,
 				2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */,
+				2D96E41F234A3F00000D174D /* CLAuthorizationStatus.swift in Sources */,
 				2D2FD839234621530076D247 /* Disclaimer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
