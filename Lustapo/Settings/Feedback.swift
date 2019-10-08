@@ -36,19 +36,25 @@ struct Feedback: View {
     var details: String = ""
 
     var body: some View {
-        List {
-            Section {
-                TextField("feedback.email", text: $email)
-                    .textContentType(.emailAddress)
-                    .keyboardType(.emailAddress)
-
-                TextField("feedback.details", text: $details)
+        GeometryReader { geometry in
+            List {
+                Section {
+                    Row(key: "Device model", value: "iPhone 8+")
+                    Row(key: "App version", value: "1.15.0")
+                }
+                Section(header: Text("feedback.email")) {
+                    TextField("", text: self.$email)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                }
+                Section(header: Text("feedback.details")) {
+                    TextField("", text: self.$details)
+                }
             }
-            Section {
-                SendButton(action: send)
-            }
+            .frame(height: geometry.size.height)
         }
         .navigationBarTitle("feedback.title")
+        .navigationBarItems(trailing: SendButton(action: send))
     }
 
     // MARK: -
@@ -59,16 +65,29 @@ struct Feedback: View {
 
     // MARK: -
 
+    struct Row: View {
+        var key: String
+        var value: String
+
+        var body: some View {
+            HStack {
+                Text(LocalizedStringKey(key))
+                Spacer()
+                Text(value)
+            }
+            .foregroundColor(.secondary)
+            .font(.body)
+        }
+    }
+
     struct SendButton: View {
         var action: () -> Void
         var body: some View {
             HStack {
                 Spacer()
                 Button(action: action, label: {
-                    HStack {
-                        Text("feedback.send")
-                        Image(systemName: "paperplane")
-                    }
+                    Image(systemName: "paperplane")
+                    .padding(5)
                 })
                 Spacer()
             }
