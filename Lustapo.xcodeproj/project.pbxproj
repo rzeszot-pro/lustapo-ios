@@ -27,6 +27,7 @@
 		2D4616A42347F4DC005A3397 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4616A32347F4DC005A3397 /* CloseButton.swift */; };
 		2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50A23463D2300DB38AA /* Payload.swift */; };
 		2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50F23464E1300DB38AA /* Bundle.swift */; };
+		2D7D3B4A234CE15D00869BFE /* Ask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7D3B49234CE15D00869BFE /* Ask.swift */; };
 		2D8E8D3C234907450020EC59 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3B234907450020EC59 /* NumberFormatter.swift */; };
 		2D8E8D3E234907640020EC59 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3D234907640020EC59 /* DateFormatter.swift */; };
 		2D8E8D40234907850020EC59 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3F234907850020EC59 /* Date.swift */; };
@@ -64,6 +65,7 @@
 		2D4616A32347F4DC005A3397 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		2D4AF50A23463D2300DB38AA /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		2D4AF50F23464E1300DB38AA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		2D7D3B49234CE15D00869BFE /* Ask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ask.swift; sourceTree = "<group>"; };
 		2D8E8D3B234907450020EC59 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		2D8E8D3D234907640020EC59 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		2D8E8D3F234907850020EC59 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				2D2FD83C234626450076D247 /* Stations.swift */,
+				2D7D3B49234CE15D00869BFE /* Ask.swift */,
 				2D96E418234A2457000D174D /* Map.swift */,
 			);
 			path = Stations;
@@ -378,6 +381,7 @@
 				2DBC3F2B234A034B00D2CE5C /* Distance.swift in Sources */,
 				2D4616A42347F4DC005A3397 /* CloseButton.swift in Sources */,
 				2D042AB92345FFAB0057F153 /* SceneDelegate.swift in Sources */,
+				2D7D3B4A234CE15D00869BFE /* Ask.swift in Sources */,
 				2D042ACC234603950057F153 /* Station.swift in Sources */,
 				2D96E419234A2457000D174D /* Map.swift in Sources */,
 				6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */,
