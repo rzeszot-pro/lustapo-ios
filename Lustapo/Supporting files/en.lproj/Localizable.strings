@@ -58,6 +58,11 @@
 "feedback.send" = "Send";
 
 
+/* Settings / Privacy */
+"privacy.title" = "Privacy policy";
+"privacy.content" = "We don't store your data.";
+
+
 /* Settings / Distance */
 "distance.show" = "Show distance to stations";
 "distance.alert.title" = "To use this feature, you need to allow LuStaPo to access your Location.";

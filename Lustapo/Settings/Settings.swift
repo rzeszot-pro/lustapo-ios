@@ -42,6 +42,9 @@ struct Settings: View {
                 }
                 Section {
                     Row(text: "feedback.title", destination: Feedback())
+                }
+                Section {
+                    Row(text: "privacy.title", destination: Privacy())
                     Row(text: "disclaimer.title", destination: Disclaimer())
                     Row(text: "about.title", destination: About())
                 }

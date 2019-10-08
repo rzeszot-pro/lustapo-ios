@@ -58,6 +58,11 @@
 "feedback.send" = "Wyślij";
 
 
+/* Settings / Privacy */
+"privacy.title" = "Polityka prywatności";
+"privacy.content" = "Nie przechowujemy twoich danych.";
+
+
 /* Settings / Distance */
 "distance.show" = "Pokaż odległość do stacji";
 "distance.alert.title" = "Aby użyć tej funkcjonalności, musisz zgodzić się na udostępnianie Twojej lokalizacji.";
