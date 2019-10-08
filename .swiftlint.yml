@@ -1,6 +1,6 @@
 disabled_rules:
-- todo
-- nesting
+    - todo
+    - nesting
 
 identifier_name:
     excluded:

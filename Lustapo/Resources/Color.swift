@@ -28,5 +28,7 @@
 import SwiftUI
 
 extension Color {
-    static let obsolete = Color("obsolete")
+    static var obsolete: Color {
+        Color("obsolete")
+    }
 }
