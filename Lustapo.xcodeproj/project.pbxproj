@@ -37,7 +37,7 @@
 		2D96E422234A511C000D174D /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E421234A511C000D174D /* URL.swift */; };
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		2DBC3F29234A02B400D2CE5C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F28234A02B400D2CE5C /* Location.swift */; };
-		2DBC3F2B234A034B00D2CE5C /* Customization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F2A234A034B00D2CE5C /* Customization.swift */; };
+		2DBC3F2B234A034B00D2CE5C /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F2A234A034B00D2CE5C /* Distance.swift */; };
 		6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470480B1D65E9C6009205F3 /* AppDelegate.swift */; };
 		647048131D65E9C6009205F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 647048121D65E9C6009205F3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -77,7 +77,7 @@
 		2DAE0F1F23480D3100060D59 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		2DAE0F222348114C00060D59 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		2DBC3F28234A02B400D2CE5C /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		2DBC3F2A234A034B00D2CE5C /* Customization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customization.swift; sourceTree = "<group>"; };
+		2DBC3F2A234A034B00D2CE5C /* Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 		647048081D65E9C6009205F3 /* LuStaPo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuStaPo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6470480B1D65E9C6009205F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		647048121D65E9C6009205F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				2D042AD923461FD40057F153 /* Settings.swift */,
-				2DBC3F2A234A034B00D2CE5C /* Customization.swift */,
+				2DBC3F2A234A034B00D2CE5C /* Distance.swift */,
 				2D2FD838234621530076D247 /* Disclaimer.swift */,
 				2D2FD84D23462B990076D247 /* About.swift */,
 			);
@@ -375,7 +375,7 @@
 				2D4616A02347EE4D005A3397 /* Swift.swift in Sources */,
 				2DBC3F29234A02B400D2CE5C /* Location.swift in Sources */,
 				2D042ADA23461FD40057F153 /* Settings.swift in Sources */,
-				2DBC3F2B234A034B00D2CE5C /* Customization.swift in Sources */,
+				2DBC3F2B234A034B00D2CE5C /* Distance.swift in Sources */,
 				2D4616A42347F4DC005A3397 /* CloseButton.swift in Sources */,
 				2D042AB92345FFAB0057F153 /* SceneDelegate.swift in Sources */,
 				2D042ACC234603950057F153 /* Station.swift in Sources */,

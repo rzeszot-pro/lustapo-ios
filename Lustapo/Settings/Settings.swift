@@ -37,13 +37,11 @@ struct Settings: View {
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    Row(text: "customization.title", destination: Customization())
+                Section(header: Text("settings.appearance")) {
+                    Distance()
                 }
-                Section {
+                Section(header: Text("settings.other")) {
                     Row(text: "disclaimer.title", destination: Disclaimer())
-                }
-                Section {
                     Row(text: "about.title", destination: About(data: .main))
                 }
             }
