@@ -39,30 +39,42 @@ struct Distance: View {
     @State
     var ask: Bool = false
 
+    var binding: Binding<Bool> {
+        .init(get: { self.distance.get() == true && self.location.authorized }, set: toggle)
+    }
+
     var body: some View {
-        Toggle(isOn: Binding<Bool>(get: { self.distance.get() == true && self.location.authorized }, set: show), label: { Text("distance.show") })
+        Toggle(isOn: binding, label: { Text("distance.show") })
             .alert(isPresented: $ask, content: { Alert.redirect(action: settings) })
     }
 
-    func show(_ value: Bool) {
-        guard value else {
-            distance.set(false)
-            return
+    func toggle(_ value: Bool) {
+        if value {
+            enable()
+        } else {
+            disable()
         }
+    }
 
+    func enable() {
         switch location.status {
         case .notDetermined:
             distance.set(true)
             location.request()
         case .authorizedWhenInUse, .authorizedAlways:
             distance.set(true)
-        case .denied:
+        case .denied, .restricted:
             ask = true
         default:
             // TODO: report it
             print("other")
         }
 
+        location.objectWillChange.send()
+    }
+
+    func disable() {
+        distance.set(false)
         location.objectWillChange.send()
     }
 

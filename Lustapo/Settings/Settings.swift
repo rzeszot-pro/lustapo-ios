@@ -31,9 +31,6 @@ struct Settings: View {
 
     var dismiss: () -> Void
 
-    @EnvironmentObject
-    var location: Location
-
     var body: some View {
         NavigationView {
             List {
