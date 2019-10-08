@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QBh-9t-KGl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QBh-9t-KGl">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,8 +26,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lubelskie Stacje Pogodowe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwK-eR-9Uf">
-                                <rect key="frame" x="25" y="232" width="364" height="29"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <rect key="frame" x="25" y="237" width="364" height="24"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LuStaPo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CC-vo-7io">
+                                <rect key="frame" x="20" y="198.5" width="374" height="33.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -35,7 +41,9 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RbW-aY-yFE" secondAttribute="bottom" id="0J0-Hh-q5X"/>
                             <constraint firstAttribute="trailing" secondItem="qGE-al-hua" secondAttribute="trailing" constant="50" id="3q1-OK-HcT"/>
+                            <constraint firstItem="ATp-Qq-uEE" firstAttribute="trailing" secondItem="5CC-vo-7io" secondAttribute="trailing" constant="20" id="9Dc-nZ-ylB"/>
                             <constraint firstItem="dwK-eR-9Uf" firstAttribute="leading" secondItem="ATp-Qq-uEE" secondAttribute="leading" constant="25" id="D2F-re-Cxo"/>
+                            <constraint firstItem="5CC-vo-7io" firstAttribute="leading" secondItem="ATp-Qq-uEE" secondAttribute="leading" constant="20" id="I7A-X8-DoU"/>
                             <constraint firstItem="qGE-al-hua" firstAttribute="centerX" secondItem="1wE-TO-do5" secondAttribute="centerX" id="QjJ-Bb-44k"/>
                             <constraint firstItem="qGE-al-hua" firstAttribute="top" secondItem="dwK-eR-9Uf" secondAttribute="bottom" constant="30" id="e9j-CK-vem"/>
                             <constraint firstItem="ATp-Qq-uEE" firstAttribute="trailing" secondItem="dwK-eR-9Uf" secondAttribute="trailing" constant="25" id="ek9-9A-NdU"/>
@@ -44,6 +52,7 @@
                             <constraint firstItem="qGE-al-hua" firstAttribute="leading" secondItem="1wE-TO-do5" secondAttribute="leading" constant="50" id="p7R-bz-QBB"/>
                             <constraint firstItem="qGE-al-hua" firstAttribute="centerY" secondItem="1wE-TO-do5" secondAttribute="centerY" id="wFD-TM-AYu"/>
                             <constraint firstItem="RbW-aY-yFE" firstAttribute="left" secondItem="1wE-TO-do5" secondAttribute="left" id="wfJ-Vt-39u"/>
+                            <constraint firstItem="dwK-eR-9Uf" firstAttribute="top" secondItem="5CC-vo-7io" secondAttribute="bottom" constant="5" id="www-yj-XF0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ATp-Qq-uEE"/>
                     </view>
