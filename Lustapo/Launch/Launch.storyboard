@@ -16,43 +16,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbW-aY-yFE">
-                                <rect key="frame" x="0.0" y="490.5" width="414" height="405.5"/>
+                                <rect key="frame" x="0.0" y="516.5" width="414" height="379.5"/>
                                 <color key="backgroundColor" red="0.22503834962844849" green="0.67443263530731201" blue="0.21124932169914246" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-al-hua">
-                                <rect key="frame" x="50" y="291" width="314" height="314"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5DI-iz-97w">
+                                <rect key="frame" x="0.0" y="240" width="414" height="416.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="qGE-al-hua">
+                                        <rect key="frame" x="50" y="102.5" width="314" height="314"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="qGE-al-hua" secondAttribute="height" id="UPy-t3-PSq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lubelskie Stacje Pogodowe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwK-eR-9Uf">
+                                        <rect key="frame" x="10" y="48.5" width="394" height="24"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LuStaPo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CC-vo-7io">
+                                        <rect key="frame" x="10" y="10" width="394" height="33.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="qGE-al-hua" secondAttribute="height" id="UPy-t3-PSq"/>
+                                    <constraint firstAttribute="trailing" secondItem="qGE-al-hua" secondAttribute="trailing" constant="50" id="52d-Zz-7C4"/>
+                                    <constraint firstItem="5CC-vo-7io" firstAttribute="leading" secondItem="5DI-iz-97w" secondAttribute="leading" constant="10" id="5ZH-qo-76H"/>
+                                    <constraint firstItem="5CC-vo-7io" firstAttribute="top" secondItem="5DI-iz-97w" secondAttribute="top" constant="10" id="69I-aD-1Pe"/>
+                                    <constraint firstItem="qGE-al-hua" firstAttribute="leading" secondItem="5DI-iz-97w" secondAttribute="leading" constant="50" id="ENx-SF-cLh"/>
+                                    <constraint firstAttribute="trailing" secondItem="dwK-eR-9Uf" secondAttribute="trailing" constant="10" id="FMZ-y1-tnL"/>
+                                    <constraint firstAttribute="bottom" secondItem="qGE-al-hua" secondAttribute="bottom" id="IPa-Nb-q48"/>
+                                    <constraint firstItem="dwK-eR-9Uf" firstAttribute="top" secondItem="5CC-vo-7io" secondAttribute="bottom" constant="5" id="MO0-q6-noF"/>
+                                    <constraint firstAttribute="trailing" secondItem="5CC-vo-7io" secondAttribute="trailing" constant="10" id="RSb-o9-VPm"/>
+                                    <constraint firstItem="dwK-eR-9Uf" firstAttribute="leading" secondItem="5DI-iz-97w" secondAttribute="leading" constant="10" id="TqC-zR-vsF"/>
+                                    <constraint firstItem="qGE-al-hua" firstAttribute="top" secondItem="dwK-eR-9Uf" secondAttribute="bottom" constant="30" id="xNZ-TP-52S"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lubelskie Stacje Pogodowe" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwK-eR-9Uf">
-                                <rect key="frame" x="25" y="237" width="364" height="24"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LuStaPo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CC-vo-7io">
-                                <rect key="frame" x="20" y="198.5" width="374" height="33.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="RbW-aY-yFE" secondAttribute="bottom" id="0J0-Hh-q5X"/>
-                            <constraint firstAttribute="trailing" secondItem="qGE-al-hua" secondAttribute="trailing" constant="50" id="3q1-OK-HcT"/>
-                            <constraint firstItem="ATp-Qq-uEE" firstAttribute="trailing" secondItem="5CC-vo-7io" secondAttribute="trailing" constant="20" id="9Dc-nZ-ylB"/>
-                            <constraint firstItem="dwK-eR-9Uf" firstAttribute="leading" secondItem="ATp-Qq-uEE" secondAttribute="leading" constant="25" id="D2F-re-Cxo"/>
-                            <constraint firstItem="5CC-vo-7io" firstAttribute="leading" secondItem="ATp-Qq-uEE" secondAttribute="leading" constant="20" id="I7A-X8-DoU"/>
-                            <constraint firstItem="qGE-al-hua" firstAttribute="centerX" secondItem="1wE-TO-do5" secondAttribute="centerX" id="QjJ-Bb-44k"/>
-                            <constraint firstItem="qGE-al-hua" firstAttribute="top" secondItem="dwK-eR-9Uf" secondAttribute="bottom" constant="30" id="e9j-CK-vem"/>
-                            <constraint firstItem="ATp-Qq-uEE" firstAttribute="trailing" secondItem="dwK-eR-9Uf" secondAttribute="trailing" constant="25" id="ek9-9A-NdU"/>
-                            <constraint firstItem="RbW-aY-yFE" firstAttribute="top" secondItem="qGE-al-hua" secondAttribute="centerY" multiplier="1.095" id="m1X-d7-bYg"/>
+                            <constraint firstItem="RbW-aY-yFE" firstAttribute="top" secondItem="qGE-al-hua" secondAttribute="bottom" constant="-140" id="BpW-3l-hfL"/>
+                            <constraint firstItem="5DI-iz-97w" firstAttribute="centerY" secondItem="1wE-TO-do5" secondAttribute="centerY" id="SVv-Ga-aj3"/>
+                            <constraint firstItem="5DI-iz-97w" firstAttribute="leading" secondItem="ATp-Qq-uEE" secondAttribute="leading" id="TQe-8d-moF"/>
+                            <constraint firstItem="5DI-iz-97w" firstAttribute="trailing" secondItem="ATp-Qq-uEE" secondAttribute="trailing" id="m5V-29-2KS"/>
                             <constraint firstAttribute="right" secondItem="RbW-aY-yFE" secondAttribute="right" id="o8H-XP-Yjf"/>
-                            <constraint firstItem="qGE-al-hua" firstAttribute="leading" secondItem="1wE-TO-do5" secondAttribute="leading" constant="50" id="p7R-bz-QBB"/>
-                            <constraint firstItem="qGE-al-hua" firstAttribute="centerY" secondItem="1wE-TO-do5" secondAttribute="centerY" id="wFD-TM-AYu"/>
                             <constraint firstItem="RbW-aY-yFE" firstAttribute="left" secondItem="1wE-TO-do5" secondAttribute="left" id="wfJ-Vt-39u"/>
-                            <constraint firstItem="dwK-eR-9Uf" firstAttribute="top" secondItem="5CC-vo-7io" secondAttribute="bottom" constant="5" id="www-yj-XF0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ATp-Qq-uEE"/>
                     </view>
