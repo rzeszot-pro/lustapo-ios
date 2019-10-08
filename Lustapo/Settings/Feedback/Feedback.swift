@@ -29,11 +29,19 @@ import SwiftUI
 
 struct Feedback: View {
 
+    @Environment(\.presentationMode)
+    var presentation
+
+    var service: FeedbackService = FeedbackService()
+
     @State
     var email: String = ""
 
     @State
     var details: String = ""
+
+    @State
+    var sending: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -54,13 +62,40 @@ struct Feedback: View {
             .frame(height: geometry.size.height)
         }
         .navigationBarTitle("feedback.title")
-        .navigationBarItems(trailing: SendButton(action: send))
+        .navigationBarItems(trailing: Loading(loading: sending, view: SendButton(action: send)))
+        .onAppear(perform: load)
+        .onDisappear(perform: store)
     }
 
     // MARK: -
 
-    func send() {
+    let defaults = UserDefaults.standard
 
+    func load() {
+        email = defaults.string(forKey: "feedback.email") ?? ""
+        details = defaults.string(forKey: "feedback.details") ?? ""
+    }
+
+    func store() {
+        defaults.set(email, forKey: "feedback.email")
+        defaults.set(details, forKey: "feedback.details")
+    }
+
+    func send() {
+        sending = true
+
+        service.send(email: email, details: details) {
+            self.defaults.set(nil, forKey: "feedback.email")
+            self.defaults.set(nil, forKey: "feedback.details")
+            self.email = ""
+            self.details = ""
+
+            self.sending = false
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
+                self.presentation.wrappedValue.dismiss()
+            }
+        }
     }
 
     // MARK: -
@@ -87,7 +122,7 @@ struct Feedback: View {
                 Spacer()
                 Button(action: action, label: {
                     Image(systemName: "paperplane")
-                    .padding(5)
+                        .padding(5)
                 })
                 Spacer()
             }

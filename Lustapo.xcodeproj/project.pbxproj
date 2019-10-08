@@ -29,6 +29,9 @@
 		2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50F23464E1300DB38AA /* Bundle.swift */; };
 		2D50FF36234D246800799C4E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF35234D246800799C4E /* Feedback.swift */; };
 		2D50FF3E234D36C700799C4E /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF3D234D36C700799C4E /* Privacy.swift */; };
+		2D50FF40234D429900799C4E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF3F234D429900799C4E /* ActivityIndicator.swift */; };
+		2D50FF42234D446100799C4E /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF41234D446100799C4E /* Loading.swift */; };
+		2D50FF44234D458D00799C4E /* FeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF43234D458D00799C4E /* FeedbackService.swift */; };
 		2D7D3B4A234CE15D00869BFE /* Ask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7D3B49234CE15D00869BFE /* Ask.swift */; };
 		2D8E8D3C234907450020EC59 /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3B234907450020EC59 /* NumberFormatter.swift */; };
 		2D8E8D3E234907640020EC59 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E8D3D234907640020EC59 /* DateFormatter.swift */; };
@@ -69,6 +72,9 @@
 		2D4AF50F23464E1300DB38AA /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		2D50FF35234D246800799C4E /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		2D50FF3D234D36C700799C4E /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
+		2D50FF3F234D429900799C4E /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		2D50FF41234D446100799C4E /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		2D50FF43234D458D00799C4E /* FeedbackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackService.swift; sourceTree = "<group>"; };
 		2D7D3B49234CE15D00869BFE /* Ask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ask.swift; sourceTree = "<group>"; };
 		2D8E8D3B234907450020EC59 /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		2D8E8D3D234907640020EC59 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -163,7 +169,7 @@
 				2D2FD838234621530076D247 /* Disclaimer.swift */,
 				2D2FD84D23462B990076D247 /* About.swift */,
 				2D50FF3D234D36C700799C4E /* Privacy.swift */,
-				2D50FF35234D246800799C4E /* Feedback.swift */,
+				2D50FF45234D46A200799C4E /* Feedback */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -173,6 +179,8 @@
 			children = (
 				2D4616A32347F4DC005A3397 /* CloseButton.swift */,
 				2DAE0F1B23480ABB00060D59 /* IfLet.swift */,
+				2D50FF3F234D429900799C4E /* ActivityIndicator.swift */,
+				2D50FF41234D446100799C4E /* Loading.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -209,6 +217,15 @@
 				2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2D50FF45234D46A200799C4E /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				2D50FF35234D246800799C4E /* Feedback.swift */,
+				2D50FF43234D458D00799C4E /* FeedbackService.swift */,
+			);
+			path = Feedback;
 			sourceTree = "<group>";
 		};
 		2DAE0F1D23480D1B00060D59 /* Tools */ = {
@@ -378,6 +395,7 @@
 				2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */,
 				2D46169C23478B08005A3397 /* UserDefault.swift in Sources */,
 				2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */,
+				2D50FF44234D458D00799C4E /* FeedbackService.swift in Sources */,
 				2D042AD2234607BE0057F153 /* Database.swift in Sources */,
 				2D46169E2347BE9F005A3397 /* Color.swift in Sources */,
 				2D2FD84E23462B990076D247 /* About.swift in Sources */,
@@ -392,9 +410,11 @@
 				2D042AB92345FFAB0057F153 /* SceneDelegate.swift in Sources */,
 				2D7D3B4A234CE15D00869BFE /* Ask.swift in Sources */,
 				2D042ACC234603950057F153 /* Station.swift in Sources */,
+				2D50FF42234D446100799C4E /* Loading.swift in Sources */,
 				2D96E419234A2457000D174D /* Map.swift in Sources */,
 				6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */,
 				2D8E8D40234907850020EC59 /* Date.swift in Sources */,
+				2D50FF40234D429900799C4E /* ActivityIndicator.swift in Sources */,
 				2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */,
 				2D96E41F234A3F00000D174D /* CLAuthorizationStatus.swift in Sources */,
 				2D2FD839234621530076D247 /* Disclaimer.swift in Sources */,
