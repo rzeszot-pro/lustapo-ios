@@ -53,6 +53,9 @@
 
 /* Settings / Feedback */
 "feedback.title" = "Feedback";
+"feedback.email" = "E-mail (optional)";
+"feedback.details" = "Details";
+"feedback.send" = "Send";
 
 
 /* Settings / Distance */

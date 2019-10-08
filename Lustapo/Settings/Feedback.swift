@@ -29,17 +29,50 @@ import SwiftUI
 
 struct Feedback: View {
 
+    @State
+    var email: String = ""
+
+    @State
+    var details: String = ""
+
     var body: some View {
-        VStack {
-            Text("xxx")
+        List {
+            Section {
+                TextField("feedback.email", text: $email)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+
+                TextField("feedback.details", text: $details)
+            }
+            Section {
+                SendButton(action: send)
+            }
         }
         .navigationBarTitle("feedback.title")
     }
 
-}
+    // MARK: -
 
-struct Feedback_Previews: PreviewProvider {
-    static var previews: some View {
-        Feedback()
+    func send() {
+
     }
+
+    // MARK: -
+
+    struct SendButton: View {
+        var action: () -> Void
+        var body: some View {
+            HStack {
+                Spacer()
+                Button(action: action, label: {
+                    HStack {
+                        Text("feedback.send")
+                        Image(systemName: "paperplane")
+                    }
+                })
+                Spacer()
+            }
+        }
+    }
+
 }
