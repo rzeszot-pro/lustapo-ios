@@ -1,5 +1,5 @@
 //
-//  Settings.swift
+//  Feedback.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -27,36 +27,21 @@
 
 import SwiftUI
 
-struct Settings: View {
-
-    var dismiss: () -> Void
+struct Feedback: View {
 
     var body: some View {
         NavigationView {
-            List {
-                Section(header: Text("settings.appearance")) {
-                    Distance()
-                }
-                Section(header: Text("settings.other")) {
-                    Row(text: "feedback.title", destination: Feedback())
-                    Row(text: "disclaimer.title", destination: Disclaimer())
-                    Row(text: "about.title", destination: About())
-                }
+            VStack {
+                Text("xxx")
             }
-            .listStyle(GroupedListStyle())
-            .navigationBarTitle("settings.title")
-            .navigationBarItems(leading: CloseButton(action: dismiss))
+            .navigationBarTitle("feedback.title")
         }
     }
 
-    // MARK: -
+}
 
-    struct Row<Destination: View>: View {
-        var text: String
-        var destination: Destination
-        var body: some View {
-            NavigationLink(destination: destination, label: { Text(LocalizedStringKey(text)) })
-        }
+struct Feedback_Previews: PreviewProvider {
+    static var previews: some View {
+        Feedback()
     }
-
 }
