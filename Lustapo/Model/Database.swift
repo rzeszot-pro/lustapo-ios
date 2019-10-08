@@ -29,8 +29,7 @@ import Foundation
 
 struct Database {
 
-    @UserDefault(key: "last-station")
-    var last: String?
+    var last = UserDefaults.last_station
 
     var url: URL {
         Bundle.main.url(forResource: "database", withExtension: "json")!
@@ -52,7 +51,8 @@ struct Database {
         let lublin = stations.select(condition)
         let other = stations.reject(condition)
 
-        let active = stations.first { $0.id == last } ?? stations[0]
+        let lastStationId = last.get()
+        let active = stations.first { $0.id == lastStationId } ?? stations[0]
         let regions = [
             Region(name: "Lublin", stations: lublin),
             Region(name: "Other", stations: other)

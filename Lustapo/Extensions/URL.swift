@@ -1,5 +1,5 @@
 //
-//  Color.swift
+//  URL.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,10 +25,11 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import SwiftUI
+import Foundation
+import UIKit
 
-extension Color {
-    static var obsolete: Color {
-        Color("obsolete")
+extension URL {
+    static var settings: URL {
+        URL(string: UIApplication.openSettingsURLString)!
     }
 }

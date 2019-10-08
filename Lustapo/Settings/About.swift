@@ -29,51 +29,22 @@ import SwiftUI
 
 struct About: View {
 
-    struct Data {
-        let version: String
-        let build: String
-    }
-
-    var data: Data
+    var version: String = Bundle.main.version ?? ""
 
     var body: some View {
         List {
             Section(header: Text("about.app")) {
-                Row(key: "about.app.version", value: "\(data.version) (\(data.build))")
+                HStack {
+                    Text("about.app.version")
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    Text(version)
+                        .foregroundColor(.primary)
+                }
             }
         }
         .listStyle(GroupedListStyle())
         .navigationBarTitle("about.title")
-    }
-
-    // MARK: -
-
-    struct Row: View {
-        var key: String
-        var value: String
-
-        var body: some View {
-            HStack {
-                Text(LocalizedStringKey(key))
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(value)
-                    .foregroundColor(.primary)
-            }
-        }
-    }
-
-}
-
-extension About.Data {
-
-    init(bundle: Bundle) {
-        version = bundle.version ?? ""
-        build = bundle.build ?? ""
-    }
-
-    static var main: About.Data {
-        .init(bundle: .main)
     }
 
 }

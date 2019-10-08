@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Location.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -26,41 +26,61 @@
 //
 
 import Foundation
+import CoreLocation
 import Combine
-import SwiftUI
 
-class Default<Value>: ObservableObject {
-
-    // MARK: -
-
-    let objectWillChange = ObservableObjectPublisher()
-    let key: String
-    let value: Value
-    let userDefaults: UserDefaults
+class Location: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     // MARK: -
 
-    init(key: String, value: Value, userDefaults: UserDefaults = .standard) {
-        self.key = key
-        self.value = value
-        self.userDefaults = userDefaults
+    static var shared = Location()
+
+    // MARK: -
+
+    private let manager: CLLocationManager
+
+    init(manager: CLLocationManager = .init()) {
+        self.manager = manager
+        super.init()
+        self.manager.delegate = self
     }
 
-    func get() -> Value {
-        userDefaults.object(forKey: key) as? Value ?? value
+    // MARK: -
+
+    var status: CLAuthorizationStatus {
+        CLLocationManager.authorizationStatus()
     }
 
-    func set(_ value: Value) {
-        userDefaults.set(value, forKey: key)
+    var authorized: Bool {
+        status == .authorizedAlways || status == .authorizedWhenInUse
+    }
+
+    var location: CLLocation? {
+        manager.location
+    }
+
+    func request() {
+        manager.requestWhenInUseAuthorization()
+    }
+
+    // MARK: - ObservableObject
+
+    let objectWillChange: ObservableObjectPublisher = .init()
+
+    // MARK: - CustomStringConvertible
+
+    override var description: String {
+        super.description + " | " + status.description
+    }
+
+    // MARK: - CLLocationManagerDelegate
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         objectWillChange.send()
     }
 
-}
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        objectWillChange.send()
+    }
 
-extension UserDefaults {
-    // swiftlint:disable identifier_name
-    static var show_instance: Default<Bool?> = .init(key: "show-distance", value: nil)
-
-    static var last_station: Default<String?> = .init(key: "last-station", value: nil)
-    static var ask_shown: Default<Bool> = .init(key: "ask-shown", value: false)
 }

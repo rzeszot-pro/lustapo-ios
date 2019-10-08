@@ -1,5 +1,5 @@
 //
-//  Color.swift
+//  CLLocation.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,10 +25,14 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import SwiftUI
+import CoreLocation
 
-extension Color {
-    static var obsolete: Color {
-        Color("obsolete")
+extension CLLocation {
+    convenience init(coordinates: CLLocationCoordinate2D) {
+        self.init(latitude: coordinates.latitude, longitude: coordinates.longitude)
+    }
+
+    func distance(from coordinates: CLLocationCoordinate2D) -> CLLocationDistance? {
+        distance(from: CLLocation(coordinates: coordinates))
     }
 }

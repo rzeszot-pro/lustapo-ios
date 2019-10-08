@@ -1,5 +1,5 @@
 //
-//  Color.swift
+//  Ask.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -27,8 +27,44 @@
 
 import SwiftUI
 
-extension Color {
-    static var obsolete: Color {
-        Color("obsolete")
+struct Ask: View {
+    var action: (Bool) -> Void
+
+    var body: some View {
+        VStack {
+            Text("ask.title")
+                .foregroundColor(.primary)
+                .font(.headline)
+                .padding(.bottom, 5)
+
+            Text("ask.subtitle")
+                .frame(height: 40)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .font(.caption)
+
+            HStack(alignment: .center, spacing: 10) {
+                Button(action: decline, label: {
+                    Text("ask.decline")
+                        .padding(2)
+                })
+
+                Button(action: approve, label: {
+                    Text("ask.approve")
+                        .padding(2)
+                        .padding(.horizontal, 20)
+                        .font(Font.body.bold())
+                })
+            }
+        }
+        .padding(20)
+    }
+
+    func approve() {
+        action(true)
+    }
+
+    func decline() {
+        action(false)
     }
 }

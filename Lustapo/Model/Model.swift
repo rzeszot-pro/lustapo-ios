@@ -33,8 +33,7 @@ class Model: ObservableObject {
 
     // MARK: -
 
-    @UserDefault(key: "last-station")
-    var last: String?
+    var last = UserDefaults.last_station
 
     @Published
     var regions: [Region]
@@ -43,7 +42,7 @@ class Model: ObservableObject {
     var station: Station {
         didSet {
             measurements.data = nil
-            last = station.id
+            last.set(station.id)
             reload()
         }
     }

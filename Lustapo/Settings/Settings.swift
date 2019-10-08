@@ -34,11 +34,12 @@ struct Settings: View {
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    Row(text: "disclaimer.title", destination: Disclaimer())
+                Section(header: Text("settings.appearance")) {
+                    Distance()
                 }
-                Section {
-                    Row(text: "about.title", destination: About(data: .main))
+                Section(header: Text("settings.other")) {
+                    Row(text: "disclaimer.title", destination: Disclaimer())
+                    Row(text: "about.title", destination: About())
                 }
             }
             .listStyle(GroupedListStyle())

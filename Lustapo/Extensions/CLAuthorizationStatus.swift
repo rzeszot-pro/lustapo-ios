@@ -1,5 +1,5 @@
 //
-//  Color.swift
+//  CLAuthorizationStatus.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,10 +25,23 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import SwiftUI
+import CoreLocation
 
-extension Color {
-    static var obsolete: Color {
-        Color("obsolete")
+extension CLAuthorizationStatus: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .authorizedAlways:
+            return "authorized always"
+        case .authorizedWhenInUse:
+            return "authorized when in use"
+        case .denied:
+            return "denied"
+        case .notDetermined:
+            return "not determined"
+        case .restricted:
+            return "restricted"
+        @unknown default:
+            return "unknown"
+        }
     }
 }

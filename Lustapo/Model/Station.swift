@@ -26,8 +26,31 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Station: Decodable, Identifiable, Equatable {
     let id: String
     let name: String
+    let coordinates: CLLocationCoordinate2D
+
+    // MARK: - Equatable
+
+    static func == (lhs: Station, rhs: Station) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+extension CLLocationCoordinate2D: Decodable {
+    private enum Key: String, CodingKey {
+        case latitude
+        case longitude
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: Key.self)
+        let latitude = try container.decode(CLLocationDegrees.self, forKey: .latitude)
+        let longitude = try container.decode(CLLocationDegrees.self, forKey: .longitude)
+
+        self = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
 }

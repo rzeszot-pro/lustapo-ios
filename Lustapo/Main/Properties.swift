@@ -51,6 +51,7 @@ enum Properties {
 
         var body: some View {
             Dual(key: key, value: number.string(from: value) ?? "", unit: "°C")
+                .padding(.vertical, 10)
         }
     }
 
@@ -75,6 +76,7 @@ enum Properties {
 
         var body: some View {
             Triple(key: "data.wind", first: text, second: speed.map { String($0) }, unit: "m/s")
+                .padding(.vertical, 10)
         }
     }
 
@@ -84,6 +86,7 @@ enum Properties {
 
         var body: some View {
             Dual(key: "data.humidity", value: number.string(from: value) ?? "", unit: "%")
+                .padding(.vertical, 10)
         }
     }
 
@@ -93,6 +96,7 @@ enum Properties {
 
         var body: some View {
             Dual(key: "data.pressure", value: number.string(from: value) ?? "", unit: "hPa")
+                .padding(.vertical, 10)
         }
     }
 
@@ -102,6 +106,7 @@ enum Properties {
 
         var body: some View {
             Dual(key: "data.rain", value: number.string(from: value) ?? "", unit: "mm")
+                .padding(.vertical, 10)
         }
     }
 
@@ -111,6 +116,7 @@ enum Properties {
         var body: some View {
             Single(key: "data.updated", value: DateFormatter.standard.string(from: date))
                 .listRowBackground(date.obsolete ? Color.obsolete : nil)
+                .padding(.vertical, 10)
         }
     }
 
