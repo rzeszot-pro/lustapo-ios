@@ -59,6 +59,7 @@ struct Distance: View {
         case .denied:
             ask = true
         default:
+            // TODO: report it
             print("other")
         }
 

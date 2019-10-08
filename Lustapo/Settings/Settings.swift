@@ -42,7 +42,7 @@ struct Settings: View {
                 }
                 Section(header: Text("settings.other")) {
                     Row(text: "disclaimer.title", destination: Disclaimer())
-                    Row(text: "about.title", destination: About(data: .main))
+                    Row(text: "about.title", destination: About())
                 }
             }
             .listStyle(GroupedListStyle())
