@@ -48,8 +48,11 @@
 
 /* Settings */
 "settings.title" = "Settings";
-"settings.appearance" = "Appearance";
-"settings.other" = "Other";
+"settings.share" = "Share";
+
+
+/* Settings / Feedback */
+"feedback.title" = "Feedback";
 
 
 /* Settings / Distance */

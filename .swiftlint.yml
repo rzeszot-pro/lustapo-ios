@@ -5,6 +5,7 @@ disabled_rules:
 identifier_name:
     excluded:
         - id
+        - vc
 
 line_length: 200
 function_body_length: 25

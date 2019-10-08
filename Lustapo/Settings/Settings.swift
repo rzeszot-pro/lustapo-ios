@@ -34,10 +34,13 @@ struct Settings: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("settings.appearance")) {
+                Section {
                     Distance()
                 }
-                Section(header: Text("settings.other")) {
+                Section {
+                    Share()
+                }
+                Section {
                     Row(text: "feedback.title", destination: Feedback())
                     Row(text: "disclaimer.title", destination: Disclaimer())
                     Row(text: "about.title", destination: About())
@@ -59,4 +62,34 @@ struct Settings: View {
         }
     }
 
+    struct Share: View {
+        @State
+        var show: Bool = false
+
+        var body: some View {
+            Button(action: { self.show.toggle() }, label: {
+                Text("Share")
+            })
+            .sheet(isPresented: $show, content: { ShareView(items: [ URL.lustapo ]) })
+        }
+    }
+}
+
+struct ShareView: UIViewControllerRepresentable {
+    var items: [Any]
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ShareView>) -> UIActivityViewController {
+        // TODO: handle completion
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ vc: UIActivityViewController, context: UIViewControllerRepresentableContext<ShareView>) {
+
+    }
+}
+
+extension URL {
+    static var lustapo: URL {
+        "https://apps.apple.com/pl/app/lustapo/id1151483507"
+    }
 }

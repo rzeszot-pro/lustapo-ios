@@ -30,12 +30,10 @@ import SwiftUI
 struct Feedback: View {
 
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("xxx")
-            }
-            .navigationBarTitle("feedback.title")
+        VStack {
+            Text("xxx")
         }
+        .navigationBarTitle("feedback.title")
     }
 
 }

@@ -28,8 +28,16 @@
 import Foundation
 import UIKit
 
-extension URL {
+extension URL: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
+
+    public init(stringLiteral value: String) {
+        self = URL(string: value)!
+    }
+
+    // MARK: -
+
     static var settings: URL {
         URL(string: UIApplication.openSettingsURLString)!
     }
+
 }
