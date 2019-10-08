@@ -29,6 +29,6 @@ import Foundation
 
 extension Date {
     var obsolete: Bool {
-        timeIntervalSinceNow < -20 * 60
+        timeIntervalSinceNow < -15 * 60
     }
 }
