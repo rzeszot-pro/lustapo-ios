@@ -55,6 +55,7 @@
 "feedback.title" = "Feedback";
 "feedback.email" = "E-mail (opcjonalny)";
 "feedback.details" = "Opis";
+"feedback.sent" = "Feedback został wysłany!";
 
 
 /* Settings / Privacy */

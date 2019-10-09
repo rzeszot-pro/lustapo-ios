@@ -43,6 +43,9 @@ struct Feedback: View {
     @State
     var sending: Bool = false
 
+    @State
+    var alert: Bool = false
+
     var body: some View {
         List {
             Section {
@@ -62,9 +65,12 @@ struct Feedback: View {
         }
         .modifier(KeyboardAdaptive())
         .navigationBarTitle("feedback.title")
-        .navigationBarItems(trailing: Loading(loading: sending, view: SendButton(action: send)))
+        .navigationBarItems(trailing: Loading(loading: sending, view: SendButton(action: send).disabled(details.isEmpty)))
         .onAppear(perform: load)
         .onDisappear(perform: store)
+        .alert(isPresented: $alert) {
+            Alert(title: Text("feedback.sent"))
+        }
     }
 
     // MARK: -
@@ -85,12 +91,11 @@ struct Feedback: View {
         sending = true
 
         service.send(email: email, details: details) {
-            self.defaults.set(nil, forKey: "feedback.email")
-            self.defaults.set(nil, forKey: "feedback.details")
             self.email = ""
             self.details = ""
 
             self.sending = false
+            self.alert = true
         }
     }
 
