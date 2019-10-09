@@ -55,7 +55,7 @@ struct TextView: UIViewRepresentable {
 
     // MARK: -
 
-    class Coordinator: NSObject, UITextViewDelegate {
+    class Coordinator: NSObject, UITextViewDelegate, ResizableTextViewDelegate {
         var view: TextView
 
         init(view: TextView) {
@@ -66,15 +66,30 @@ struct TextView: UIViewRepresentable {
 
         func textViewDidChange(_ textView: UITextView) {
             view.text = textView.text
+        }
+
+        // MARK: - ResizableTextViewDelegate
+
+        func textViewDidLayoutSubviews(_ textView: UITextView) {
             view.contentHeight?.wrappedValue = textView.contentSize.height
         }
     }
+}
 
-    private class ResizableTextView: UITextView {
-        // swiftlint:disable unused_setter_value
-        override var contentOffset: CGPoint {
-            set {}
-            get { .zero }
-        }
+private class ResizableTextView: UITextView {
+    // swiftlint:disable unused_setter_value
+    override var contentOffset: CGPoint {
+        set {}
+        get { .zero }
     }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        (delegate as? ResizableTextViewDelegate)?.textViewDidLayoutSubviews?(self)
+    }
+}
+
+@objc
+private protocol ResizableTextViewDelegate {
+    @objc optional func textViewDidLayoutSubviews(_ textView: UITextView)
 }
