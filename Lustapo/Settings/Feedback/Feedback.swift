@@ -29,9 +29,6 @@ import SwiftUI
 
 struct Feedback: View {
 
-    @Environment(\.presentationMode)
-    var presentation
-
     var service: FeedbackService = FeedbackService()
 
     @State
@@ -41,26 +38,29 @@ struct Feedback: View {
     var details: String = ""
 
     @State
+    var height: CGFloat = 0
+
+    @State
     var sending: Bool = false
 
     var body: some View {
-        GeometryReader { geometry in
-            List {
-                Section {
-                    Row(key: "Device model", value: "iPhone 8+")
-                    Row(key: "App version", value: "1.15.0")
-                }
-                Section(header: Text("feedback.email")) {
-                    TextField("", text: self.$email)
-                        .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
-                }
-                Section(header: Text("feedback.details")) {
-                    TextField("", text: self.$details)
-                }
+        List {
+            Section {
+                Row(key: "Device model", value: "iPhone 8+")
+                Row(key: "System", value: "iOS 13.1")
+                Row(key: "App version", value: "1.15.0")
             }
-            .frame(height: geometry.size.height)
+            Section(header: Text("feedback.email")) {
+                TextField("", text: self.$email)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+            }
+            Section(header: Text("feedback.details")) {
+                TextView(text: self.$details, contentHeight: self.$height)
+                    .frame(height: max(self.height, 50))
+            }
         }
+        .modifier(KeyboardAdaptive())
         .navigationBarTitle("feedback.title")
         .navigationBarItems(trailing: Loading(loading: sending, view: SendButton(action: send)))
         .onAppear(perform: load)
@@ -91,10 +91,6 @@ struct Feedback: View {
             self.details = ""
 
             self.sending = false
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
-                self.presentation.wrappedValue.dismiss()
-            }
         }
     }
 
@@ -118,14 +114,10 @@ struct Feedback: View {
     struct SendButton: View {
         var action: () -> Void
         var body: some View {
-            HStack {
-                Spacer()
-                Button(action: action, label: {
-                    Image(systemName: "paperplane")
-                        .padding(5)
-                })
-                Spacer()
-            }
+            Button(action: action, label: {
+                Image(systemName: "paperplane")
+                    .padding(5)
+            })
         }
     }
 
