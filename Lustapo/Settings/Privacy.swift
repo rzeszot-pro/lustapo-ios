@@ -1,5 +1,5 @@
 //
-//  Date.swift
+//  Privacy.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,10 +25,18 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
-extension Date {
-    var obsolete: Bool {
-        timeIntervalSinceNow < -15 * 60
+struct Privacy: View {
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("privacy.content")
+            }
+            .padding(.all)
+        }
+        .navigationBarTitle("privacy.title")
     }
+
 }

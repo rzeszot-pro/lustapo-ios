@@ -1,5 +1,5 @@
 //
-//  Date.swift
+//  ActivityIndicator.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,10 +25,14 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
-extension Date {
-    var obsolete: Bool {
-        timeIntervalSinceNow < -15 * 60
+struct ActivityIndicator: UIViewRepresentable {
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        UIActivityIndicatorView(style: .medium)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        uiView.startAnimating()
     }
 }

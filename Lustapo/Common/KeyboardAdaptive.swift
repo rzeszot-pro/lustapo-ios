@@ -1,5 +1,5 @@
 //
-//  URL.swift
+//  KeyboardAdaptive.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,19 +25,49 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-import UIKit
+import Combine
+import SwiftUI
 
-extension URL: ExpressibleByStringLiteral, ExpressibleByStringInterpolation {
+struct KeyboardAdaptive: ViewModifier {
 
-    public init(stringLiteral value: String) {
-        self = URL(string: value)!
-    }
+    @State
+    private(set) var height: CGFloat = 0
+
+    @State
+    private var cancellable: AnyCancellable?
 
     // MARK: -
 
-    static var settings: URL {
-        URL(string: UIApplication.openSettingsURLString)!
+    private let show: Publishers.Map<NotificationCenter.Publisher, CGFloat>
+    private let hide: Publishers.Map<NotificationCenter.Publisher, CGFloat>
+
+    init(nc: NotificationCenter = .default) {
+        show = nc.publisher(for: UIResponder.keyboardWillShowNotification)
+            .map { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
+            .map { $0?.height ?? 0 }
+
+        hide = nc.publisher(for: UIResponder.keyboardWillHideNotification)
+            .map { _ in 0 }
+    }
+
+    private func subscribe() {
+        cancellable = show.merge(with: hide)
+            .subscribe(on: RunLoop.main)
+            .assign(to: \.height, on: self)
+    }
+
+    private func unsubscribe() {
+        cancellable = nil
+    }
+
+    // MARK: - ViewModifier
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.bottom, height)
+            .edgesIgnoringSafeArea(height == 0 ? [] : .bottom)
+            .onAppear(perform: subscribe)
+            .onDisappear(perform: unsubscribe)
     }
 
 }

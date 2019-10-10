@@ -68,7 +68,7 @@ struct Main: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: SettingsButton(action: settings), trailing: model.measurements.loading ? AnyView(ActivityIndicator().padding(5)) : AnyView(ReloadButton(action: model.reload)))
+            .navigationBarItems(leading: SettingsButton(action: settings), trailing: Loading(loading: model.measurements.loading, view: ReloadButton(action: model.reload)))
             .sheet(item: $subview, content: sheet)
             .onAppear(perform: model.reload)
         }
@@ -156,14 +156,4 @@ struct Main: View {
         }
     }
 
-}
-
-private struct ActivityIndicator: UIViewRepresentable {
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        UIActivityIndicatorView(style: .medium)
-    }
-
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        uiView.startAnimating()
-    }
 }

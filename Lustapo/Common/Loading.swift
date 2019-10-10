@@ -1,5 +1,5 @@
 //
-//  Date.swift
+//  Loading.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,10 +25,17 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
-extension Date {
-    var obsolete: Bool {
-        timeIntervalSinceNow < -15 * 60
+struct Loading<T: View>: View {
+    var loading: Bool
+    var view: T
+
+    var body: some View {
+        if loading {
+            return AnyView(ActivityIndicator())
+        } else {
+            return AnyView(view)
+        }
     }
 }

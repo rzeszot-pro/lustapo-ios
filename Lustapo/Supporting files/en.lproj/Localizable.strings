@@ -48,8 +48,19 @@
 
 /* Settings */
 "settings.title" = "Settings";
-"settings.appearance" = "Appearance";
-"settings.other" = "Other";
+"settings.share" = "Share";
+
+
+/* Settings / Feedback */
+"feedback.title" = "Feedback";
+"feedback.email" = "E-mail (optional)";
+"feedback.details" = "Details";
+"feedback.sent" = "Feedback sent!";
+
+
+/* Settings / Privacy */
+"privacy.title" = "Privacy policy";
+"privacy.content" = "We don't store your data.";
 
 
 /* Settings / Distance */
