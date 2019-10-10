@@ -46,12 +46,28 @@ struct Feedback: View {
     @State
     var alert: Bool = false
 
+    // MARK: -
+
+    var deviceModel: String {
+        UIDevice.name(from: UIDevice.current.modelCode ?? "unknown") ?? UIDevice.current.modelCode ?? UIDevice.current.model
+    }
+
+    var systemVersion: String {
+        UIDevice.current.systemName + " " + UIDevice.current.systemVersion
+    }
+
+    var appVersion: String {
+        (Bundle.main.name ?? "") + " " + (Bundle.main.version ?? "")
+    }
+
+    // MARK: -
+
     var body: some View {
         List {
             Section {
-                Row(key: "Device model", value: "iPhone 8+")
-                Row(key: "System", value: "iOS 13.1")
-                Row(key: "App version", value: "1.15.0")
+                Row(key: "Device model", value: deviceModel)
+                Row(key: "System", value: systemVersion)
+                Row(key: "App version", value: appVersion)
             }
             Section(header: Text("feedback.email")) {
                 TextField("", text: self.$email)
@@ -90,9 +106,11 @@ struct Feedback: View {
     func send() {
         sending = true
 
-        service.send(email: email, details: details) {
-            self.email = ""
-            self.details = ""
+        service.send(email: email, details: details) { success in
+            if success {
+                self.email = ""
+                self.details = ""
+            }
 
             self.sending = false
             self.alert = true

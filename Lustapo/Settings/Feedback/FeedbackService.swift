@@ -40,20 +40,82 @@ class FeedbackService {
         }
         let form: Form
         let meta: Meta
-        let secret: String
     }
 
-    func send(email: String, details: String, completion: @escaping () -> Void) {
-        let payload = Payload(form: .init(email: email, details: details), meta: .init(device: "device", system: "system", app: "app"), secret: "123123123")
+    func send(email: String, details: String, completion: @escaping (Bool) -> Void) {
+        let payload = Payload(form: .init(email: email, details: details), meta: .current)
 
-        var request = URLRequest(url: "https://lustapo.rzeszot.pro/feedback")
+        var request = URLRequest(url: "https://lustapo.rzeszot.pro/api/feedback")
         request.timeoutInterval = 10
         request.httpMethod = "POST"
         request.httpBody = try? JSONEncoder().encode(payload)
+        request.allHTTPHeaderFields = ["version": "1"]
 
-        URLSession.shared.dataTask(with: request) { _, _, _ in
+        URLSession.shared.dataTask(with: request) { _, response, _ in
+            let success = (response as? HTTPURLResponse)?.statusCode == 200
+
             // TODO: report error
-            DispatchQueue.main.async(execute: completion)
+
+            DispatchQueue.main.async {
+                completion(success)
+            }
         }.resume()
     }
+}
+
+private extension FeedbackService.Payload.Meta {
+    static var current: FeedbackService.Payload.Meta {
+        let device = UIDevice.current
+        let bundle = Bundle.main
+
+        let system = device.systemName + " " + device.systemVersion
+        let app = (bundle.name ?? "") + " " + (bundle.version ?? "")
+
+        return .init(device: device.modelCode ?? "unknown", system: system, app: app)
+    }
+
+}
+
+extension UIDevice {
+
+    var modelCode: String? {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let modelCode = withUnsafePointer(to: &systemInfo.machine) {
+            $0.withMemoryRebound(to: CChar.self, capacity: 1) { ptr in
+                String.init(validatingUTF8: ptr)
+            }
+        }
+
+        return modelCode
+    }
+
+    // swiftlint:disable cyclomatic_complexity
+    static func name(from code: String) -> String? {
+        switch code {
+        case "iPhone10,5":
+            return "iPhone 8+"
+        case "iPhone12,5":
+            return "iPhone 11 Pro Max"
+        case "iPhone12,3":
+            return "iPhone 11 Pro"
+        case "iPhone12,1":
+            return "iPhone 11"
+        case "iPhone11,8":
+            return "iPhone XR"
+        case "iPhone11,6":
+            return "iPhone XS max"
+        case "iPhone11,4":
+            return "iPhone XS max"
+        case "iPhone11,2":
+            return "iPhone XS"
+        case "iPhone10,2":
+            return "iPhone 8+"
+        case "iPhone10,1":
+            return "iPhone 8"
+        default:
+            return nil
+        }
+    }
+
 }
