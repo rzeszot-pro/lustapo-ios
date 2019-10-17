@@ -38,6 +38,9 @@ struct Settings: View {
                     Distance()
                 }
                 Section {
+                    Statistics()
+                }
+                Section {
                     Share()
                 }
                 Section {

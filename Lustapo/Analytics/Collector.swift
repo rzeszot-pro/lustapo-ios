@@ -36,4 +36,4 @@ extension Collector {
     }
 }
 
-let collector: Collector = AnalyticsCollector.shared
+var collector: Collector!

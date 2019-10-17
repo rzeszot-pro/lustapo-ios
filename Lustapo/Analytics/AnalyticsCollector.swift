@@ -80,6 +80,7 @@ class AnalyticsCollector: Collector {
         }
     }
 
+    private let session = UUID().uuidString.lowercased()
     private var queue: [Entry] = []
 
     private func handle() {
@@ -104,7 +105,10 @@ class AnalyticsCollector: Collector {
         request.httpMethod = "POST"
         request.httpBody = body
         request.timeoutInterval = 15
-        request.allHTTPHeaderFields = ["installation-id": UserDefaults.installation_id.get() ]
+        request.allHTTPHeaderFields = [
+            "installation-id": UserDefaults.installation_id.get(),
+            "session-id": session
+        ]
 
         let task = URLSession.shared.dataTask(with: request) { _, _, _ in
             // do nothing

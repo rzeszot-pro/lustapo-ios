@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Statistics.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,46 +25,34 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-import Combine
 import SwiftUI
 
-class Default<Value>: ObservableObject {
+struct Statistics: View {
 
-    // MARK: -
-
-    let objectWillChange = ObservableObjectPublisher()
-    let key: String
-    let value: Value
-    let userDefaults: UserDefaults
-
-    // MARK: -
-
-    init(key: String, value: Value, userDefaults: UserDefaults = .standard) {
-        self.key = key
-        self.value = value
-        self.userDefaults = userDefaults
+    var binding: Binding<Bool> {
+        .init(get: UserDefaults.analytics.get, set: toggle)
     }
 
-    func get() -> Value {
-        userDefaults.object(forKey: key) as? Value ?? value
+    var body: some View {
+        Toggle(isOn: binding, label: {
+            VStack(alignment: .leading) {
+                Text("statistics.title")
+
+                Text("statistics.subtitle")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            }
+        })
     }
 
-    func set(_ value: Value) {
-        userDefaults.set(value, forKey: key)
-        objectWillChange.send()
+    func toggle(_ value: Bool) {
+        UserDefaults.analytics.set(value)
+
+        if value {
+            collector = AnalyticsCollector.shared
+        } else {
+            collector = PrintCollector.shared
+        }
     }
 
-}
-
-extension UserDefaults {
-    // swiftlint:disable identifier_name
-    static var show_instance: Default<Bool?> = .init(key: "show-distance", value: nil)
-
-    static var last_station: Default<String?> = .init(key: "last-station", value: nil)
-    static var ask_shown: Default<Bool> = .init(key: "ask-shown", value: false)
-
-    static var analytics: Default<Bool> = .init(key: "analytics", value: false)
-
-    static var installation_id: Default<String> = .init(key: "installation-id", value: UUID().uuidString.lowercased())
 }

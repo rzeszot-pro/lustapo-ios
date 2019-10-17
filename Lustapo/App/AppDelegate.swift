@@ -32,6 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: -
 
+    func application(_ app: UIApplication, willFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        if UserDefaults.analytics.get() {
+            collector = AnalyticsCollector.shared
+        } else {
+            collector = PrintCollector.shared
+        }
+
+        return true
+    }
+
     func application(_ app: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         collector.track("app.launch", params: [:])
         return true

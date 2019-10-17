@@ -27,9 +27,10 @@
 import Foundation
 
 class PrintCollector: Collector {
+    static let shared: Collector = PrintCollector()
 
     func track(_ type: String, params: [String: Any]) {
-        print("analytics | \(type) \(params)")
+
     }
 
 }

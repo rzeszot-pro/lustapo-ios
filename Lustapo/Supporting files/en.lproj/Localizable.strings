@@ -49,6 +49,8 @@
 /* Settings */
 "settings.title" = "Settings";
 "settings.share" = "Share";
+"statistics.title" = "Send anonymous statistics";
+"statistics.subtitle" = "Knowing the features people use really helps us to make LuStaPo better";
 
 
 /* Settings / Feedback */
