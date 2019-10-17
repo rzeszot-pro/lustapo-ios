@@ -63,4 +63,6 @@ extension UserDefaults {
 
     static var last_station: Default<String?> = .init(key: "last-station", value: nil)
     static var ask_shown: Default<Bool> = .init(key: "ask-shown", value: false)
+
+    static var installation_id: Default<String> = .init(key: "installation-id", value: UUID().uuidString.lowercased())
 }

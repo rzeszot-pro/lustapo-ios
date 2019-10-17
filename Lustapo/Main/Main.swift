@@ -68,9 +68,10 @@ struct Main: View {
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("app.title")
-            .navigationBarItems(leading: SettingsButton(action: settings), trailing: Loading(loading: model.measurements.loading, view: ReloadButton(action: model.reload)))
+            .navigationBarItems(leading: SettingsButton(action: settings), trailing: Loading(loading: model.measurements.loading, view: ReloadButton(action: reload)))
             .sheet(item: $subview, content: sheet)
-            .onAppear(perform: model.reload)
+            .onAppear(perform: reload)
+            .modifier(LifeCycleAnalytics(id: "main"))
         }
     }
 
@@ -112,6 +113,7 @@ struct Main: View {
 
     struct SettingsButton: View {
         var action: () -> Void
+
         var body: some View {
             Button(action: action, label: {
                 Image(systemName: "gear")
@@ -122,6 +124,7 @@ struct Main: View {
 
     struct ReloadButton: View {
         var action: () -> Void
+
         var body: some View {
             Button(action: action, label: {
                 Image(systemName: "arrow.2.circlepath")
@@ -131,6 +134,11 @@ struct Main: View {
     }
 
     // MARK: -
+
+    func reload() {
+        collector.track("main.reload", params: ["station": model.station.id])
+        model.reload()
+    }
 
     func settings() {
         subview = .settings

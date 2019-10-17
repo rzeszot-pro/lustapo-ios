@@ -42,6 +42,7 @@ struct Disclaimer: View {
         }
         .padding(20)
         .navigationBarTitle("disclaimer.title")
+        .modifier(LifeCycleAnalytics(id: "disclaimer"))
     }
 
     // MARK: -
@@ -59,9 +60,7 @@ struct Disclaimer: View {
 
     func open() {
         UIApplication.shared.open(URL(string: "https://www.umcs.pl/pl/pogoda-w-regionie,2812.htm")!, options: [:]) { success in
-            if !success {
-                // TODO: report failure
-            }
+            collector.track("disclaimer.open", params: ["success": success])
         }
     }
 

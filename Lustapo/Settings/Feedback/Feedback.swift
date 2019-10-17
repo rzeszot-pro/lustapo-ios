@@ -87,6 +87,7 @@ struct Feedback: View {
         .alert(isPresented: $alert) {
             Alert(title: Text("feedback.sent"))
         }
+        .modifier(LifeCycleAnalytics(id: "feedback"))
     }
 
     // MARK: -
@@ -114,6 +115,8 @@ struct Feedback: View {
 
             self.sending = false
             self.alert = true
+
+            collector.track("feedback.send", params: ["success": success])
         }
     }
 

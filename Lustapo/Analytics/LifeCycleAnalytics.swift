@@ -1,9 +1,8 @@
 //
-//  About.swift
+//  LifeCycleAnalytics.swift
 //  Lubelskie Stacje Pogodowe
 //
-//  Copyright (c) 2016-2019 Damian Rzeszot
-//  Copyright (c) 2016 Piotr Woloszkiewicz
+//  Copyright (c) 2019 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the
@@ -27,25 +26,17 @@
 
 import SwiftUI
 
-struct About: View {
+struct LifeCycleAnalytics: ViewModifier {
+    let id: String
 
-    var version: String = Bundle.main.version ?? ""
-
-    var body: some View {
-        List {
-            Section(header: Text("about.app")) {
-                HStack {
-                    Text("about.app.version")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text(version)
-                        .foregroundColor(.primary)
-                }
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                collector.track("\(self.id).appear")
             }
-        }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("about.title")
-        .modifier(LifeCycleAnalytics(id: "about"))
+            .onDisappear {
+                collector.track("\(self.id).disappear")
+            }
     }
 
 }

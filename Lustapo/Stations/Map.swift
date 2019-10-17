@@ -41,6 +41,7 @@ struct Map: View {
                 .edgesIgnoringSafeArea(.all)
                 .navigationBarItems(leading: CloseButton(action: cancel))
         }
+        .modifier(LifeCycleAnalytics(id: "map"))
     }
 
 }

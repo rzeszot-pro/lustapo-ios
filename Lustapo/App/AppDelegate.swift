@@ -33,7 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: -
 
     func application(_ app: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        true
+        collector.track("app.launch", params: [:])
+        return true
+    }
+
+    // MARK: -
+
+    func applicationWillTerminate(_ app: UIApplication) {
+        collector.track("app.terminate", params: [:])
+        (collector as? AnalyticsCollector)?.publish()
     }
 
     // MARK: - UISceneSession Lifecycle

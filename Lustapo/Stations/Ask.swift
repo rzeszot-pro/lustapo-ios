@@ -61,10 +61,12 @@ struct Ask: View {
     }
 
     func approve() {
+        collector.track("ask.decision", params: ["status": true])
         action(true)
     }
 
     func decline() {
+        collector.track("ask.decision", params: ["status": false])
         action(false)
     }
 }

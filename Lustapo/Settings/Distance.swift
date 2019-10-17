@@ -49,6 +49,11 @@ struct Distance: View {
     }
 
     func toggle(_ value: Bool) {
+        collector.track("settings.distance", params: [
+            "status": location.status,
+            "value": value
+        ])
+
         if value {
             enable()
         } else {
@@ -66,8 +71,7 @@ struct Distance: View {
         case .denied, .restricted:
             ask = true
         default:
-            // TODO: report it
-            print("other")
+            collector.track("settings.distance.other")
         }
 
         location.objectWillChange.send()
@@ -80,9 +84,7 @@ struct Distance: View {
 
     func settings() {
         UIApplication.shared.open(.settings, options: [:]) { success in
-            if !success {
-                // TODO: report failure
-            }
+            collector.track("settings.goto", params: ["success": success])
         }
     }
 }
