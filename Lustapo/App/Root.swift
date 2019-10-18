@@ -1,5 +1,5 @@
 //
-//  UserDefault.swift
+//  Root.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -25,48 +25,37 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import Foundation
-import Combine
 import SwiftUI
 
-class Default<Value>: ObservableObject {
+struct Root: View {
+
+    @State
+    var intro: Bool = show()
+
+    var body: some View {
+        Main()
+            .sheet(isPresented: $intro) {
+                Intro(done: self.dismiss)
+                .onDisappear {
+                    UserDefaults.intro.set(1)
+                }
+            }
+    }
 
     // MARK: -
 
-    let objectWillChange = ObservableObjectPublisher()
-    let key: String
-    let value: Value
-    let userDefaults: UserDefaults
-
-    // MARK: -
-
-    init(key: String, value: Value, userDefaults: UserDefaults = .standard) {
-        self.key = key
-        self.value = value
-        self.userDefaults = userDefaults
-    }
-
-    func get() -> Value {
-        userDefaults.object(forKey: key) as? Value ?? value
-    }
-
-    func set(_ value: Value) {
-        userDefaults.set(value, forKey: key)
-        objectWillChange.send()
+    func dismiss() {
+        intro = false
     }
 
 }
 
-extension UserDefaults {
-    // swiftlint:disable identifier_name
-    static var show_instance: Default<Bool?> = .init(key: "show-distance", value: nil)
+private func show() -> Bool {
+    let config = UserDefaults.intro
 
-    static var last_station: Default<String?> = .init(key: "last-station", value: nil)
-    static var ask_shown: Default<Bool> = .init(key: "ask-shown", value: false)
-
-    static var analytics: Default<Bool> = .init(key: "analytics", value: false)
-
-    static var intro: Default<Int?> = .init(key: "intro", value: nil)
-
-    static var installation_id: Default<String> = .init(key: "installation-id", value: UUID().uuidString.lowercased())
+    if let value = config.get() {
+        return value > 1
+    } else {
+        return true
+    }
 }

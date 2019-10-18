@@ -46,6 +46,15 @@
 "ask.decline" = "Cancel";
 
 
+/* Intro */
+"intro.title" = "What's New";
+"intro.feedback.title" = "Tell us your opinion";
+"intro.feedback.subtitle" = "We appreciate your contribution. You can find a form in Settings to share your thoughts about this app or report issues.";
+"intro.stats.title" = "Send anonymous statistics about features you use";
+"intro.stats.subtitle" = "Knowing the features people use really helps us make LuStaPo better.";
+"intro.continue" = "Continue";
+
+
 /* Settings */
 "settings.title" = "Settings";
 "settings.share" = "Share";
