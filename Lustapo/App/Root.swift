@@ -55,11 +55,11 @@ private func show() -> Bool {
 
     #if DEBUG
         return true
+    #else
+        if let value = config.get() {
+            return value > 1
+        } else {
+            return true
+        }
     #endif
-
-    if let value = config.get() {
-        return value > 1
-    } else {
-        return true
-    }
 }

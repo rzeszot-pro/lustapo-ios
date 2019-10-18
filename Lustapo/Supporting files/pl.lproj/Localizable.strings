@@ -58,8 +58,7 @@
 /* Settings */
 "settings.title" = "Ustawienia";
 "settings.share" = "Udostępnij";
-"statistics.title" = "Wysyłaj anonimowe statystyki";
-"statistics.subtitle" = "Znajomość funkcji używanych przez użytkowników pomaga nam ulepszać LuStaPo";
+"settings.statistics" = "Wysyłaj anonimowe statystyki";
 
 
 /* Settings / Feedback */

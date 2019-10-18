@@ -35,13 +35,7 @@ struct Statistics: View {
 
     var body: some View {
         Toggle(isOn: binding, label: {
-            VStack(alignment: .leading) {
-                Text("statistics.title")
-
-                Text("statistics.subtitle")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-            }
+            Text("settings.statistics")
         })
     }
 
