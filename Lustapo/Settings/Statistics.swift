@@ -1,5 +1,5 @@
 //
-//  About.swift
+//  Statistics.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -27,25 +27,26 @@
 
 import SwiftUI
 
-struct About: View {
+struct Statistics: View {
 
-    var version: String = Bundle.main.version ?? ""
+    var binding: Binding<Bool> {
+        .init(get: UserDefaults.analytics.get, set: toggle)
+    }
 
     var body: some View {
-        List {
-            Section(header: Text("about.app")) {
-                HStack {
-                    Text("about.app.version")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text(version)
-                        .foregroundColor(.primary)
-                }
-            }
+        Toggle(isOn: binding, label: {
+            Text("settings.statistics")
+        })
+    }
+
+    func toggle(_ value: Bool) {
+        UserDefaults.analytics.set(value)
+
+        if value {
+            collector = AnalyticsCollector.shared
+        } else {
+            collector = PrintCollector.shared
         }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("about.title")
-        .modifier(LifeCycleAnalytics(id: "about"))
     }
 
 }

@@ -37,6 +37,7 @@ struct Privacy: View {
             .padding(.all)
         }
         .navigationBarTitle("privacy.title")
+        .modifier(LifeCycleAnalytics(id: "privacy"))
     }
 
 }

@@ -78,6 +78,8 @@ class Model: ObservableObject {
     func reload() {
         guard !measurements.loading else { return }
 
+        collector.track("network.perform", params: ["station": station.id])
+
         measurements.loading = true
         measurements.data = nil
 
@@ -100,11 +102,13 @@ class Model: ObservableObject {
 
         do {
             measurements.data = try decoder.decode(Payload.self, from: fixed)
+            collector.track("network.done", params: ["data": measurements.data!])
         } catch {
+            collector.track("network.done", params: ["error": error.localizedDescription])
+
             #if DEBUG
                 print("error \(error)")
             #endif
-            // TODO: report error
         }
 
         objectWillChange.send()

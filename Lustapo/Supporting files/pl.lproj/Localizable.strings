@@ -46,9 +46,19 @@
 "ask.decline" = "Anuluj";
 
 
+/* Intro */
+"intro.title" = "Co nowego";
+"intro.feedback.title" = "Podziel się z nami swoją opinią";
+"intro.feedback.subtitle" = "Jesteśmy wdziędzni za Twój wkład. W Ustawieniach możesz znajeść formularz, za pomogą którego podzielisz się z nami swoją opinią lub zgłosić problemy.";
+"intro.stats.title" = "Wysyłaj anonimowe statystyki dotyczące używanych funkcji";
+"intro.stats.subtitle" = "Znajomość funkcji używanych przez użytkowników naprawdę pomaga nam ulepszać LuStaPo. Przejdź do Ustawień i podziel się z nami sposobem w jaki korzystasz z aplikacji. Anonimowo. Nie zbieramy danych o Twojej lokalizacji.";
+"intro.continue" = "Continue";
+
+
 /* Settings */
 "settings.title" = "Ustawienia";
 "settings.share" = "Udostępnij";
+"settings.statistics" = "Wysyłaj anonimowe statystyki";
 
 
 /* Settings / Feedback */
@@ -60,7 +70,7 @@
 
 /* Settings / Privacy */
 "privacy.title" = "Polityka prywatności";
-"privacy.content" = "Nie przechowujemy twoich danych.";
+"privacy.content" = "Nie przechowujemy twoich danych (lokalizacji również).";
 
 
 /* Settings / Distance */

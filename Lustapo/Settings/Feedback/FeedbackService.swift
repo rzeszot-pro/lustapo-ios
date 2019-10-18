@@ -54,8 +54,6 @@ class FeedbackService {
         URLSession.shared.dataTask(with: request) { _, response, _ in
             let success = (response as? HTTPURLResponse)?.statusCode == 200
 
-            // TODO: report error
-
             DispatchQueue.main.async {
                 completion(success)
             }

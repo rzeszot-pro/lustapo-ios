@@ -99,7 +99,7 @@ struct Stations: View {
                     ForEach(regions) { region in
                         Section(header: Text(region.name)) {
                             ForEach(region.stations) { station in
-                                Row(select: { self.select(station) }, station: station, active: station == self.active, distance: self.model.distance(to: station.coordinates))
+                                Row(select: { self.selected(station) }, station: station, active: station == self.active, distance: self.model.distance(to: station.coordinates))
                             }
                         }
                     }
@@ -108,14 +108,18 @@ struct Stations: View {
             .listStyle(GroupedListStyle())
             .navigationBarTitle("stations.title")
             .navigationBarItems(leading: CloseButton(action: cancel), trailing: MapButton(action: { self.modal = true }))
-            .sheet(isPresented: $modal, content: map)
+            .sheet(isPresented: $modal, content: {
+                Map(cancel: { self.modal = false }, stations: self.regions.flatMap { $0.stations })
+            })
         }
+        .modifier(LifeCycleAnalytics(id: "stations"))
     }
 
     // MARK: -
 
-    func map() -> some View {
-        Map(cancel: { self.modal = false }, stations: self.regions.flatMap { $0.stations })
+    func selected(_ station: Station) {
+        collector.track("stations.select", params: ["station": station.id])
+        select(station)
     }
 
     // MARK: -

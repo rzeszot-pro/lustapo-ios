@@ -46,9 +46,19 @@
 "ask.decline" = "Cancel";
 
 
+/* Intro */
+"intro.title" = "What's New";
+"intro.feedback.title" = "Tell us your opinion";
+"intro.feedback.subtitle" = "We appreciate your contribution. You can find a form in Settings to share your thoughts about this app or report issues.";
+"intro.stats.title" = "Send anonymous statistics about features you use";
+"intro.stats.subtitle" = "Knowing the features people use really helps us make LuStaPo better. Go to Settings and share the way you use the app. Anonymously. We don't collect your location data.";
+"intro.continue" = "Continue";
+
+
 /* Settings */
 "settings.title" = "Settings";
 "settings.share" = "Share";
+"settings.statistics" = "Send anonymous statistics";
 
 
 /* Settings / Feedback */
@@ -60,7 +70,7 @@
 
 /* Settings / Privacy */
 "privacy.title" = "Privacy policy";
-"privacy.content" = "We don't store your data.";
+"privacy.content" = "We don't store your personal data (and location).";
 
 
 /* Settings / Distance */

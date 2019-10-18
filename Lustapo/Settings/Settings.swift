@@ -38,6 +38,9 @@ struct Settings: View {
                     Distance()
                 }
                 Section {
+                    Statistics()
+                }
+                Section {
                     Share()
                 }
                 Section {
@@ -53,6 +56,7 @@ struct Settings: View {
             .navigationBarTitle("settings.title")
             .navigationBarItems(leading: CloseButton(action: dismiss))
         }
+        .modifier(LifeCycleAnalytics(id: "settings"))
     }
 
     // MARK: -
@@ -73,7 +77,10 @@ struct Settings: View {
             Button(action: { self.show.toggle() }, label: {
                 Text("Share")
             })
-            .sheet(isPresented: $show, content: { ShareView(items: [ URL.lustapo ]) })
+            .sheet(isPresented: $show, content: {
+                ShareView(items: [ URL.lustapo ])
+                    .modifier(LifeCycleAnalytics(id: "share"))
+            })
         }
     }
 }
@@ -82,8 +89,16 @@ struct ShareView: UIViewControllerRepresentable {
     var items: [Any]
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ShareView>) -> UIActivityViewController {
-        // TODO: handle completion
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+
+        vc.completionWithItemsHandler = { activity, completed, returned, error in
+            collector.track("share.completion", params: [
+                "activity": activity?.rawValue ?? "none",
+                "completed": completed
+            ])
+        }
+
+        return vc
     }
 
     func updateUIViewController(_ vc: UIActivityViewController, context: UIViewControllerRepresentableContext<ShareView>) {

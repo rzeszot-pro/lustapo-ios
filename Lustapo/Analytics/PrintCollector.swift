@@ -1,9 +1,8 @@
 //
-//  About.swift
+//  PrintCollector.swift
 //  Lubelskie Stacje Pogodowe
 //
-//  Copyright (c) 2016-2019 Damian Rzeszot
-//  Copyright (c) 2016 Piotr Woloszkiewicz
+//  Copyright (c) 2019 Damian Rzeszot
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the
@@ -25,27 +24,13 @@
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import SwiftUI
+import Foundation
 
-struct About: View {
+class PrintCollector: Collector {
+    static let shared: Collector = PrintCollector()
 
-    var version: String = Bundle.main.version ?? ""
+    func track(_ type: String, params: [String: Any]) {
 
-    var body: some View {
-        List {
-            Section(header: Text("about.app")) {
-                HStack {
-                    Text("about.app.version")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text(version)
-                        .foregroundColor(.primary)
-                }
-            }
-        }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("about.title")
-        .modifier(LifeCycleAnalytics(id: "about"))
     }
 
 }
