@@ -53,6 +53,10 @@ struct Root: View {
 private func show() -> Bool {
     let config = UserDefaults.intro
 
+    #if DEBUG
+        return true
+    #endif
+
     if let value = config.get() {
         return value > 1
     } else {
