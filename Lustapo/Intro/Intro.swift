@@ -130,7 +130,7 @@ struct Intro: View {
                 HStack {
                     Spacer()
                     Text("intro.continue")
-                        .foregroundColor(.primary)
+                        .foregroundColor(.white)
                     Spacer()
                 }
                 .padding(.vertical, 17)
