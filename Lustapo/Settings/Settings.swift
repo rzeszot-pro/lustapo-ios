@@ -75,7 +75,7 @@ struct Settings: View {
 
         var body: some View {
             Button(action: { self.show.toggle() }, label: {
-                Text("Share")
+                Text("settings.share")
             })
             .sheet(isPresented: $show, content: {
                 ShareView(items: [ URL.lustapo ])
