@@ -25,6 +25,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AnalyticsCollector: Collector {
     static let shared: Collector = AnalyticsCollector()
@@ -83,6 +84,16 @@ class AnalyticsCollector: Collector {
     private let session = UUID().uuidString.lowercased()
     private var queue: [Entry] = []
 
+    init() {
+        let device = UIDevice.current
+
+        track("init", params: [
+            "installation-id": UserDefaults.installation_id.get(),
+            "system": device.systemName + " " + device.systemVersion,
+            "device": device.modelCode ?? "unknown"
+        ])
+    }
+
     private func handle() {
         if queue.count >= limit {
             publish()
@@ -106,7 +117,6 @@ class AnalyticsCollector: Collector {
         request.httpBody = body
         request.timeoutInterval = 15
         request.allHTTPHeaderFields = [
-            "installation-id": UserDefaults.installation_id.get(),
             "session-id": session
         ]
 
