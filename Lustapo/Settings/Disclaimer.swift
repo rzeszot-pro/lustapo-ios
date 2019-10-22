@@ -49,6 +49,7 @@ struct Disclaimer: View {
 
     struct MoreButton: View {
         var action: () -> Void
+
         var body: some View {
             Button(action: action, label: {
                 Text("disclaimer.more")
