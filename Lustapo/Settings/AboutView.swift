@@ -27,9 +27,9 @@
 
 import SwiftUI
 
-struct About: View {
+struct AboutView: View {
 
-    var version: String = Bundle.main.version ?? ""
+    var version: String
 
     var body: some View {
         List {
@@ -48,4 +48,10 @@ struct About: View {
         .modifier(LifeCycleAnalytics(id: "about"))
     }
 
+}
+
+extension AboutView {
+    init(bundle: Bundle = .main) {
+        self.init(version: bundle.version ?? "")
+    }
 }

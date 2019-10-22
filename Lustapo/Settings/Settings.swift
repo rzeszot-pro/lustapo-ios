@@ -49,7 +49,7 @@ struct Settings: View {
                 Section {
                     Row(text: "privacy.title", destination: Privacy())
                     Row(text: "disclaimer.title", destination: Disclaimer())
-                    Row(text: "about.title", destination: About())
+                    Row(text: "about.title", destination: AboutView())
                 }
             }
             .listStyle(GroupedListStyle())
