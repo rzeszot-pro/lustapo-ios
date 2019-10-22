@@ -1,5 +1,5 @@
 //
-//  Disclaimer.swift
+//  DisclaimerView.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -27,7 +27,9 @@
 
 import SwiftUI
 
-struct Disclaimer: View {
+struct DisclaimerView: View {
+
+    var open: () -> Void
 
     var body: some View {
         VStack {
@@ -57,12 +59,24 @@ struct Disclaimer: View {
         }
     }
 
-    // MARK: -
+}
 
-    func open() {
-        UIApplication.shared.open(URL(string: "https://www.umcs.pl/pl/pogoda-w-regionie,2812.htm")!, options: [:]) { success in
-            collector.track("disclaimer.open", params: ["success": success])
-        }
+extension DisclaimerView {
+    init(url: URL) {
+        self.init(open: {
+            UIApplication.shared.open(url, options: [:]) { success in
+                collector.track("disclaimer.open", params: ["success": success])
+            }
+        })
     }
 
+    init() {
+        self.init(url: .website)
+    }
+}
+
+private extension URL {
+    static var website: URL {
+        "https://www.umcs.pl/pl/pogoda-w-regionie,2812.htm"
+    }
 }

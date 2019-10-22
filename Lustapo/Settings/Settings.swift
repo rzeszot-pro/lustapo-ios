@@ -48,7 +48,7 @@ struct Settings: View {
                 }
                 Section {
                     Row(text: "privacy.title", destination: PrivacyView())
-                    Row(text: "disclaimer.title", destination: Disclaimer())
+                    Row(text: "disclaimer.title", destination: DisclaimerView())
                     Row(text: "about.title", destination: AboutView())
                 }
             }
