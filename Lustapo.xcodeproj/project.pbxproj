@@ -67,6 +67,7 @@
 		2D042AD1234607BE0057F153 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		2D042AD7234619A90057F153 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		2D042AD923461FD40057F153 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		2D0ABBAC23604BF200F3852C /* create_tag.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = create_tag.sh; sourceTree = "<group>"; };
 		2D2041BB235A07770097A8CC /* Root.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Root.swift; sourceTree = "<group>"; };
 		2D2FD838234621530076D247 /* DisclaimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclaimerView.swift; sourceTree = "<group>"; };
 		2D2FD83C234626450076D247 /* Stations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stations.swift; sourceTree = "<group>"; };
@@ -179,6 +180,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2D0ABBAB23604BE200F3852C /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				2D0ABBAC23604BF200F3852C /* create_tag.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		2D2FD84B23462B4F0076D247 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +290,7 @@
 		647047FF1D65E9C6009205F3 = {
 			isa = PBXGroup;
 			children = (
+				2D0ABBAB23604BE200F3852C /* Scripts */,
 				2DAE0F1D23480D1B00060D59 /* Tools */,
 				8B35EADA1D86EC0D00C2747E /* Other */,
 				6470480A1D65E9C6009205F3 /* Lustapo */,
