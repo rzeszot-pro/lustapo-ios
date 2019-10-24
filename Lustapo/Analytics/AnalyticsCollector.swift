@@ -117,6 +117,7 @@ class AnalyticsCollector: Collector {
         request.httpBody = body
         request.timeoutInterval = 15
         request.allHTTPHeaderFields = [
+            "content-type": "application/json",
             "session-id": session
         ]
 

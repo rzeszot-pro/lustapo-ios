@@ -47,9 +47,9 @@ struct Settings: View {
                     Row(text: "feedback.title", destination: Feedback())
                 }
                 Section {
-                    Row(text: "privacy.title", destination: Privacy())
-                    Row(text: "disclaimer.title", destination: Disclaimer())
-                    Row(text: "about.title", destination: About())
+                    Row(text: "privacy.title", destination: PrivacyView())
+                    Row(text: "disclaimer.title", destination: DisclaimerView())
+                    Row(text: "about.title", destination: AboutView())
                 }
             }
             .listStyle(GroupedListStyle())
@@ -75,7 +75,7 @@ struct Settings: View {
 
         var body: some View {
             Button(action: { self.show.toggle() }, label: {
-                Text("Share")
+                Text("settings.share")
             })
             .sheet(isPresented: $show, content: {
                 ShareView(items: [ URL.lustapo ])

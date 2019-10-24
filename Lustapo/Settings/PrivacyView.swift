@@ -1,5 +1,5 @@
 //
-//  About.swift
+//  Privacy.swift
 //  Lubelskie Stacje Pogodowe
 //
 //  Copyright (c) 2016-2019 Damian Rzeszot
@@ -27,25 +27,17 @@
 
 import SwiftUI
 
-struct About: View {
-
-    var version: String = Bundle.main.version ?? ""
+struct PrivacyView: View {
 
     var body: some View {
-        List {
-            Section(header: Text("about.app")) {
-                HStack {
-                    Text("about.app.version")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text(version)
-                        .foregroundColor(.primary)
-                }
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text("privacy.content")
             }
+            .padding(.all)
         }
-        .listStyle(GroupedListStyle())
-        .navigationBarTitle("about.title")
-        .modifier(LifeCycleAnalytics(id: "about"))
+        .navigationBarTitle("privacy.title")
+        .modifier(LifeCycleAnalytics(id: "privacy"))
     }
 
 }
