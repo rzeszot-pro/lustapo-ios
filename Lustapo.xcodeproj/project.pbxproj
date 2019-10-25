@@ -680,8 +680,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:rzeszot-pro/analytics-ios.git";
 			requirement = {
-				kind = revision;
-				revision = e08741476ac57f6d2209d3eb16cdc21c23d90836;
+				kind = exactVersion;
+				version = 1.0.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

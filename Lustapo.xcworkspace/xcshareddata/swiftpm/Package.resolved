@@ -6,8 +6,8 @@
         "repositoryURL": "git@github.com:rzeszot-pro/analytics-ios.git",
         "state": {
           "branch": null,
-          "revision": "e08741476ac57f6d2209d3eb16cdc21c23d90836",
-          "version": null
+          "revision": "c3eff90eb5f0ee221de8450433fd31013d803ce5",
+          "version": "1.0.3"
         }
       }
     ]
