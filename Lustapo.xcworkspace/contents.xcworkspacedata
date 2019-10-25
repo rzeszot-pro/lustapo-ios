@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../analytics-ios">
+   </FileRef>
+   <FileRef
       location = "group:Lustapo.xcodeproj">
    </FileRef>
 </Workspace>
