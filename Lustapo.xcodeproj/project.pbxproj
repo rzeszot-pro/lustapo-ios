@@ -53,6 +53,7 @@
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		2DBC3F29234A02B400D2CE5C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F28234A02B400D2CE5C /* Location.swift */; };
 		2DBC3F2B234A034B00D2CE5C /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F2A234A034B00D2CE5C /* Distance.swift */; };
+		2DDC67042362554F00C2AAEB /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2DDC67032362554F00C2AAEB /* Analytics */; };
 		6470480C1D65E9C6009205F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6470480B1D65E9C6009205F3 /* AppDelegate.swift */; };
 		647048131D65E9C6009205F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 647048121D65E9C6009205F3 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -124,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D96E41B234A261B000D174D /* MapKit.framework in Frameworks */,
+				2DDC67042362554F00C2AAEB /* Analytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +364,9 @@
 			dependencies = (
 			);
 			name = Lustapo;
+			packageProductDependencies = (
+				2DDC67032362554F00C2AAEB /* Analytics */,
+			);
 			productName = LublinWeather;
 			productReference = 647048081D65E9C6009205F3 /* LuStaPo.app */;
 			productType = "com.apple.product-type.application";
@@ -667,6 +672,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2DDC67032362554F00C2AAEB /* Analytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Analytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 647048001D65E9C6009205F3 /* Project object */;
 }
