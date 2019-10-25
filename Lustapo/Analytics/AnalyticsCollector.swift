@@ -26,115 +26,14 @@
 
 import Foundation
 import UIKit
+import Analytics
 
 class AnalyticsCollector: Collector {
+
     static let shared: Collector = AnalyticsCollector()
 
-    // MARK: -
-
-    var limit: Int = 10
-    var url: URL = "https://analytics.rzeszot.pro/api/collector"
-
-    // MARK: -
-
-    private struct Entry: Encodable {
-        let date: Date
-        let type: String
-        let params: [String: Any]
-
-        enum Key: String, CodingKey {
-            case type = "t"
-            case date = "d"
-            case parameters = "p"
-        }
-
-        struct Custom: CodingKey {
-            var intValue: Int?
-            var stringValue: String
-
-            init?(stringValue: String) {
-                self.stringValue = stringValue
-            }
-
-            init?(intValue: Int) {
-                self.intValue = intValue
-                self.stringValue = "Index \(intValue)"
-            }
-        }
-
-        func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: Key.self)
-            var subcontainer = container.superEncoder(forKey: .parameters).container(keyedBy: Custom.self)
-
-            try container.encode(type, forKey: .type)
-            try container.encode(date, forKey: .date)
-
-            for (key, value) in params {
-                if let value = value as? String {
-                    try subcontainer.encode(value, forKey: Custom(stringValue: key)!)
-                } else if let value = value as? Bool {
-                    try subcontainer.encode(value, forKey: Custom(stringValue: key)!)
-                } else {
-                    try subcontainer.encode("inencodable", forKey: Custom(stringValue: key)!)
-                }
-            }
-        }
-    }
-
-    private let session = UUID().uuidString.lowercased()
-    private var queue: [Entry] = []
-
-    init() {
-        let device = UIDevice.current
-
-        track("init", params: [
-            "installation-id": UserDefaults.installation_id.get(),
-            "system": device.systemName + " " + device.systemVersion,
-            "device": device.modelCode ?? "unknown"
-        ])
-    }
-
-    private func handle() {
-        if queue.count >= limit {
-            publish()
-        }
-    }
-
-    func publish() {
-        guard !queue.isEmpty else { return }
-
-        let entries = queue
-        let body = try? JSONEncoder().encode(entries)
-        queue = []
-
-        #if DEBUG
-            var request = URLRequest(url: "https://localhost:3000/api/collector")
-        #else
-            var request = URLRequest(url: url)
-        #endif
-
-        request.httpMethod = "POST"
-        request.httpBody = body
-        request.timeoutInterval = 15
-        request.allHTTPHeaderFields = [
-            "content-type": "application/json",
-            "session-id": session
-        ]
-
-        let task = URLSession.shared.dataTask(with: request) { _, _, _ in
-            // do nothing
-        }
-
-        task.resume()
-    }
-
-    // MARK: -
-
-    func track(_ type: String, params: [String: Any]) {
-        DispatchQueue.main.async {
-            self.queue.append(Entry(date: Date(), type: type, params: params))
-            self.handle()
-        }
+    func track(_ type: String, params: Any?) {
+        Analytics.track(type, parameters: params)
     }
 
 }

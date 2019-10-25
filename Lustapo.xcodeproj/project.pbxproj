@@ -50,6 +50,7 @@
 		2D96E41D234A3809000D174D /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E41C234A3809000D174D /* CLLocation.swift */; };
 		2D96E41F234A3F00000D174D /* CLAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */; };
 		2D96E422234A511C000D174D /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E421234A511C000D174D /* URL.swift */; };
+		2D9836A22363021500E2D4CF /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2D9836A12363021500E2D4CF /* Analytics */; };
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		2DBC3F29234A02B400D2CE5C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F28234A02B400D2CE5C /* Location.swift */; };
 		2DBC3F2B234A034B00D2CE5C /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F2A234A034B00D2CE5C /* Distance.swift */; };
@@ -114,8 +115,6 @@
 		6470480B1D65E9C6009205F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		647048121D65E9C6009205F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		647048171D65E9C6009205F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		647048391D6725EA009205F3 /* ReactiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveCocoa.framework; path = Carthage/Build/iOS/ReactiveCocoa.framework; sourceTree = "<group>"; };
-		6470483A1D6725EA009205F3 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		8B35EADB1D86EC1900C2747E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D9836A22363021500E2D4CF /* Analytics in Frameworks */,
 				2D96E41B234A261B000D174D /* MapKit.framework in Frameworks */,
 				2DDC67042362554F00C2AAEB /* Analytics in Frameworks */,
 			);
@@ -332,8 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				2D96E41A234A261B000D174D /* MapKit.framework */,
-				647048391D6725EA009205F3 /* ReactiveCocoa.framework */,
-				6470483A1D6725EA009205F3 /* Result.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -366,6 +364,7 @@
 			name = Lustapo;
 			packageProductDependencies = (
 				2DDC67032362554F00C2AAEB /* Analytics */,
+				2D9836A12363021500E2D4CF /* Analytics */,
 			);
 			productName = LublinWeather;
 			productReference = 647048081D65E9C6009205F3 /* LuStaPo.app */;
@@ -397,6 +396,9 @@
 				Base,
 			);
 			mainGroup = 647047FF1D65E9C6009205F3;
+			packageReferences = (
+				2D9836A02363021500E2D4CF /* XCRemoteSwiftPackageReference "analytics-ios" */,
+			);
 			productRefGroup = 647048091D65E9C6009205F3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -673,7 +675,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		2D9836A02363021500E2D4CF /* XCRemoteSwiftPackageReference "analytics-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:rzeszot-pro/analytics-ios.git";
+			requirement = {
+				kind = revision;
+				revision = e08741476ac57f6d2209d3eb16cdc21c23d90836;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		2D9836A12363021500E2D4CF /* Analytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D9836A02363021500E2D4CF /* XCRemoteSwiftPackageReference "analytics-ios" */;
+			productName = Analytics;
+		};
 		2DDC67032362554F00C2AAEB /* Analytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Analytics;
