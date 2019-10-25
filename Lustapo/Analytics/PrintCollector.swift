@@ -29,7 +29,7 @@ import Foundation
 class PrintCollector: Collector {
     static let shared: Collector = PrintCollector()
 
-    func track(_ type: String, params: [String: Any]) {
+    func track(_ type: String, params: Any?) {
 
     }
 

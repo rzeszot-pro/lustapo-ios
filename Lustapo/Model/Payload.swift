@@ -28,7 +28,7 @@
 
 import Foundation
 
-struct Payload: Decodable {
+struct Payload: Codable {
     let date: Date
     let temperature: Temperature
     let wind: Wind
@@ -39,7 +39,7 @@ struct Payload: Decodable {
 
     // MARK: -
 
-    struct Temperature: Decodable {
+    struct Temperature: Codable {
         let air: Double?
         let sense: Double?
         let ground: Double?
@@ -61,7 +61,7 @@ struct Payload: Decodable {
         }
     }
 
-    struct Wind: Decodable {
+    struct Wind: Codable {
         let speed: Double?
         let direction: Double?
 

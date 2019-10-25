@@ -27,12 +27,12 @@
 import Foundation
 
 protocol Collector {
-    func track(_ type: String, params: [String: Any])
+    func track(_ type: String, params: Any?)
 }
 
 extension Collector {
     func track(_ type: String) {
-        track(type, params: [:])
+        track(type, params: nil)
     }
 }
 
