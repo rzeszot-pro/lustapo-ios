@@ -26,6 +26,7 @@
 //
 
 import UIKit
+import Analytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,15 +44,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        collector.track("app.launch", params: [:])
+        collector.track("app.launch", params: [
+            "installation-id": UserDefaults.installation_id.get()
+        ])
+
         return true
     }
 
     // MARK: -
 
     func applicationWillTerminate(_ app: UIApplication) {
-        collector.track("app.terminate", params: [:])
-        (collector as? AnalyticsCollector)?.publish()
+        collector.track("app.terminate")
+        Analytics.archive()
     }
 
     // MARK: - UISceneSession Lifecycle
