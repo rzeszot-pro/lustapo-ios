@@ -118,14 +118,14 @@ private extension KeyedDecodingContainer {
                 return nil
             }
         }
-
         return try decodeIfPresent(type, forKey: key)
     }
 
     func decodeIfPresent<T: Decodable>(_ type: T.Type, forKeys keys: [Self.Key]) throws -> T? {
         for key in keys {
-            guard let value = try decodeIfPresentAndNotString(type, forKey: key) else { continue }
-            return value
+            if contains(key) {
+                return try decodeIfPresentAndNotString(type, forKey: key)
+            }
         }
 
         return nil
