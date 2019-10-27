@@ -31,6 +31,7 @@
 		2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50A23463D2300DB38AA /* Payload.swift */; };
 		2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50F23464E1300DB38AA /* Bundle.swift */; };
 		2D4E11BF2365A6D500887B55 /* Imitate in Frameworks */ = {isa = PBXBuildFile; productRef = 2D4E11BE2365A6D500887B55 /* Imitate */; };
+		2D4E11C12365A7FD00887B55 /* botan.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D9C6FB82365992D00ADEF83 /* botan.json */; };
 		2D50FF36234D246800799C4E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF35234D246800799C4E /* Feedback.swift */; };
 		2D50FF3E234D36C700799C4E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF3D234D36C700799C4E /* PrivacyView.swift */; };
 		2D50FF40234D429900799C4E /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF3F234D429900799C4E /* ActivityIndicator.swift */; };
@@ -52,7 +53,7 @@
 		2D96E41F234A3F00000D174D /* CLAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */; };
 		2D96E422234A511C000D174D /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D96E421234A511C000D174D /* URL.swift */; };
 		2D9836A22363021500E2D4CF /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2D9836A12363021500E2D4CF /* Analytics */; };
-		2D9C6FB12365987C00ADEF83 /* LustapoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9C6FB02365987C00ADEF83 /* LustapoTests.swift */; };
+		2D9C6FB12365987C00ADEF83 /* PayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9C6FB02365987C00ADEF83 /* PayloadTests.swift */; };
 		2DAE0F1C23480ABB00060D59 /* IfLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAE0F1B23480ABB00060D59 /* IfLet.swift */; };
 		2DBC3F29234A02B400D2CE5C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F28234A02B400D2CE5C /* Location.swift */; };
 		2DBC3F2B234A034B00D2CE5C /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBC3F2A234A034B00D2CE5C /* Distance.swift */; };
@@ -118,8 +119,9 @@
 		2D96E41E234A3F00000D174D /* CLAuthorizationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLAuthorizationStatus.swift; sourceTree = "<group>"; };
 		2D96E421234A511C000D174D /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		2D9C6FAE2365987C00ADEF83 /* Lustapo Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Lustapo Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D9C6FB02365987C00ADEF83 /* LustapoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LustapoTests.swift; sourceTree = "<group>"; };
+		2D9C6FB02365987C00ADEF83 /* PayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadTests.swift; sourceTree = "<group>"; };
 		2D9C6FB22365987C00ADEF83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D9C6FB82365992D00ADEF83 /* botan.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = botan.json; sourceTree = "<group>"; };
 		2DAE0F1B23480ABB00060D59 /* IfLet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfLet.swift; sourceTree = "<group>"; };
 		2DAE0F1E23480D3100060D59 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		2DAE0F1F23480D3100060D59 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -286,6 +288,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		2D4E11C02365A72800887B55 /* Payload */ = {
+			isa = PBXGroup;
+			children = (
+				2D9C6FB82365992D00ADEF83 /* botan.json */,
+				2D9C6FB02365987C00ADEF83 /* PayloadTests.swift */,
+			);
+			path = Payload;
+			sourceTree = "<group>";
+		};
 		2D50FF45234D46A200799C4E /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,7 +317,7 @@
 		2D9C6FAF2365987C00ADEF83 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				2D9C6FB02365987C00ADEF83 /* LustapoTests.swift */,
+				2D4E11C02365A72800887B55 /* Payload */,
 				2D9C6FB22365987C00ADEF83 /* Info.plist */,
 			);
 			path = "Unit Tests";
@@ -472,6 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D4E11C12365A7FD00887B55 /* botan.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +522,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D9C6FB12365987C00ADEF83 /* LustapoTests.swift in Sources */,
+				2D9C6FB12365987C00ADEF83 /* PayloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

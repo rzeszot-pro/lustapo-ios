@@ -116,7 +116,7 @@ class Model: ObservableObject {
 
 }
 
-private func fix(_ data: Data) -> Data? {
+func fix(_ data: Data) -> Data? {
     guard let string = String(data: data, encoding: .utf8) else { return nil }
     guard let regexp = try? NSRegularExpression(pattern: "([a-zA-Z][a-zA-Z0-9]+):", options: .anchorsMatchLines) else { return nil }
 
