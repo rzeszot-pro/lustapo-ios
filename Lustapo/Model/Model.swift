@@ -106,7 +106,10 @@ class Model: ObservableObject {
             measurements.data = try decoder.decode(Payload.self, from: fixed)
             funnel.track("done", params: ["data": measurements.data!])
         } catch {
-            funnel.track("done", params: ["error": error.localizedDescription])
+            funnel.track("done", params: [
+                "url": URL(station: station).absoluteString,
+                "error": error.localizedDescription
+            ])
 
             #if DEBUG
                 print("error \(error)")
