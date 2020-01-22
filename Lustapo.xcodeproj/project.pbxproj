@@ -30,7 +30,6 @@
 		2D4616A42347F4DC005A3397 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4616A32347F4DC005A3397 /* CloseButton.swift */; };
 		2D4AF50B23463D2300DB38AA /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50A23463D2300DB38AA /* Payload.swift */; };
 		2D4AF51023464E1300DB38AA /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AF50F23464E1300DB38AA /* Bundle.swift */; };
-		2D4E11BF2365A6D500887B55 /* Imitate in Frameworks */ = {isa = PBXBuildFile; productRef = 2D4E11BE2365A6D500887B55 /* Imitate */; };
 		2D4E11C12365A7FD00887B55 /* botan.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D9C6FB82365992D00ADEF83 /* botan.json */; };
 		2D50FF36234D246800799C4E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF35234D246800799C4E /* Feedback.swift */; };
 		2D50FF3E234D36C700799C4E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D50FF3D234D36C700799C4E /* PrivacyView.swift */; };
@@ -147,7 +146,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D4E11BF2365A6D500887B55 /* Imitate in Frameworks */,
 				2D9836A22363021500E2D4CF /* Analytics in Frameworks */,
 				2D96E41B234A261B000D174D /* MapKit.framework in Frameworks */,
 				2DDC67042362554F00C2AAEB /* Analytics in Frameworks */,
@@ -428,7 +426,6 @@
 			packageProductDependencies = (
 				2DDC67032362554F00C2AAEB /* Analytics */,
 				2D9836A12363021500E2D4CF /* Analytics */,
-				2D4E11BE2365A6D500887B55 /* Imitate */,
 			);
 			productName = LublinWeather;
 			productReference = 647048081D65E9C6009205F3 /* LuStaPo.app */;
@@ -466,7 +463,6 @@
 			mainGroup = 647047FF1D65E9C6009205F3;
 			packageReferences = (
 				2D9836A02363021500E2D4CF /* XCRemoteSwiftPackageReference "analytics-ios" */,
-				2D4E11BD2365A6D500887B55 /* XCRemoteSwiftPackageReference "imitate-lib" */,
 			);
 			productRefGroup = 647048091D65E9C6009205F3 /* Products */;
 			projectDirPath = "";
@@ -777,7 +773,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18.0;
+				MARKETING_VERSION = 1.19.0;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.lublinweather;
 				PRODUCT_NAME = LuStaPo;
@@ -797,7 +793,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18.0;
+				MARKETING_VERSION = 1.19.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pl.pw.lublinweather;
 				PRODUCT_NAME = LuStaPo;
 				SWIFT_VERSION = 5.0;
@@ -837,30 +833,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2D4E11BD2365A6D500887B55 /* XCRemoteSwiftPackageReference "imitate-lib" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:rzeszot-pro/imitate-lib.git";
-			requirement = {
-				kind = exactVersion;
-				version = 2.0.0;
-			};
-		};
 		2D9836A02363021500E2D4CF /* XCRemoteSwiftPackageReference "analytics-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:rzeszot-pro/analytics-ios.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.3;
+				version = 1.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2D4E11BE2365A6D500887B55 /* Imitate */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2D4E11BD2365A6D500887B55 /* XCRemoteSwiftPackageReference "imitate-lib" */;
-			productName = Imitate;
-		};
 		2D9836A12363021500E2D4CF /* Analytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2D9836A02363021500E2D4CF /* XCRemoteSwiftPackageReference "analytics-ios" */;

@@ -58,10 +58,12 @@ class Model: ObservableObject {
     }
 
     private(set) var measurements: Measurements = .init()
+    private let funnel: Collector
 
     // MARK: -
 
     init(regions: [Region], station: Station) {
+        self.funnel = collector.funnel("network")
         self.regions = regions
         self.station = station
     }
@@ -78,7 +80,7 @@ class Model: ObservableObject {
     func reload() {
         guard !measurements.loading else { return }
 
-        collector.track("network.perform", params: ["station": station.id])
+        funnel.track("perform", params: ["station": station.id])
 
         measurements.loading = true
         measurements.data = nil
@@ -102,9 +104,12 @@ class Model: ObservableObject {
 
         do {
             measurements.data = try decoder.decode(Payload.self, from: fixed)
-            collector.track("network.done", params: ["data": measurements.data!])
+            funnel.track("done", params: ["data": measurements.data!])
         } catch {
-            collector.track("network.done", params: ["error": error.localizedDescription])
+            funnel.track("done", params: [
+                "url": URL(station: station).absoluteString,
+                "error": error.localizedDescription
+            ])
 
             #if DEBUG
                 print("error \(error)")

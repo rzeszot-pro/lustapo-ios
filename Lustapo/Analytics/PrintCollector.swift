@@ -27,10 +27,20 @@
 import Foundation
 
 class PrintCollector: Collector {
+
     static let shared: Collector = PrintCollector()
 
-    func track(_ type: String, params: Any?) {
+    private let path: [String]
+    init(path: [String] = []) {
+        self.path = path
+    }
 
+    func track(_ type: String, params: Any?) {
+        print("print-collector | track \(path) | \(type)")
+    }
+
+    func funnel(_ name: String) -> Collector {
+        PrintCollector(path: path + [name])
     }
 
 }

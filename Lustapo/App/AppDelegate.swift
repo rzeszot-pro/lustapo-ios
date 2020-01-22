@@ -31,6 +31,8 @@ import Analytics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    var funnel: Collector!
+
     // MARK: -
 
     func application(_ app: UIApplication, willFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -40,11 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             collector = PrintCollector.shared
         }
 
+        funnel = collector.funnel("app")
+
         return true
     }
 
     func application(_ app: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        collector.track("app.launch", params: [
+        funnel.track("launch", params: [
             "installation-id": UserDefaults.installation_id.get()
         ])
 
@@ -54,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: -
 
     func applicationWillTerminate(_ app: UIApplication) {
-        collector.track("app.terminate")
+        funnel.track("terminate")
         Analytics.archive()
     }
 

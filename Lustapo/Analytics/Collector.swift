@@ -28,6 +28,7 @@ import Foundation
 
 protocol Collector {
     func track(_ type: String, params: Any?)
+    func funnel(_ name: String) -> Collector
 }
 
 extension Collector {
