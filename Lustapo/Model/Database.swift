@@ -26,6 +26,7 @@
 //
 
 import Foundation
+import Analytics
 
 struct Database {
 
@@ -40,7 +41,15 @@ struct Database {
         let data = try! Data(contentsOf: url)
         let decoder = JSONDecoder()
 
-        return try! decoder.decode([Station].self, from: data)
+        do {
+            return try decoder.decode([Station].self, from: data)
+        } catch {
+            Analytics.track("database.stations.error", parameters: [
+                "error": error.localizedDescription
+            ])
+
+            return []
+        }
     }
 
     func load() -> Model {
