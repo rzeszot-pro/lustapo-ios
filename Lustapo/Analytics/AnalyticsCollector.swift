@@ -33,6 +33,12 @@ class AnalyticsCollector: Collector {
     static let shared: Collector = AnalyticsCollector()
 
     func track(_ type: String, params: Any?) {
+        #if DEBUG
+        if params != nil && params as? Encodable == nil {
+            print("FATAL | params not encodable | \(String(describing: params))")
+        }
+        #endif
+
         Analytics.track(type, parameters: params)
     }
 
