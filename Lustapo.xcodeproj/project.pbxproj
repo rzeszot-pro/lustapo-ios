@@ -838,7 +838,7 @@
 			repositoryURL = "git@github.com:rzeszot-pro/analytics-ios.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.8;
+				version = 1.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

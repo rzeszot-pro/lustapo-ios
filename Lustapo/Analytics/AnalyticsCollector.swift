@@ -32,14 +32,35 @@ class AnalyticsCollector: Collector {
 
     static let shared: Collector = AnalyticsCollector()
 
-    func track(_ type: String, params: Any?) {
-        #if DEBUG
-        if params != nil && params as? Encodable == nil {
-            print("FATAL | params not encodable | \(String(describing: params))")
-        }
-        #endif
+    private var trace: Trace?
+    init(trace: Trace? = nil) {
+        self.trace = trace
+    }
 
-        Analytics.track(type, parameters: params)
+    // MARK: - Collector
+
+    func track(_ type: String, params: Any?) {
+        inspect(params: params)
+
+        if let trace = trace {
+            trace.track(type, parameters: params)
+        } else {
+            Analytics.track(type, parameters: params)
+        }
+    }
+
+    func funnel(_ name: String) -> Collector {
+        AnalyticsCollector(trace: trace?.trace(name) ?? Analytics.trace(name))
+    }
+
+    // MARK: -
+
+    private func inspect(params: Any?) {
+        #if DEBUG
+       if params != nil && params as? Encodable == nil {
+           print("FATAL | params not encodable | \(String(describing: params))")
+       }
+       #endif
     }
 
 }
