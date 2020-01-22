@@ -9,15 +9,6 @@
           "revision": "310c0963cb26a1eaa901bdf08175e2553f10c623",
           "version": "1.0.5"
         }
-      },
-      {
-        "package": "Imitate",
-        "repositoryURL": "git@github.com:rzeszot-pro/imitate-lib.git",
-        "state": {
-          "branch": null,
-          "revision": "42a062fab2383e32399044a80600f65f23003044",
-          "version": "2.0.0"
-        }
       }
     ]
   },
