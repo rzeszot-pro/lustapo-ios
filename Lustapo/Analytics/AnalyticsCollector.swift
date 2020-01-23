@@ -40,8 +40,6 @@ class AnalyticsCollector: Collector {
     // MARK: - Collector
 
     func track(_ type: String, params: Any?) {
-        inspect(params: params)
-
         if let trace = trace {
             trace.track(type, parameters: params)
         } else {
@@ -51,16 +49,6 @@ class AnalyticsCollector: Collector {
 
     func funnel(_ name: String) -> Collector {
         AnalyticsCollector(trace: trace?.trace(name) ?? Analytics.trace(name))
-    }
-
-    // MARK: -
-
-    private func inspect(params: Any?) {
-        #if DEBUG
-       if params != nil && params as? Encodable == nil {
-           print("FATAL | params not encodable | \(String(describing: params))")
-       }
-       #endif
     }
 
 }

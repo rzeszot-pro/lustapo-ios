@@ -49,15 +49,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let bundle = Bundle.main
-
-        funnel.track("launch", params: [
+        let params: [String: Any] = [
             "installation-id": UserDefaults.installation_id.get(),
             "app": [
                 "bundle-id": bundle.bundleIdentifier,
                 "version": bundle.version,
                 "build": bundle.build
             ]
-        ])
+        ]
+
+        funnel.track("launch", params: params)
 
         return true
     }
